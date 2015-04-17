@@ -1,0 +1,15 @@
+{
+  "name": "NDT",
+  "description": "NDT Chrome App.",
+  "version": "0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["main.js"]
+    }
+  },
+  "icons": {
+    "19": "ndt-19.png",
+    "128": "ndt-128.png"
+  }
+}
