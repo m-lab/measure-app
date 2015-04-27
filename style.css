@@ -1,72 +1,108 @@
 #container {
-	width: 100%;
-	margin: 0 auto;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
+
 #msg {
-	margin: 0 auto;
-	width: 500px;
-	color: red;
-	text-align: center;
+  margin: 0 auto;
+  width: 500px;
+  color: red;
+  text-align: center;
 }
+
 #svg {
-	margin: 0 auto;
-	width: 500px;
-	height: 500px;
+  margin: 0 auto;
+  width: 500px;
+  height: 500px;
 }
+
 #detail_links {
-	position: fixed;
-	top: 5px;
-	right: 5px;
-	text-transform: uppercase;
-	font-size: medium;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  text-transform: uppercase;
+  font-size: medium;
 }
+
 #detail_links a {
-	color: blue;
-	text-decoration: none;
+  color: blue;
+  text-decoration: none;
 }
+
 #detail_links a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
+
 #debug {
-	display: none;
+  display: none;
 }
+
 #details {
-	display: none;
+  display: none;
 }
+
 #progress-meter {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
+
 #progress-meter text {
-	fill: #2A333D;
+  fill: #2A333D;
 }
+
 #progress-meter text.information {
-	fill: #6D736A;
+  fill: #6D736A;
 }
+
 #progress-meter text.status{
-	fill: #3F4D4D;
+  fill: #3F4D4D;
 }
+
 #progress-meter .ready {
-	cursor: pointer;	
+  cursor: pointer;	
 }
+
 #progress-meter .progress {
-	cursor: wait;
+  cursor: wait;
 }
+
 #progress-meter .background {
-	fill: #D6D4D0;
+  fill: #D6D4D0;
 }
 
 #progress-meter .complete {
-	fill: #83B09C;
+  fill: #83B09C;
 }
 
-#progress-meter .result_value, #progress-meter .result_label {
-	fill: #707762;
+#progress-meter .result-value, #progress-meter .result-label {
+  fill: #707762;
 }
-#progress-meter .result_label {
-	fill: #2A333D; 	
+#progress-meter .result-label {
+  fill: #2A333D; 	
 }
 
 #progress-meter .progress-error .background {
-	fill: #A77D7D;
+  fill: #A77D7D;
+}
+
+#options-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#options-link {
+  margin-bottom: 1ex;
+}
+
+#options-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#options-content {
+  height: 0;
+  transition: height 1s;
+  background-color: #f4f4f4;
 }

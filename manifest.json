@@ -5,11 +5,15 @@
   "manifest_version": 2,
   "app": {
     "background": {
-      "scripts": ["main.js"]
+      "scripts": ["main.js", "ndt-browser-client.js"]
     }
   },
   "icons": {
     "19": "ndt-19.png",
     "128": "ndt-128.png"
-  }
+  },
+  "permissions": [
+    "storage",
+	"alarms"
+  ]
 }
