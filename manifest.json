@@ -5,7 +5,7 @@
   "manifest_version": 2,
   "app": {
     "background": {
-      "scripts": ["main.js", "ndt-browser-client.js"]
+      "scripts": ["main.js", "ndt.js"]
     }
   },
   "icons": {
