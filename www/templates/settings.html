@@ -1,0 +1,49 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <div class="list">
+        <label class="item item-input item-select">
+            <div class="input-label" translate>Location</div>
+            <select ng-model="metroSelection"
+                    ng-change="changeSelection('metroSelection', metroSelection)"
+                    ng-disabled="availableSettings.metroSelection.options.length === 0"
+                    ng-options="metroSelectionOption.label for metroSelectionOption in availableSettings.metroSelection.options | orderBy:'label':false track by metroSelectionOption.metro">
+            </select>
+        </label>
+        <label class="item item-input item-select">
+            <div class="input-label" translate>Language</div>
+            <select ng-model="applicationLanguage"
+                    ng-change="changeSelection('applicationLanguage', applicationLanguage)"
+                    ng-disabled="availableSettings.applicationLanguage.options.length === 0"
+                    ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
+            </select>
+        </label>
+        <div class="item item-divider" ng-if="schedulingSupported" translate>
+            Scheduled Testing
+        </div>
+        <ion-toggle ng-model="scheduledTesting" ng-if="schedulingSupported"
+           ng-change="changeSelection('scheduledTesting', scheduledTesting)">Scheduled Testing</ion-toggle>
+        <label class="item item-input item-select" ng-if="schedulingSupported">
+            <div class="input-label" translate>Schedule</div>
+            <select ng-model="scheduleInterval"
+                    ng-change="changeSelection('scheduleInterval', scheduleInterval)"
+                    ng-disabled="!scheduledTesting"
+                    ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
+            </select>
+        </label>
+        <ion-toggle ng-model="onlyWifi" ng-if="schedulingSupported"
+           ng-change="changeSelection('onlyWifi', onlyWifi)"
+           ng-disabled="!scheduledTesting"><span translate>Only Test on WiFi</span></ion-toggle>
+        <div class="item item-divider" translate>
+            Information
+        </div>
+        <a class="item">
+            <span translate>Data Consumed</span>
+            <span class="badge badge-assertive" class="md-secondary">{{ dataConsumed  | formatDataConsumptionMeasurement }}</span>
+        </a>
+        <ion-toggle ng-model="trustedTester"
+           ng-change="changeSelection('trustedTester', trustedTester)"
+           ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
+        <a class="item" on-tap="window.open('http://www.measurementlab.net/privacy', '_system', 'location=yes');" translate>Privacy Policy</a>
+    </div>
+  </ion-content>
+</ion-view>

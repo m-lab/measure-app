@@ -4,24 +4,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
+#: www/templates/settings.html:32
+msgid "Data Consumed"
+msgstr ""
+
 #: www/templates/measure.html:41
-msgid "<p>Download</p>"
+msgid "Download"
+msgstr ""
+
+#: www/templates/settings.html:28
+msgid "Information"
 msgstr ""
 
 #: www/templates/measure.html:23
-msgid "<p>Internet Service Provider</p>"
+msgid "Internet Service Provider"
 msgstr ""
 
-#: www/templates/measure.html:24
-msgid "<p>Test Site</p>"
-msgstr ""
-
-#: www/templates/measure.html:42
-msgid "<p>Upload</p>"
+#: www/templates/settings.html:5
+msgid "Location"
 msgstr ""
 
 #: www/templates/measure.html:46
 msgid "More"
+msgstr ""
+
+#: www/templates/settings.html:25
+msgid "Only Test on WiFi"
+msgstr ""
+
+#: www/templates/settings.html:38
+msgid "Privacy Policy"
+msgstr ""
+
+#: www/templates/settings.html:18
+msgid "Schedule"
+msgstr ""
+
+#: www/templates/settings.html:12
+msgid "Scheduled Testing"
 msgstr ""
 
 #: www/templates/history.html:32
@@ -31,4 +51,16 @@ msgstr ""
 
 #: www/templates/measure.html:10
 msgid "Start"
+msgstr ""
+
+#: www/templates/measure.html:24
+msgid "Test Site"
+msgstr ""
+
+#: www/templates/settings.html:35
+msgid "Trusted Tester"
+msgstr ""
+
+#: www/templates/measure.html:42
+msgid "Upload"
 msgstr ""

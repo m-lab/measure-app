@@ -1,0 +1,38 @@
+<ion-view view-title="History">
+    <ion-nav-buttons side="secondary">
+      <button class="button" aria-label="Export to CSV"
+            on-tap="shareCSV(historicalData.measurements)">
+        Export
+      </button>
+    </ion-nav-buttons>
+  <ion-content>
+    <div class="card" ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true"
+          ng-if="measurementRecord.hidden !== true">
+        <div class="item divider">
+          <div class="row">
+            <div class="col-50"><h2 ng-if="measurementRecord.accessInformation !== undefined">{{ measurementRecord.accessInformation.isp }}</h2></div>
+            <div class="col-50" style="text-align: right"><p>{{ measurementRecord.timestamp | date:'MMMM d, yyyy' }}</p></div>
+          </div>
+        </div>
+        <div class="item item-body">
+          <div class="row">
+            <div class="col">{{ measurementRecord.results.s2cRate | formatThroughputMeasurement }}</div>
+            <div class="col">{{ measurementRecord.results.c2sRate | formatThroughputMeasurement }}</div>
+            <div class="col">{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</div>
+          </div>
+        </div>
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#/app/measurement/{{measurementRecord.index}}">
+              <i class="icon ion-information-circled"></i>More
+            </a>
+            <a class="tab-item" href="#" on-tap="hideMeasurement(measurementRecord.index)">
+              <i class="icon ion-trash-b"></i> Hide
+            </a>
+            <a class="tab-item" href="#" on-tap="shareMeasurement()">
+              <i class="icon ion-share"></i><span translate="share">Share</span>
+            </a>
+        </div>
+    </div>
+    </md-button>
+  </ion-content>
+</ion-view>

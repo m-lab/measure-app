@@ -1,0 +1,43 @@
+/* Empty. Add your own CSS if you like */
+
+div.row div.col.center {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.row h3 {
+/*  font-family: "lato";*/
+/*  font-weight: bold;*/
+}
+
+.row.absolute-bottom  {
+  position: absolute;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.absolute-bottom .col  {
+  padding: 0;
+}
+
+span.measurement-icon:before {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+span.item-note {
+  max-width: 50%;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+}
+
+div.information-panel div.col {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: inherit;
+}

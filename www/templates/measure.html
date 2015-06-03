@@ -1,0 +1,59 @@
+<ion-view view-title="Measure">
+    <ion-nav-buttons side="secondary">
+        <button ng-model="startTest" class="button
+          button-calm" on-tap="startNDT()" ng-disabled="(!mlabInformation ||
+          testSemaphore())" translate>
+          Start</button>
+    </ion-nav-buttons>
+  <ion-content class="center">
+    <div class="row">
+      <div class="col center">
+        <highchart id="speedGauge" config="gaugeConfig"></highchart>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col center">
+        <progress value="{{ measurementProgressBar.current }}"
+            max="{{measurementProgressBar.maximum}}"></progress>
+      </div>
+    </div>
+    <div class="card">
+      <div class="item item-body information-panel">
+        <div class="row">
+          <div class="col"><b><i class="icon {{ connectionTypeIcon }}"></i>{{ accessInformation.isp }}</b></div>
+          <div class="col"><b>{{ mlabInformation.label }}</b></div>
+        </div>
+        <div class="row">
+          <div class="col"><span translate>Internet Service Provider</span></div>
+          <div class="col"><span translate>Test Site</span></div>
+        </div>
+        <div class="row" ng-if="s2cRate !== undefined || c2sRate !== undefined">
+          <div class="col">
+            <b>
+              <i class="icon ion-android-time" ng-if="s2cRate === undefined"></i>
+              {{ s2cRate | formatThroughputMeasurement }}
+            </b>
+          </div>
+          <div class="col">
+            <b>
+              <i class="icon ion-android-time" ng-if="c2sRate === undefined"></i>
+              {{ c2sRate | formatThroughputMeasurement }}
+            </b>
+          </div>
+        </div>
+        <div class="row" ng-if="s2cRate !== undefined || c2sRate !== undefined">
+          <div class="col"><span translate>Download</span></div>
+          <div class="col"><span translate>Upload</span></div>
+        </div>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left row" ng-if="lastMeasurement !== undefined">
+        <a class="tab-item" href="#/app/measurement/{{ lastMeasurement }}" translate>
+          More
+        </a>
+        <a class="tab-item" href="#" on-tap="shareMeasurement({{ lastMeasurement }})">
+         <span translate>Share</span>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

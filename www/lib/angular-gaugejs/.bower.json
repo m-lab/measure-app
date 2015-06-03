@@ -1,0 +1,24 @@
+{
+  "name": "angular-gaugejs",
+  "main": [
+    "angular-gaugejs.js"
+  ],
+  "ignore": [
+    "README.md"
+  ],
+  "dependencies": {
+    "angular": "~1.2.9",
+    "gauge.js": "latest"
+  },
+  "homepage": "https://github.com/schlunsen/angular-gaugejs",
+  "_release": "e0cee4fa6a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e0cee4fa6ae7bc555e6f3c1875d4fe8e1ace104c"
+  },
+  "_source": "git://github.com/schlunsen/angular-gaugejs.git",
+  "_target": "*",
+  "_originalSource": "angular-gaugejs",
+  "_direct": true
+}
