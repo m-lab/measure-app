@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: www/templates/measure.html:41
+msgid "<p>Download</p>"
+msgstr ""
+
+#: www/templates/measure.html:23
+msgid "<p>Internet Service Provider</p>"
+msgstr ""
+
+#: www/templates/measure.html:24
+msgid "<p>Test Site</p>"
+msgstr ""
+
+#: www/templates/measure.html:42
+msgid "<p>Upload</p>"
+msgstr ""
+
+#: www/templates/measure.html:46
+msgid "More"
+msgstr ""
+
+#: www/templates/history.html:32
+#: www/templates/measure.html:50
+msgid "Share"
+msgstr ""
+
+#: www/templates/measure.html:10
+msgid "Start"
+msgstr ""
