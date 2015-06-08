@@ -6,7 +6,16 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     'ngCordova', 'highcharts-ng',
-    'Measure.controllers', 'Measurement.filters', 'Measure.services', 'Measure.support'])
+    'Measure.controllers', 'Measurement.filters', 'Measure.services', 'Measure.support'], function ($provide) {
+    
+    
+  // Prevent Angular from sniffing for the history API
+  // since it's not supported in packaged apps.
+  $provide.decorator('$window', function($delegate) {
+    $delegate.history.pushState = null;
+    return $delegate;
+  });
+})
 
 .value('MeasureConfig', {
   'isChromeApp': false,
@@ -60,6 +69,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
 
   .state('app', {

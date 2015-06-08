@@ -5,6 +5,9 @@ angular.module('Measure.controllers.Settings', [])
   $scope.dataConsumed = HistoryService.dataConsumed();
 
   $scope.changeSelection = SettingsService.setSetting;
+  $scope.toggleTestingOptions = function (rawr) {
+      $scope.showTestingOptions = rawr;
+  };
 
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.metroSelection = SettingsService.getSetting('metroSelection');
@@ -14,9 +17,9 @@ angular.module('Measure.controllers.Settings', [])
   $scope.trustedTester = SettingsService.getSetting('trustedTester');
   $scope.scheduleInterval = SettingsService.getSetting('scheduleInterval');
   $scope.schedulingSupported = MeasureConfig.schedulingSupported;
-  $scope.save = function() {
-    UserService.save();
-  }
+
+  $scope.showTestingOptions = $scope.scheduledTesting;
+
   $scope.initiateHistoryReset = function() {
     var historyResetPopup = $ionicPopup.confirm({
         title: 'Confirm Reset',
