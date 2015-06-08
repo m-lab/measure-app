@@ -50,7 +50,7 @@
         <a class="tab-item" href="#/app/measurement/{{ lastMeasurement }}" translate>
           More
         </a>
-        <a class="tab-item" href="#" on-tap="shareMeasurement({{ lastMeasurement }})">
+        <a class="tab-item" href="#" on-tap="shareMeasurement({{ lastMeasurement }})" ng-if="MeasureConfig.sharingSupported">
          <span translate>Share</span>
         </a>
       </div>

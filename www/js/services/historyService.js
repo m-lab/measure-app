@@ -41,6 +41,10 @@ angular.module('Measure.services.History', [])
     'save': function () {
       StorageService.set('historicalData', this.historicalData);
     },
+    'reset': function () {
+      this.historicalData.measurements = [];
+      StorageService.set('historicalData', this.historicalData);
+    },
     'restore': function () {
       StorageService.get('historicalData').then(function (storedHistoricalData) {
           if (storedHistoricalData !== undefined) {

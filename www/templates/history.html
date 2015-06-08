@@ -28,7 +28,7 @@
             <a class="tab-item" href="#" on-tap="hideMeasurement(measurementRecord.index)">
               <i class="icon ion-trash-b"></i> Hide
             </a>
-            <a class="tab-item" href="#" on-tap="shareMeasurement()">
+            <a class="tab-item" href="#" on-tap="shareMeasurement()" ng-if="MeasureConfig.sharingSupported">
               <i class="icon ion-share"></i><span translate="share">Share</span>
             </a>
         </div>

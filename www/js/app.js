@@ -11,6 +11,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 .value('MeasureConfig', {
   'isChromeApp': false,
   'schedulingSupported': false,
+  'sharingSupported': false,
 })
 
 .run(function (MeasureConfig, SettingsService, ScheduleService, HistoryService,
@@ -25,6 +26,10 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
             MeasureConfig.isAndroid = true;
         } else if (MeasureConfig.isChromeApp !== true) {
             MeasureConfig.isBrowser = true;
+        }
+        
+        if (MeasureConfig.isIOS === true) {
+            MeasureConfig.sharingSupported = true;
         }
         HistoryService.restore();
         SettingsService.restore().then(

@@ -1,6 +1,6 @@
 angular.module('Measure.controllers.Settings', [])
 
-.controller('SettingsCtrl', function($scope, SettingsService, HistoryService,
+.controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService,
         MeasureConfig) {
   $scope.dataConsumed = HistoryService.dataConsumed();
 
@@ -17,4 +17,17 @@ angular.module('Measure.controllers.Settings', [])
   $scope.save = function() {
     UserService.save();
   }
+  $scope.initiateHistoryReset = function() {
+    var historyResetPopup = $ionicPopup.confirm({
+        title: 'Confirm Reset',
+        template: 'This action will removal all stored results permenantly and cannot be undone. Are you sure?',
+    });
+
+    historyResetPopup.then(function(resetDecision) {
+        if(resetDecision === true) {
+            HistoryService.reset();
+        }
+    });
+  };
+
 })

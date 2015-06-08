@@ -1,11 +1,23 @@
 angular.module('Measure.controllers.Measurement', [])
 
-.controller('MeasureCtrl', function($scope, $interval, $cordovaProgress,
+.controller('MeasureCtrl', function($scope, $interval, $ionicPopup,
     $cordovaNetwork, MeasurementService, SettingsService,
     MLabService, LocationService, HistoryService,
-    speedGaugeService) {
+    speedGaugeService, MeasureConfig) {
 
-    // $cordovaProgress
+  var showFailureModal = function () {
+    $ionicPopup.show({
+      title: 'Failure',
+      templateUrl: 'templates/modals/messageTestFailure.html',
+      buttons: [
+        {
+          text: 'Dismiss',
+          type: 'button-outline button-assertive',
+        }
+      ]
+    });
+  };
+
     $scope.measurementProgressBar = {
         'current': 0,
         'maximum': 1
@@ -56,6 +68,7 @@ angular.module('Measure.controllers.Measurement', [])
     }
   }, 100);
 
+  $scope.MeasureConfig = MeasureConfig;
   $scope.s2cRate = undefined;
   $scope.c2sRate = undefined;
   $scope.testSemaphore = function () { return MeasurementService.testSemaphore; };
@@ -98,6 +111,7 @@ angular.module('Measure.controllers.Measurement', [])
             $scope.lastMeasurement = measurementRecord.index;
             $scope.measurementProgressBar.current = $scope.measurementProgressBar.maximum;
           }, function (passedError) {
+              showFailureModal();
               return;
           }, function (deferredNotification) {
               var testStatus = deferredNotification.testStatus,
