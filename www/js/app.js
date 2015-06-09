@@ -108,6 +108,15 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     }
   })
 
+  .state('app.about', {
+    url: "/about",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/about.html"
+      }
+    }
+  })
+
   .state('app.measurementRecord', {
       url: "/measurement/:measurementId",
       views: {

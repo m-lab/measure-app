@@ -40,8 +40,9 @@
         </a>
         <ion-toggle ng-model="trustedTester"
            ng-change="changeSelection('trustedTester', trustedTester)"
+           ng-show="false"
            ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
-        <a class="item" on-tap="window.open('http://www.measurementlab.net/privacy', '_system', 'location=yes');" translate>Privacy Policy</a>
+        <a class="item" href="#/app/about" translate>About</a>
         <a class="item item-icon-right" on-tap="initiateHistoryReset()">
             <i class="icon ion-ios-refresh-outline"></i>
             Reset Measurement History
