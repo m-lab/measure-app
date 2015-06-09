@@ -6,7 +6,7 @@
             <select ng-model="metroSelection"
                     ng-change="changeSelection('metroSelection', metroSelection)"
                     ng-disabled="availableSettings.metroSelection.options.length === 0"
-                    ng-options="metroSelectionOption.label for metroSelectionOption in availableSettings.metroSelection.options | orderBy:'label':false track by metroSelectionOption.metro">
+                    ng-options="metroSelectionOption.label for metroSelectionOption in availableSettings.metroSelection.options | orderBy:[metroSelectionSort, 'label']:false track by metroSelectionOption.metro">
             </select>
         </label>
         <label class="item item-input item-select">

@@ -23,7 +23,7 @@ angular.module('Measure.controllers.Settings', [])
   $scope.initiateHistoryReset = function() {
     var historyResetPopup = $ionicPopup.confirm({
         title: 'Confirm Reset',
-        template: 'This action will removal all stored results permenantly and cannot be undone. Are you sure?',
+        template: 'This action will permenantly removal all stored results and cannot be undone. Are you sure?',
     });
 
     historyResetPopup.then(function(resetDecision) {
@@ -31,6 +31,10 @@ angular.module('Measure.controllers.Settings', [])
             HistoryService.reset();
         }
     });
+  };
+  
+  $scope.metroSelectionSort = function(metroSelection) {
+    return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
 
 })
