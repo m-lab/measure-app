@@ -1,7 +1,7 @@
 angular.module('Measure.controllers.Record', [])
 
 .controller('RecordCtrl', function($scope, $stateParams, $filter, $ionicModal,
-        HistoryService) {
+        HistoryService, connectionInformation) {
     var RESULTS_TO_DISPLAY = {
         's2cRate': {'label': 'Download', 'filter': 'formatThroughputMeasurement'},
         'c2sRate': {'label': 'Upload', 'filter': 'formatThroughputMeasurement'},
@@ -45,37 +45,11 @@ angular.module('Measure.controllers.Record', [])
             $scope.measurementRecord.information['Test Site'] = measurementSiteTemp[3] + ' (' + measurementSiteTemp[2] + ')';
         }
         if (measurementRecord.connectionInformation !== undefined) {
-            $scope.measurementRecord.information['Connection Type'] = connectionTypeLabel(measurementRecord.connectionInformation.connectionType)
+			console.log(connectionInformation.lookup(measurementRecord.connectionInformation.connectionType));
+			$scope.measurementRecord.information['Connection Type'] = connectionTypeLabel(measurementRecord.connectionInformation.connectionType)
         }
         angular.forEach(RESULTS_TO_DISPLAY, function(value, key) {
             $scope.measurementRecord.results[value.label] = $filter(value.filter)(measurementRecord.results[key]);
         });
     });
 });
-
-function connectionTypeLabel(connectionType) {
-    switch (connectionType) {
-        case Connection.WIFI:
-            return 'Wi-Fi';
-            break;
-        case Connection.CELL_2G:
-            return 'Mobile Data (2G)';
-            break;
-        case Connection.CELL_3G:
-            return 'Mobile Data (3G)';
-            break;
-        case Connection.CELL_4G:
-            return 'Mobile Data (4G)';
-            break;
-        case Connection.CELL:
-            return 'Mobile Data';
-            break;
-        case Connection.ETHERNET:
-            return 'Ethernet';
-            break;
-        default:
-            return 'Unknown';
-            break;
-    }
-    return 'Unknown';
-}

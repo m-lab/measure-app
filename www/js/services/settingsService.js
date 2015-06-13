@@ -3,6 +3,7 @@ angular.module('Measure.services.Settings', [])
 .factory('SettingsService', function($q, StorageService, MLabService) {
 
   var service = {
+	currentSettings: {},
     availableSettings: {
       'onlyWifi': {
         'default': false,
@@ -10,10 +11,10 @@ angular.module('Measure.services.Settings', [])
         'value': undefined
       },
       'applicationLanguage': {
-        'default': { 'code': 'en', 'label': 'English'},
+        'default': {'code': 'en', 'label': 'English'},
         'options': [
             {'code': 'en', 'label': 'English'},
-            {'code': 'fa_IR', 'label': 'فارسی (fa_IR)'},
+            {'code': 'fa_IR', 'label': 'فارسی'},
         ]
       },
       'scheduledTesting': {
@@ -51,28 +52,21 @@ angular.module('Measure.services.Settings', [])
       var restoreDeferred = $q.defer();
       StorageService.get('savedSettings').then(
             function (savedSettings) {
-                if (savedSettings !== undefined && typeof(savedSettings) === 'object') {
-                    angular.forEach(savedSettings, function (savedSettingsValue, savedSettingsKey) {
-                        service.availableSettings[savedSettingsKey].value = savedSettingsValue;
-                    });
-                }
+				angular.forEach(service.availableSettings, function (availableSettingsValue, availableSettingsKey) {
+					if (savedSettings[availableSettingsKey] !== undefined) {
+						service.currentSettings[availableSettingsKey] = savedSettings[availableSettingsKey];
+						service.availableSettings[availableSettingsKey].value = savedSettings[availableSettingsKey];
+					} else {
+						service.currentSettings[availableSettingsKey] = availableSettingsValue.default;
+					}
+				});
                 restoreDeferred.resolve();
             }
         );
         return restoreDeferred.promise;
     },
-    'getSetting': function (requestedSetting) {
-      if (service.availableSettings.hasOwnProperty(requestedSetting) === true) {
-        if (service.availableSettings[requestedSetting].value !== undefined) {
-          return service.availableSettings[requestedSetting].value;
-        } else {
-          return service.availableSettings[requestedSetting].default;
-        }
-      }
-      return undefined;
-    },
     'setSetting': function (requestedSettingName, requestedSettingValue) {
-      this.availableSettings[requestedSettingName].value = requestedSettingValue;
+      service.availableSettings[requestedSettingName].value = requestedSettingValue;
       service.save();
     }
     
@@ -101,5 +95,6 @@ angular.module('Measure.services.Settings', [])
     }
   );
 
-  return service;
+	service.restore();
+	return service;
 })

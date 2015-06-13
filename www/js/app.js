@@ -1,72 +1,111 @@
-// Ionic Starter App
+// Measure.app
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
 angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
-    'ngCordova', 'highcharts-ng',
-    'Measure.controllers', 'Measurement.filters', 'Measure.services', 'Measure.support'], function ($provide) {
-    
-    
-  // Prevent Angular from sniffing for the history API
-  // since it's not supported in packaged apps.
-  $provide.decorator('$window', function($delegate) {
-    $delegate.history.pushState = null;
-    return $delegate;
-  });
+		'ngCordova', 'highcharts-ng', 'Measure.controllers',
+		'Measurement.filters', 'Measure.services', 'Measure.support'],
+		function ($provide) {
+	// Prevent Angular from sniffing for the history API
+	// since it's not supported in packaged apps.
+	$provide.decorator('$window', function($delegate) {
+		$delegate.history.pushState = null;
+		return $delegate;
+	});
+})
+
+.constant('CLIENT_APPLICATION', 'Measure.app')
+.constant('CLIENT_VERSION', '0.1-alpha')
+.constant('ENVIRONMENT_CAPABILITIES', {
+	'iOS': {
+		'schedulingSupported': false,
+		'sharingSupported': true,
+		'connectionInformation': true
+	},
+	'Android': {
+		'schedulingSupported': false,
+		'sharingSupported': true,
+		'connectionInformation': true
+	},
+	'ChromeApp': {
+		'schedulingSupported': true,
+		'sharingSupported': false,
+		'connectionInformation': false
+	},
+	'Browser': {
+		'schedulingSupported': false,
+		'sharingSupported': false,
+		'connectionInformation': false
+	}
 })
 
 .value('MeasureConfig', {
-  'isChromeApp': false,
-  'schedulingSupported': false,
-  'sharingSupported': false,
-})
-
-.run(function (MeasureConfig, SettingsService, ScheduleService, HistoryService,
-        gettextCatalog, $ionicPlatform) {
-    if (window.chrome && chrome.runtime && chrome.runtime.id) {
-        MeasureConfig.isChromeApp = true;
-    }
-    $ionicPlatform.ready(function() {
-        if (typeof(device) !== 'undefined' && device.platform === 'iOS') {
-            MeasureConfig.isIOS = true;
-        } else if (typeof(device) !== 'undefined' && device.platform === 'Android') {
-            MeasureConfig.isAndroid = true;
-        } else if (MeasureConfig.isChromeApp !== true) {
-            MeasureConfig.isBrowser = true;
-        }
-        
-        if (MeasureConfig.isIOS === true) {
-            MeasureConfig.sharingSupported = true;
-        }
-        HistoryService.restore();
-        SettingsService.restore().then(
-            function () {
-                ScheduleService.schedule();
-                MeasureConfig.currentLanguage = SettingsService.getSetting('applicationLanguage');
-                gettextCatalog.setCurrentLanguage(MeasureConfig.currentLanguage);
-            }
-        );
-    });
+	'environmentType': undefined,
+	'enviromentCapabilities': undefined,
 })
 
 .config( ['$compileProvider', function( $compileProvider ) {
-    if (window.chrome && chrome.app && chrome.app.runtime) {
-      $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-    }
+	if (window.chrome && chrome.app && chrome.app.runtime) {
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+	}
 }])
 
-.run(function($ionicPlatform, MeasureConfig) {
-  $ionicPlatform.ready(function() {
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
+.run(function($ionicPlatform) {
+	$ionicPlatform.ready(function() {
+		if (window.cordova && window.cordova.plugins.Keyboard) {
+			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+		}
+		if (window.StatusBar) {
+			StatusBar.styleDefault();
+		}
+	});
 })
+
+.run(function ($ionicPlatform, MeasureConfig, ENVIRONMENT_CAPABILITIES) {
+	if (window.chrome && chrome.runtime && chrome.runtime.id) {
+		MeasureConfig.environmentType = 'ChromeApp';
+	}
+    $ionicPlatform.ready(function() {
+		 if (MeasureConfig.environmentType === undefined && typeof(device) !== 'undefined') {
+			switch(device.platform) {
+				case 'iOS':
+					MeasureConfig.environmentType = 'iOS';
+					break;
+				case 'Android':
+					MeasureConfig.environmentType = 'Android';
+					break;
+				case 'Browser':
+					MeasureConfig.environmentType = 'Browser';
+					break;
+				default:
+					// We don't know anything about the current environment
+					// so we fall back onto only what the browser can handle.
+					MeasureConfig.environmentType = 'Browser';
+					break;
+			}
+		}
+		
+		if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
+			MeasureConfig.enviromentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
+		} else {
+			MeasureConfig.enviromentCapabilities = ENVIRONMENT_CAPABILITIES['Browser'];
+		}
+    });
+})
+
+.value('DialogueMessages', {
+	'historyReset': {
+		title: 'Confirm Reset',
+		template: 'This action will permanently removal all stored results and cannot be undone. Are you sure?'
+	}
+})
+
+/*
+
+.run(function ($ionicPlatform, MeasureConfig, SettingsService, gettextCatalog) {
+		MeasureConfig.currentLanguage = SettingsService.currentSettings.applicationLanguage.code;
+		gettextCatalog.setCurrentLanguage(MeasureConfig.currentLanguage);
+})                ScheduleService.schedule();
+
+*/
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -109,10 +148,19 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
   })
 
   .state('app.about', {
-    url: "/about",
+    url: "/information/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/about.html"
+        templateUrl: "templates/static/about.html"
+      }
+    }
+  })
+
+  .state('app.privacy', {
+    url: "/information/privacy",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/static/privacy.html"
       }
     }
   })

@@ -3,7 +3,7 @@ angular.module('Measure.controllers.Measurement', [])
 .controller('MeasureCtrl', function($scope, $interval, $ionicPopup,
     $cordovaNetwork, MeasurementService, SettingsService,
     MLabService, LocationService, HistoryService,
-    speedGaugeService, MeasureConfig) {
+    SpeedGauge, MeasureConfig, connectionInformation) {
 
   var showFailureModal = function () {
     $ionicPopup.show({
@@ -18,36 +18,17 @@ angular.module('Measure.controllers.Measurement', [])
     });
   };
 
+	LocationService.getAccessInformation().then(
+		function (accessInformation) {
+			$scope.accessInformation = accessInformation;
+		}
+	);
+
     $scope.measurementProgressBar = {
         'current': 0,
         'maximum': 1
     };
-  var updateLocationInformation = function () {
-      LocationService.getAccessInformation().then(
-          function (accessInformation) {
-            $scope.accessInformation = accessInformation;
-          }
-        );
-  };
-  var updateConnectionInformation = function () {
-    $scope.connectionType = $cordovaNetwork.getNetwork();
 
-    switch ($scope.connectionType) {
-      case Connection.WIFI:
-        $scope.connectionTypeIcon = 'ion-wifi';
-        break;
-      case Connection.CELL_2G:
-      case Connection.CELL_3G:
-      case Connection.CELL_4G:
-      case Connection.CELL:
-        $scope.connectionTypeIcon = 'ion-radio-waves';
-        break;
-      case Connection.ETHERNET:
-      default:
-        $scope.connectionTypeIcon = '';
-        break;
-    }
-  };
   var updateScope = function (mlabAnswer, callbackFunction) {
       $scope.mlabInformation = mlabAnswer;
       if (callbackFunction !== undefined) {
@@ -55,15 +36,16 @@ angular.module('Measure.controllers.Measurement', [])
       }
   }
   var updateMLabInformation = function (callbackFunction) {
-    $scope.currentMetroSetting = SettingsService.getSetting('metroSelection').metro;
-    MLabService.findServer($scope.currentMetroSetting).then(function(mlabAnswer, callbackFunction) {
-      updateScope(mlabAnswer, callbackFunction);
-    });
+    $scope.currentMetroSetting = SettingsService.currentSettings.metroSelection;
+	if ($scope.currentMetroSetting !== undefined) {
+		MLabService.findServer($scope.currentMetroSetting.metro).then(function(mlabAnswer, callbackFunction) {
+		  updateScope(mlabAnswer, callbackFunction);
+		});
+	}
   };
 
   $interval(function() {
-    var setMetroSelection = SettingsService.getSetting('metroSelection').metro;
-    if ($scope.currentMetroSetting !== setMetroSelection) {
+    if ($scope.currentMetroSetting !== SettingsService.currentSettings.metroSelection) {
       updateMLabInformation();
     }
   }, 100);
@@ -74,20 +56,18 @@ angular.module('Measure.controllers.Measurement', [])
   $scope.testSemaphore = function () { return MeasurementService.testSemaphore; };
   $scope.lastMeasurement = MeasurementService.lastMeasurement;
   $scope.currentMetroSetting = undefined;
-  $scope.gaugeConfig = speedGaugeService.config;
+  $scope.gaugeConfig = SpeedGauge;
 
   document.addEventListener("deviceready", function () {
-    updateConnectionInformation();
+    $scope.connectionInformation = connectionInformation.current();
   }, false);
   
   
-  updateLocationInformation();
   updateMLabInformation();
 
   $scope.startNDT = function() {
     var measurementRecord = {
           'timestamp': Date.now(),
-          'index': HistoryService.historicalData.measurements.length,
           'hidden': false,
           'metadata': {},
           'snapLog': {'s2cRate': [], 'c2sRate': []},
@@ -108,7 +88,7 @@ angular.module('Measure.controllers.Measurement', [])
             measurementRecord.mlabInformation = $scope.mlabInformation;
 
             HistoryService.add(measurementRecord);
-            $scope.lastMeasurement = measurementRecord.index;
+            $scope.lastMeasurement = (HistoryService.historicalData.measurements.length - 1);
             $scope.measurementProgressBar.current = $scope.measurementProgressBar.maximum;
           }, function (passedError) {
               showFailureModal();

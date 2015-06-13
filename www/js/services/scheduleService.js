@@ -8,8 +8,7 @@ angular.module('Measure.services.Schedule', [])
 
 
   ScheduleService.schedule = function () {
-    if (MeasureConfig.isChromeApp === true) {
-        MeasureConfig.schedulingSupported = true;
+    if (MeasureConfig.environmentType === 'ChromeApp') {
         ChromeAppSupport.createAlarm(FIRST_ALARM_TIME, PERIOD_IN_MINUTES, ScheduleManagerService.watch);
     } else {
 

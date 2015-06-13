@@ -43,7 +43,7 @@ angular.module('Measure.services.Sharing', [])
         CSV.stringify(csvContents, csvOptions).then(function (csvStringified) {
             var charset = "utf-8";
             var downloadLink, csvFile;
-            if (MeasureConfig.isBrowser === true) {
+            if (MeasureConfig.enviromentCapabilities.sharingSupported === false) {
                 downloadLink = angular.element('<a></a>');
                 csvFile = new Blob([csvStringified], {
                     type: "text/csv;charset=" + charset + ";"

@@ -1,9 +1,6 @@
 angular.module('Measure.services.Gauge', [])
 
-.service('speedGaugeService', function() {
-  var gaugeService = {};
-  
-  gaugeService.config = {
+.value('SpeedGauge', {
         options: {
             chart: {
                 type: 'gauge',
@@ -57,10 +54,9 @@ angular.module('Measure.services.Gauge', [])
           tooltip: { valueSuffix: null, enabled: false },
           dataLabels: { enabled: false },
 	    }]
-    };
-    return gaugeService;
 })
 
+/*
 
 .service('historyChartService', function(HistoryService) {
   var s2cSeriesData = [],
@@ -127,3 +123,5 @@ angular.module('Measure.services.Gauge', [])
   };
   return historyChartService;
 })
+
+*/

@@ -27,13 +27,8 @@ angular.module('Measure.services.History', [])
             getDeferred.resolve(this.historicalData.measurements[measurementId]);
         } else {
             StorageService.get('historicalData').then(function (storedHistoricalData) {
-                angular.forEach(storedHistoricalData.measurements, function (historicalRecord) {
-                    if (historicalRecord.index === Number(measurementId)) {
-                        foundResult = historicalRecord;
-                    }
-                });
-                console.log(foundResult);
-                getDeferred.resolve(foundResult);
+				console.log(storedHistoricalData);
+				getDeferred.resolve(storedHistoricalData.measurements[measurementId]);
             });
         }
         return getDeferred.promise;
@@ -49,7 +44,8 @@ angular.module('Measure.services.History', [])
       StorageService.get('historicalData').then(function (storedHistoricalData) {
           if (storedHistoricalData !== undefined) {
             HistoryService.schemaVersion = storedHistoricalData.schemaVersion;
-            angular.forEach(storedHistoricalData.measurements, function (historicalRecord) {
+            angular.forEach(storedHistoricalData.measurements, function (historicalRecord, historicalKey) {
+				historicalRecord.index = historicalKey;
                 HistoryService.historicalData.measurements.push(historicalRecord);
             });
           }
@@ -63,5 +59,7 @@ angular.module('Measure.services.History', [])
       return totalReceivedBytes;
     }
   };
-  return HistoryService;
+
+	HistoryService.restore();
+	return HistoryService;
 })

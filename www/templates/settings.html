@@ -3,34 +3,34 @@
     <div class="list">
         <label class="item item-input item-select">
             <div class="input-label" translate>Location</div>
-            <select ng-model="metroSelection"
-                    ng-change="changeSelection('metroSelection', metroSelection)"
+            <select ng-model="currentSettings.metroSelection"
+                    ng-change="changeSelection('metroSelection', currentSettings.metroSelection)"
                     ng-disabled="availableSettings.metroSelection.options.length === 0"
                     ng-options="metroSelectionOption.label for metroSelectionOption in availableSettings.metroSelection.options | orderBy:[metroSelectionSort, 'label']:false track by metroSelectionOption.metro">
             </select>
         </label>
         <label class="item item-input item-select">
             <div class="input-label" translate>Language</div>
-            <select ng-model="applicationLanguage"
-                    ng-change="changeSelection('applicationLanguage', applicationLanguage)"
+            <select ng-model="currentSettings.applicationLanguage"
+                    ng-change="changeSelection('applicationLanguage', currentSettings.applicationLanguage)"
                     ng-disabled="availableSettings.applicationLanguage.options.length === 0"
                     ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
             </select>
         </label>
-        <div class="item item-divider" ng-if="schedulingSupported" translate>
+        <div class="item item-divider" ng-if="enviromentCapabilities.schedulingSupported" translate>
             Scheduled Testing
         </div>
-        <ion-toggle ng-model="scheduledTesting" ng-if="schedulingSupported"
-           ng-change="changeSelection('scheduledTesting', scheduledTesting); toggleTestingOptions(scheduledTesting);">Scheduled Testing</ion-toggle>
-        <label class="item item-input item-select" ng-show="schedulingSupported === true && showTestingOptions === true">
+        <ion-toggle ng-model="currentSettings.scheduledTesting" ng-if="enviromentCapabilities.schedulingSupported"
+           ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting)">Scheduled Testing</ion-toggle>
+        <label class="item item-input item-select" ng-show="enviromentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
             <div class="input-label" translate>Schedule</div>
-            <select ng-model="scheduleInterval"
-                    ng-change="changeSelection('scheduleInterval', scheduleInterval)"
+            <select ng-model="currentSettings.scheduleInterval"
+                    ng-change="changeSelection('scheduleInterval', currentSettings.scheduleInterval)"
                     ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
             </select>
         </label>
-        <ion-toggle ng-model="onlyWifi" ng-show="schedulingSupported === true && showTestingOptions === true"
-           ng-change="changeSelection('onlyWifi', onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
+        <ion-toggle ng-model="currentSettings.onlyWifi" ng-show="enviromentCapabilities.schedulingSupported === true && enviromentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
+           ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
         <div class="item item-divider" translate>
             Information
         </div>
@@ -38,16 +38,15 @@
             <span translate>Data Consumed</span>
             <span class="badge badge-assertive" class="md-secondary">{{ dataConsumed  | formatDataConsumptionMeasurement }}</span>
         </a>
-        <ion-toggle ng-model="trustedTester"
-           ng-change="changeSelection('trustedTester', trustedTester)"
+        <ion-toggle ng-model="currentSettings.trustedTester"
+           ng-change="changeSelection('trustedTester', currentSettings.trustedTester)"
            ng-show="false"
            ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
-        <a class="item" href="#/app/about" translate>About</a>
+        <a class="item" href="#/app/information/about" translate>About</a>
         <a class="item item-icon-right" on-tap="initiateHistoryReset()">
             <i class="icon ion-ios-refresh-outline"></i>
             Reset Measurement History
         </a>
-
     </div>
   </ion-content>
 </ion-view>

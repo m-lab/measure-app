@@ -1,40 +1,27 @@
 angular.module('Measure.controllers.Settings', [])
 
 .controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService,
-        MeasureConfig) {
-  $scope.dataConsumed = HistoryService.dataConsumed();
+		MeasureConfig, DialogueMessages) {
+	$scope.dataConsumed = HistoryService.dataConsumed();
 
-  $scope.changeSelection = SettingsService.setSetting;
-  $scope.toggleTestingOptions = function (rawr) {
-      $scope.showTestingOptions = rawr;
-  };
+	$scope.changeSelection = SettingsService.setSetting;
 
-  $scope.availableSettings = SettingsService.availableSettings;
-  $scope.metroSelection = SettingsService.getSetting('metroSelection');
-  $scope.applicationLanguage = SettingsService.getSetting('applicationLanguage');
-  $scope.scheduledTesting = SettingsService.getSetting('scheduledTesting');
-  $scope.onlyWifi = SettingsService.getSetting('onlyWifi');
-  $scope.trustedTester = SettingsService.getSetting('trustedTester');
-  $scope.scheduleInterval = SettingsService.getSetting('scheduleInterval');
-  $scope.schedulingSupported = MeasureConfig.schedulingSupported;
+	$scope.availableSettings = SettingsService.availableSettings;
+	$scope.currentSettings = SettingsService.currentSettings;
+	$scope.enviromentCapabilities = MeasureConfig.enviromentCapabilities;
 
-  $scope.showTestingOptions = $scope.scheduledTesting;
+	$scope.initiateHistoryReset = function() {
+		var historyResetPopup = $ionicPopup.confirm(DialogueMessages.historyReset);
 
-  $scope.initiateHistoryReset = function() {
-    var historyResetPopup = $ionicPopup.confirm({
-        title: 'Confirm Reset',
-        template: 'This action will permenantly removal all stored results and cannot be undone. Are you sure?',
-    });
+		historyResetPopup.then(function(resetDecision) {
+			if(resetDecision === true) {
+				HistoryService.reset();
+			}
+		});
+	};
 
-    historyResetPopup.then(function(resetDecision) {
-        if(resetDecision === true) {
-            HistoryService.reset();
-        }
-    });
-  };
-  
-  $scope.metroSelectionSort = function(metroSelection) {
-    return metroSelection.metro === 'automatic' ? 0 : metroSelection;
-  };
+	$scope.metroSelectionSort = function(metroSelection) {
+		return metroSelection.metro === 'automatic' ? 0 : metroSelection;
+	};
 
 })

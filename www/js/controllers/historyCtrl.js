@@ -5,6 +5,7 @@ angular.module('Measure.controllers.History', [])
   $scope.historicalData = HistoryService.historicalData;
   $scope.shareCSV = SharingService.shareCSV;
 
+	console.log(HistoryService.historicalData);
   $scope.hideMeasurement = function (measurementId) {
       HistoryService.hide(measurementId);
   };
