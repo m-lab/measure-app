@@ -11,6 +11,19 @@ angular.module('Measurement.filters', [])
     var filteredInput;
     
     if (input !== undefined) {
+         filteredInput = String((Number(input) / 1000).toFixed(2)); // + " Mbps";
+    } else {
+        filteredInput = '';
+    }
+    return filteredInput;
+  };
+})
+
+.filter('formatThroughputDisplay', function() {
+  return function(input) {
+    var filteredInput;
+    
+    if (input !== undefined) {
          filteredInput = String((Number(input) / 1000).toFixed(2)) + " Mbps";
     } else {
         filteredInput = '';

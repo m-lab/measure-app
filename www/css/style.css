@@ -5,21 +5,15 @@ div.row div.col.center {
   vertical-align: middle;
   text-align: center;
 }
+div.row div.col.right {
+  display: table-cell;
+  vertical-align: right;
+  text-align: right;
+}
 
 .row h3 {
 /*  font-family: "lato";*/
 /*  font-weight: bold;*/
-}
-
-.row.absolute-bottom  {
-  position: absolute;
-  bottom: 0;
-  padding: 0;
-  margin: 0;
-}
-
-.absolute-bottom .col  {
-  padding: 0;
 }
 
 span.measurement-icon:before {
@@ -35,9 +29,42 @@ span.item-note {
   overflow: hidden;
 }
 
-div.information-panel div.col {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: inherit;
+.panel__measure .padding-vertical {
+	padding-bottom: 30px;
+}
+.panel__measure div.row div.col {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: rgb(68, 68, 68);
+	font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+	font-size: 1.2em;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	white-space: nowrap;
+	word-wrap: break-word;
+}
+
+.panel__measure div.row.status_row {
+	height: 70px;
+}
+.panel__measure div.row div.col i.icon {
+	display: inline-block;
+	width: 2.8em;
+}
+.panel__measure div.row div.col span.currentRate {
+	display: inline-block;
+	font-size: 2.7em;
+	font-weight: bold;
+	width: 2.8em;
+}
+.panel__measure div.row div.col span.currentRateLabel {
+	font-size: 0.9em;
+	font-weight: 100;
+
+}
+.panel__measure div.row div.col span.currentState {
+	font-size: 0.9em;
+	font-weight: 200;
 }
