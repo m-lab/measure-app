@@ -1,18 +1,17 @@
 angular.module('Measure.support.ChromeApp', [])
 
-.constant('ChromeAppConfig', {
-    window : {width: 360, height: 640},
+.constant('CHROME_APP_CONFIG', {
     alarmName: 'measurementScheduler'
 })
 
-.factory('ChromeAppSupport', function($q, ChromeAppConfig) {
+.factory('ChromeAppSupport', function($q, CHROME_APP_CONFIG) {
     var ChromeAppSupport = {};
 
     ChromeAppSupport.clearAlarm = function () {
-        chrome.alarms.clear(ChromeAppConfig.alarmName);
+        chrome.alarms.clear(CHROME_APP_CONFIG.alarmName);
     };
     ChromeAppSupport.createAlarm = function (alarmTime, alarmPeriod, alarmFunction) {
-        chrome.alarms.create(ChromeAppConfig.alarmName, {
+        chrome.alarms.create(CHROME_APP_CONFIG.alarmName, {
             'delayInMinutes': alarmTime,
             'periodInMinutes': alarmPeriod
         });
@@ -36,19 +35,6 @@ angular.module('Measure.support.ChromeApp', [])
         };
         return restoreDeferred.promise;
     };
-//    ChromeAppSupport.restore = function () {
-//        var restoreDeferred = $q.defer();
-//        chrome.storage.local.get(null, function (storageObject) {
-//            restoreDeferred.resolve(storageObject);
-//        });
-//        return restoreDeferred.promise;
-//    };
-//
-//    if (MeasureConfig.environmentType === 'ChromeApp') {
-//        ChromeAppSupport.restore().then(function (storageObject) {
-//            ChromeAppSupport.storageState = storageObject;
-//        });
-//    }
 
     return ChromeAppSupport;
 });

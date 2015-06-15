@@ -17,19 +17,19 @@
                     ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
             </select>
         </label>
-        <div class="item item-divider" ng-if="enviromentCapabilities.schedulingSupported" translate>
+        <div class="item item-divider" ng-if="environmentCapabilities.schedulingSupported" translate>
             Scheduled Testing
         </div>
-        <ion-toggle ng-model="currentSettings.scheduledTesting" ng-if="enviromentCapabilities.schedulingSupported"
+        <ion-toggle ng-model="currentSettings.scheduledTesting" ng-if="environmentCapabilities.schedulingSupported"
            ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting)">Scheduled Testing</ion-toggle>
-        <label class="item item-input item-select" ng-show="enviromentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
+        <label class="item item-input item-select" ng-show="environmentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
             <div class="input-label" translate>Schedule</div>
             <select ng-model="currentSettings.scheduleInterval"
                     ng-change="changeSelection('scheduleInterval', currentSettings.scheduleInterval)"
                     ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
             </select>
         </label>
-        <ion-toggle ng-model="currentSettings.onlyWifi" ng-show="enviromentCapabilities.schedulingSupported === true && enviromentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
+        <ion-toggle ng-model="currentSettings.onlyWifi" ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
            ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
         <div class="item item-divider" translate>
             Information

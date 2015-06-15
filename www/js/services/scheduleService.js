@@ -1,49 +1,70 @@
 angular.module('Measure.services.Schedule', [])
 
 .factory('ScheduleService', function(MeasureConfig, ChromeAppSupport,
-        ScheduleManagerService, SettingsService) {
+        ScheduleManagerService) {
+
     var FIRST_ALARM_TIME = 1,
         PERIOD_IN_MINUTES = 1;
-  var ScheduleService = {};
+	var ScheduleService = {};
 
-
-  ScheduleService.schedule = function () {
-    if (MeasureConfig.environmentType === 'ChromeApp') {
-        ChromeAppSupport.createAlarm(FIRST_ALARM_TIME, PERIOD_IN_MINUTES, ScheduleManagerService.watch);
-    } else {
-
-    }
-  };
-  
-  return ScheduleService;
+	ScheduleService.initiate = function () {
+		if (MeasureConfig.environmentType === 'ChromeApp') {
+			ChromeAppSupport.createAlarm(FIRST_ALARM_TIME, PERIOD_IN_MINUTES,
+				ScheduleManagerService.watch);
+		}
+	};
+	return ScheduleService;
 })
 
 .factory('ScheduleManagerService' , function(MeasureConfig, SettingsService,
         MeasurementBackgroundService, StorageService) {
-  var ScheduleManagerService = {};
-  var scheduleInterval;
-  var currentTime = Date.now();
 
-  ScheduleManagerService.watch = function () {
-    scheduleInterval = SettingsService.getSetting('scheduleInterval');
-    scheduleSemaphore = StorageService.get('scheduleSemaphore').then(
-        function (scheduleSemaphore) {
-            if (scheduleSemaphore === undefined || currentTime < scheduleSemaphore.start ||
-                    currentTime > scheduleSemaphore.end || scheduleInterval !== scheduleSemaphore.intervalType) {
-                scheduleSemaphore = createScheduleSemaphore(scheduleInterval);
-                StorageService.set('scheduleSemaphore', scheduleSemaphore);
-            }
+	var ScheduleManagerService = {
+		'scheduleSemaphore': undefined
+	};
 
-            if (shouldSchedulerFire(scheduleSemaphore) === true) {
-                scheduleSemaphore.triggered = true;
-                StorageService.set('scheduleSemaphore', scheduleSemaphore);
-                MeasurementBackgroundService.startBackground();
-            }
-        }
-    );
-  };
+	ScheduleManagerService.watch = function () {
+		var currentTime = Date.now();
+		var scheduleInterval = SettingsService.currentSettings.scheduleInterval;
+		var scheduledTesting = SettingsService.currentSettings.scheduledTesting;
+		
+		if (scheduledTesting === true) {
+			if (this.scheduleSemaphore === undefined) {
+				StorageService.get('scheduleSemaphore').then(
+					function (storedScheduleSemaphore) {
+						if (storedScheduleSemaphore === undefined ||
+								currentTime < storedScheduleSemaphore.start ||
+								currentTime > storedScheduleSemaphore.end ||
+								scheduleInterval !== storedScheduleSemaphore.intervalType) {
+							ScheduleManagerService.scheduleSemaphore = createScheduleSemaphore(scheduleInterval);
+							StorageService.set('scheduleSemaphore',
+									ScheduleManagerService.scheduleSemaphore);
+						}
+						ScheduleManagerService.decide(ScheduleManagerService.scheduleSemaphore);
+					}
+				);
+			} else {
+				ScheduleManagerService.decide(ScheduleManagerService.scheduleSemaphore);
+			}
+		}
+	};
 
-  return ScheduleManagerService;
+	ScheduleManagerService.decide = function (scheduleSemaphore) {
+		var currentTime = Date.now();
+
+		if (scheduleSemaphore.triggered === false &&
+				currentTime > scheduleSemaphore.choice) {
+			console.log('Founded scheduled measurement ready, triggering.');
+			scheduleSemaphore.triggered = true;
+
+			ScheduleManagerService.scheduleSemaphore = scheduleSemaphore;
+			StorageService.set('scheduleSemaphore', scheduleSemaphore);
+
+			MeasurementBackgroundService.startBackground();
+		}
+	};
+
+	return ScheduleManagerService;
 });
 
 
@@ -57,9 +78,10 @@ function createScheduleSemaphore(scheduleInterval) {
         'triggered': false
     };
     var scheduleLabelToTimes = {
-        'hourly': (60*60) * 1000,
-        'daily': (60*60*24) * 1000,
-        'weekly': (60*60*24*7) * 1000
+		'constantly': (60 * 5) * 1000,
+        'hourly': (60 * 60) * 1000,
+        'daily': (60 * 60 * 24) * 1000,
+        'weekly': (60 * 60 * 24 * 7) * 1000
     }
     var scheduleIntervalinSeconds;
     var scheduleSemaphoreChoice;
@@ -73,13 +95,3 @@ function createScheduleSemaphore(scheduleInterval) {
     return scheduleSemaphore;
 }
 
-function shouldSchedulerFire(scheduleSemaphore) {
-    var currentTime = Date.now();
-
-    if (scheduleSemaphore.triggered === false &&
-            currentTime > scheduleSemaphore.choice) {
-        return true;
-    }
-    
-    return false;
-}

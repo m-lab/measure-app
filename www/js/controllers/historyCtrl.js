@@ -1,12 +1,12 @@
 angular.module('Measure.controllers.History', [])
 
-.controller('HistoryCtrl', function($scope, MeasureConfig, HistoryService, SharingService) {
-  $scope.MeasureConfig = MeasureConfig;
-  $scope.historicalData = HistoryService.historicalData;
-  $scope.shareCSV = SharingService.shareCSV;
+.controller('HistoryCtrl', function($scope, MeasureConfig, HistoryService,
+		SharingService, historicalDataChartConfig, historicalDataChartService) {
+	$scope.MeasureConfig = MeasureConfig;
+	$scope.historicalData = HistoryService.historicalData;
+	$scope.historicalDataChartConfig = historicalDataChartService.config;
+	historicalDataChartService.populate();
 
-	console.log(HistoryService.historicalData);
-  $scope.hideMeasurement = function (measurementId) {
-      HistoryService.hide(measurementId);
-  };
-})
+	$scope.shareCSV = SharingService.shareCSV;
+	$scope.hideMeasurement = HistoryService.hide;
+});

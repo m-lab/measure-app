@@ -1,7 +1,7 @@
 // Measure.app
 
 angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
-		'ngCordova', 'highcharts-ng', 'Measure.controllers',
+		'ngCordova', 'highcharts-ng', 'Measure.controllers', 'gaugejs',
 		'Measurement.filters', 'Measure.services', 'Measure.support'],
 		function ($provide) {
 	// Prevent Angular from sniffing for the history API
@@ -39,7 +39,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 
 .value('MeasureConfig', {
 	'environmentType': undefined,
-	'enviromentCapabilities': undefined,
+	'environmentCapabilities': {},
 })
 
 .config( ['$compileProvider', function( $compileProvider ) {
@@ -84,18 +84,37 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 		}
 		
 		if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
-			MeasureConfig.enviromentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
+			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
 		} else {
-			MeasureConfig.enviromentCapabilities = ENVIRONMENT_CAPABILITIES['Browser'];
+			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES['Browser'];
 		}
+
     });
+})
+
+.run(function ($ionicPlatform, MeasureConfig, ScheduleService) {
+    $ionicPlatform.ready(function() {
+		if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
+			ScheduleService.initiate();
+		}
+	});
 })
 
 .value('DialogueMessages', {
 	'historyReset': {
 		title: 'Confirm Reset',
 		template: 'This action will permanently removal all stored results and cannot be undone. Are you sure?'
-	}
+	},
+	'measurementFailure': {
+		title: 'Failure',
+		templateUrl: 'templates/modals/messageTestFailure.html',
+		buttons: [
+			{
+				text: 'Dismiss',
+				type: 'button-outline button-assertive',
+			}
+		]
+    }
 })
 
 /*
@@ -166,10 +185,10 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
   })
 
   .state('app.measurementRecord', {
-      url: "/measurement/:measurementId",
+      url: "/record/:measurementId",
       views: {
         'menuContent': {
-          templateUrl: "templates/measurementrecord.html",
+          templateUrl: "templates/record.html",
           controller: 'RecordCtrl'
         }
       }

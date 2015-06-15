@@ -1,7 +1,7 @@
 angular.module('Measure.services.Storage', [])
 
 .factory('StorageService', function ($q, MeasureConfig, ChromeAppSupport) {
-    var StorageService = {};
+	var StorageService = {};
     var isJsonString = function (str) {
         try {
             angular.fromJson(str);
@@ -29,7 +29,7 @@ angular.module('Measure.services.Storage', [])
         } else if (localStorage !== undefined) {
             temporaryValue = localStorage.getItem(keyName);
             if (temporaryValue != undefined && isJsonString(temporaryValue) === true) {
-                temporaryValue = angular.fromJson(temporaryValue);
+				temporaryValue = angular.fromJson(temporaryValue);
             }
             restoreDeferred.resolve(temporaryValue);
             retrievedValue = restoreDeferred.promise;

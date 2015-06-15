@@ -1,127 +1,170 @@
 angular.module('Measure.services.Gauge', [])
 
-.value('SpeedGauge', {
-        options: {
-            chart: {
-                type: 'gauge',
-                backgroundColor: 'transparent',
-                plotBorderWidth: 0,
-                plotShadow: false,
-                spacingTop: 0,
-                spacingLeft: 0,
-                spacingRight: 0,
-                spacingBottom: 0,
-                credits: { enabled: false },
-                legend: { enabled: false },
-                tooltip: { enabled: false },
-                margin: [0,0,0,0]
-            },
-            title: { text: null, display: 'none' },
-            pane: {
-                startAngle: -100,
-                endAngle: 180,
-                background: null,
-                center: ['50%', '50%'],
-            },
-            dataLabels: { borderWidth: 0 },
-      },
-      size: {height: '260'},
-      credits: { enabled: false },
-	    yAxis: {
-          type: 'logarithmic',
-	        min: 1,
-	        max: 1000,
-          tickPositioner: function () {
-            var targets = [1, 2, 4, 8, 15, 25, 50, 100, 250, 500, 1000];
-            var i;
-            for (i in targets) {
-              targets[i] = Math.log10(targets[i]);
-            }
-            return targets;
-          },
-	        minorTickLength: 0,
-	        tickWidth: 3,
-	        tickPosition: 'inside',
-	        tickLength: 12,
-	        tickColor: '#666',
-          lineColor: null,
-          title: { text: null, style: { display: 'none' } },
-          labels: { format: '{value}'}
-	    },
-	    series: [{
-          name: 'Speed',
-          data: [.00000001],
-          tooltip: { valueSuffix: null, enabled: false },
-          dataLabels: { enabled: false },
-	    }]
-})
-
-/*
-
-.service('historyChartService', function(HistoryService) {
-  var s2cSeriesData = [],
-      c2sSeriesData = [];
-  var historyChartService = {};
-
-  angular.forEach(HistoryService.historicalData.measurements, function (historicalRecord) {
-    if (historicalRecord.hidden !== true) {
-      s2cSeriesData.push(historicalRecord.results.s2cRate);
-      c2sSeriesData.push(historicalRecord.results.c2sRate);
+.value('progressGaugeConfig', {
+	'gaugeType': 'donut',
+	'gaugeOptions': {
+		angle: 0.5, // The length of each line
+		lineWidth: 0.13, // The line thickness
+		limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+		colorStart: '#07DBD0',   // Colors
+		colorStop: '#07DBD0',    // just experiment with them
+		strokeColor: '#FFF',   // to see which ones work best for you
+		generateGradient: true
     }
-  });
-  
-  historyChartService.historyChartConfig = {
-          options: {
-            chart: { type: 'areaspline', margin: 0 },
-            credits: { enabled: false },
-            legend: { enabled: false },
-            tooltip: { enabled: false },
-          },
-          title: { text: null, style: { display: 'none' } },
-          subtitle: { text: null, style: { display: 'none' } },
-          xAxis: {
-              lineWidth: 0,
-              minorGridLineWidth: 0,
-              lineColor: 'transparent',
-              labels: {
-                enabled: false
-              },
-              minorTickLength: 0,
-              tickLength: 0,
-              title: { text: null }
-          },
-          yAxis: {
-              lineWidth: 0,
-              minorGridLineWidth: 0,
-              lineColor: 'transparent',
-              gridLineColor: 'transparent',
-              labels: {
-                enabled: false
-              },
-              minorTickLength: 0,
-              tickLength: 0,
-              title: { text: null }
-          },
-          plotOptions: {
-              areaspline: {
-                  fillOpacity: 0.5
-              }
-          },
-          size: {
-            height: 200
-          },
-          series: [{
-              name: 'download',
-              data: s2cSeriesData,
-              marker: { enabled: false },
-
-          }, {
-              name: 'upload',
-              data: c2sSeriesData,
-              marker: { enabled: false }
-          }]
-  };
-  return historyChartService;
 })
 
-*/
+.factory('progressGaugeService', function(progressGaugeConfig, $interval) {
+
+	var progressGaugeService = {
+		'gaugeConfig': angular.copy(progressGaugeConfig),
+		'gaugeStatus': {
+			'current': 0.0001,
+			'maximum': 1,
+			'message': 'Start'
+		}
+	};
+
+	progressGaugeService.gaugeStart = function () {
+		this.gaugeStatus.message = '...';
+		this.gaugeStatus.current = 0;
+	}
+	progressGaugeService.gaugeReset = function () {
+		this.gaugeStatus.message = 'Start';
+		this.gaugeStatus.current = 0;
+	}
+	progressGaugeService.gaugeComplete = function () {
+		this.gaugeStatus.message = 'Complete';
+		this.gaugeStatus.current = this.gaugeStatus.maximum;
+	}
+	progressGaugeService.gaugeError = function () {
+		this.gaugeStatus.message = 'Error!';
+		this.gaugeStatus.current = this.gaugeStatus.maximum;
+		this.gaugeConfig.colorStart = '#D90000';
+		this.gaugeConfig.colorStop = '#D90000';
+	}
+	progressGaugeService.incrementGauge = function (testStatus) {
+		var incrementalValue = incrementProgressMeter(testStatus);
+		var testPeriod = 10000,
+			intervalDelay = 100,
+			that = this;
+		var intervalCount;
+		this.gaugeStatus.message = '...';
+		if (testStatus == 'running_s2c' || testStatus == 'running_c2s') {
+			intervalCount = (testPeriod / intervalDelay);
+			$interval(function () {
+				if (that.gaugeStatus.current < that.gaugeStatus.maximum) {
+					that.gaugeStatus.current += (incrementalValue / intervalCount);
+				}
+			}, intervalDelay, intervalCount);
+		} else {
+			if (this.gaugeStatus.current < this.gaugeStatus.maximum) {
+				this.gaugeStatus.current += incrementalValue;
+			}
+		}
+	}
+	
+	return progressGaugeService;
+})
+
+.value('historicalDataChartConfig', {
+	"options": {
+		"chart": {
+			"type": "areaspline"
+		},
+		"plotOptions": {
+			"series": {
+				"stacking": ""
+			},
+			'dataLabels': false
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			enabled: false
+		}
+
+	},
+	"series": [
+		{
+			title: {
+				text: null
+			},
+			"data": [],
+			"id": "series-0",
+			marker: { enabled: false },
+			states: { hover: { enabled: false } }
+		}
+	],
+	title: {
+		text: null
+	},
+	subtitle: {
+		text: null
+	},
+	xAxis: {
+		title: {
+			text: null
+		},
+		labels: {
+			enabled:false
+		}
+	},
+	yAxis: {
+		title: {
+			text: null
+		},
+		labels: {
+			enabled:false
+		}
+	},
+	"credits": false,
+	"loading": false,
+	"size": {
+		'height': 200
+	}
+})
+
+.factory('historicalDataChartService', function(historicalDataChartConfig,
+		HistoryService) {
+	var historicalDataChartService = {};
+
+	historicalDataChartService.config = historicalDataChartConfig
+	historicalDataChartService.populate = function () {
+		var historicalRecords = []
+		angular.forEach(HistoryService.historicalData.measurements,
+				function(historicalRecord) {
+			historicalRecords.push(historicalRecord.results.s2cRate);
+		});
+		console.log(historicalRecords);
+		historicalDataChartConfig.series[0].data = historicalRecords;
+	};
+
+
+	return historicalDataChartService;
+})
+
+function incrementProgressMeter(testStatus) {
+    var testProgressIncrements = {
+        'start': .01,
+
+        'preparing_c2s': .04,
+        'running_c2s': .35,
+        'finished_c2s': .01,
+
+        'preparing_s2c': .04,
+        'running_s2c': .35,
+        'finished_s2c': .01,
+
+        'preparing_meta': .03,
+        'running_meta': .03,
+        'finished_meta': .01,
+		
+        'finished_all': .01,
+    }
+    if (testProgressIncrements.hasOwnProperty(testStatus) === true) {
+        return testProgressIncrements[testStatus];
+    }
+    return 0;
+}
+

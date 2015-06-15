@@ -3,8 +3,8 @@ angular.module('Measure.controllers.Record', [])
 .controller('RecordCtrl', function($scope, $stateParams, $filter, $ionicModal,
         HistoryService, connectionInformation) {
     var RESULTS_TO_DISPLAY = {
-        's2cRate': {'label': 'Download', 'filter': 'formatThroughputMeasurement'},
-        'c2sRate': {'label': 'Upload', 'filter': 'formatThroughputMeasurement'},
+        's2cRate': {'label': 'Download', 'filter': 'formatThroughputDisplay'},
+        'c2sRate': {'label': 'Upload', 'filter': 'formatThroughputDisplay'},
         'MinRTT': {'label': 'Latency', 'filter': 'formatLatencyMeasurement'},
         'packetRetransmissions': {'label': 'Retransmissions', 'filter': 'formatProbabilityMeasurement'},
       };

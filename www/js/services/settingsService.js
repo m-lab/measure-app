@@ -34,7 +34,7 @@ angular.module('Measure.services.Settings', [])
       },
       'scheduleInterval': {
         'default': 'daily',
-        'options': ['hourly', 'daily', 'weekly'],
+        'options': ['constantly', 'hourly', 'daily', 'weekly'],
         'value': undefined
       }
     },
@@ -72,28 +72,6 @@ angular.module('Measure.services.Settings', [])
     
     
   };
-
-  MLabService.findAll().then(
-    function (mlabAnswer) {
-      var seenMetroKeys = [];
-
-      service.availableSettings.metroSelection.options = [service.availableSettings.metroSelection.default];
-      angular.forEach(mlabAnswer, function (mlabSite) {
-        var mlabSiteOption = {
-          'metro': undefined,
-          'label': undefined,
-        };
-
-        mlabSiteOption.metro = mlabSite.metro;
-        mlabSiteOption.label = mlabSite.country + ' (' + mlabSite.label + ')';
-        
-        if (seenMetroKeys.indexOf(mlabSiteOption.metro) === -1) {
-          service.availableSettings.metroSelection.options.push(mlabSiteOption);
-          seenMetroKeys.push(mlabSiteOption.metro);
-        }
-      });
-    }
-  );
 
 	service.restore();
 	return service;

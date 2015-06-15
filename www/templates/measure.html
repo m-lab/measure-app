@@ -1,59 +1,51 @@
 <ion-view view-title="Measure">
-    <ion-nav-buttons side="secondary">
-        <button ng-model="startTest" class="button
-          button-calm" on-tap="startNDT()" ng-disabled="(!mlabInformation ||
-          testSemaphore())" translate>
-          Start</button>
-    </ion-nav-buttons>
-  <ion-content class="center">
-    <div class="row">
+	<ion-nav-bar type="bar-light">
+		<ion-nav-buttons side="primary">
+			<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
+	</ion-nav-bar>
+  <ion-content class="center panel__measure">
+    <div class="row padding-vertical">
       <div class="col center">
-        <highchart id="speedGauge" config="gaugeConfig"></highchart>
+		<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
+				options="progressGaugeConfig.gaugeOptions"
+				value="progressGaugeState.current"
+				max-value="progressGaugeState.maximum"
+				inner-text="progressGaugeState.message"
+				height="180" on-tap="startNDT()"></canvas>
       </div>
     </div>
-    <div class="row">
-      <div class="col center">
-        <progress value="{{ measurementProgressBar.current }}"
-            max="{{measurementProgressBar.maximum}}"></progress>
-      </div>
-    </div>
-    <div class="card">
-      <div class="item item-body information-panel">
+        <div class="row padding-vertical status_row">
+            <div class="col center col-bottom">
+				<span class="currentState"
+						ng-show="currentState !== undefined">
+					{{ currentState }}
+				</span>
+				<span class="currentRate"
+						ng-show="currentRate !== undefined">
+					{{ currentRate | formatThroughputMeasurement }}
+				</span>
+				<span class="currentRateLabel"
+					ng-show="currentRate !== undefined" translate>Mbps</span>
+			</div>
+        </div>
         <div class="row">
-          <div class="col"><b><i class="icon {{ connectionInformation.icon }}"></i>{{ accessInformation.isp }}</b></div>
-          <div class="col"><b>{{ mlabInformation.label }}</b></div>
+			<div class="col col-offset-33">
+				<i class="icon ion-cloud"></i>
+				<span>{{ accessInformation.isp }}</span>
+			</div>
         </div>
         <div class="row">
-          <div class="col"><span translate>Internet Service Provider</span></div>
-          <div class="col"><span translate>Test Site</span></div>
+			<div class="col col-offset-33">
+				<i class="icon ion-earth"></i>
+				<span>{{ mlabInformation.label }}</span>
+			</div>
         </div>
-        <div class="row" ng-if="s2cRate !== undefined || c2sRate !== undefined">
-          <div class="col">
-            <b>
-              <i class="icon ion-android-time" ng-if="s2cRate === undefined"></i>
-              {{ s2cRate | formatThroughputMeasurement }}
-            </b>
-          </div>
-          <div class="col">
-            <b>
-              <i class="icon ion-android-time" ng-if="c2sRate === undefined"></i>
-              {{ c2sRate | formatThroughputMeasurement }}
-            </b>
-          </div>
+        <div class="row" ng-show="lastMeasurement !== undefined">
+			<div class="col col-offset-33 right">
+				<a class="button button-positive button-clear icon-left ion-share" on-tap="shareMeasurement({{ lastMeasurement }})" ng-show="MeasureConfig.sharingSupported" translate>Share</a>
+				<a class="button button-royal button-clear icon-right ion-chevron-right" ui-sref="app.measurementRecord({measurementId: lastMeasurement})" translate>More</a>
+			</div>
         </div>
-        <div class="row" ng-if="s2cRate !== undefined || c2sRate !== undefined">
-          <div class="col"><span translate>Download</span></div>
-          <div class="col"><span translate>Upload</span></div>
-        </div>
-      </div>
-      <div class="item tabs tabs-secondary tabs-icon-left row" ng-if="lastMeasurement !== undefined">
-        <a class="tab-item" href="#/app/measurement/{{ lastMeasurement }}" translate>
-          More
-        </a>
-        <a class="tab-item" href="#" on-tap="shareMeasurement({{ lastMeasurement }})" ng-if="MeasureConfig.sharingSupported">
-         <span translate>Share</span>
-        </a>
-      </div>
-    </div>
   </ion-content>
 </ion-view>

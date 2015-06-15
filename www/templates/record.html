@@ -1,0 +1,38 @@
+<ion-view view-title="Measurement">
+    <ion-nav-buttons side="secondary">
+      <button class="button" aria-label="Add Notes to Measurement"
+            ng-click="annotateModal.show()">
+        <i class="icon ion-compose placeholder-icon" translate>Annotate</i>
+      </button>
+    </ion-nav-buttons>
+  <ion-content class="center">
+    <div class="list">
+        <div class="item item-divider">
+            Information
+        </div>
+        <a class="item"
+            ng-repeat="(label, result) in measurementRecord.information"
+            href="#">
+          {{ label | translate }}
+          <span class="item-note">{{ result }}</span>
+        </a>
+        <div class="item item-divider">
+            Performance
+        </div>
+        <a class="item"
+                ng-repeat="(label, result) in measurementRecord.results"
+                href="#">
+          {{ label | translate }}
+          <span class="item-note">{{ result }}</span>
+        </a>
+        <div class="item item-divider"  ng-if='MeasurementNotes !== undefined' translate>
+            Annotations
+        </div>
+        <a class="item" ng-if='MeasurementNotes !== undefined' ng-click="annotateModal.show()">
+            <p>
+                {{ MeasurementNotes }}
+            </p>
+        </a>
+    </div>
+  </ion-content>
+</ion-view>

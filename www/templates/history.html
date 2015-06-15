@@ -6,6 +6,7 @@
       </button>
     </ion-nav-buttons>
   <ion-content>
+	<highchart id="historicalDataChart" config="historicalDataChartConfig"></highchart>
     <div class="card" ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true"
           ng-if="measurementRecord.hidden !== true">
         <div class="item divider">
@@ -16,15 +17,13 @@
         </div>
         <div class="item item-body">
           <div class="row">
-            <div class="col">{{ measurementRecord.results.s2cRate | formatThroughputMeasurement }}</div>
-            <div class="col">{{ measurementRecord.results.c2sRate | formatThroughputMeasurement }}</div>
+            <div class="col">{{ measurementRecord.results.s2cRate | formatThroughputDisplay }}</div>
+            <div class="col">{{ measurementRecord.results.c2sRate | formatThroughputDisplay }}</div>
             <div class="col">{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</div>
           </div>
         </div>
           <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#/app/measurement/{{measurementRecord.index}}">
-              <i class="icon ion-information-circled"></i>More
-            </a>
+			<a class="tab-item" ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" translate>More</a>
             <a class="tab-item" href="#" on-tap="hideMeasurement(measurementRecord.index)">
               <i class="icon ion-trash-b"></i> Hide
             </a>

@@ -70,12 +70,12 @@ angular.module('Measure.services.Measurement', [])
 }])
 
 .factory('MeasurementBackgroundService', function(MeasurementService,
-        HistoryService, SettingsService, MLabService, LocationService) {
+        HistoryService, SettingsService, MLabService, accessInformation) {
 
     var MeasurementBackgroundService = {};
 
     MeasurementBackgroundService.startBackground = function () {
-        var setMetroSelection = SettingsService.getSetting('metroSelection').metro;
+        var setMetroSelection = SettingsService.currentSettings.metroSelection.metro;
         var measurementRecord = {
               'timestamp': Date.now(),
               'index': HistoryService.historicalData.measurements.length,
@@ -89,7 +89,7 @@ angular.module('Measure.services.Measurement', [])
         var backgroundClient;
 
         if (MeasurementService.testSemaphore !== true) {
-            LocationService.getAccessInformation().then(
+            accessInformation.getAccessInformation().then(
                 function (accessInformation) {
                     measurementRecord.accessInformation = accessInformation;
                 }
@@ -97,11 +97,9 @@ angular.module('Measure.services.Measurement', [])
             MLabService.findServer(setMetroSelection).then(
                 function(mlabAnswer) {
                     measurementRecord.mlabInformation = mlabAnswer;
-                    MeasurementService.start(mlabAnswer.fqdn,
+                    MeasurementService.start(measurementRecord.mlabInformation.fqdn,
                             3001, '/ndt_protocol', 2000).then(
                         function(passedResults) {
-                            MeasurementService.lastMeasurement = measurementRecord.index;
-                            MeasurementService.testSemaphore = false;
                             measurementRecord.results = passedResults;
                             HistoryService.add(measurementRecord);
                         },

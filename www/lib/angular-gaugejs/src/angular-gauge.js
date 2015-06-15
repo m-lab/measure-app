@@ -17,7 +17,8 @@
                 'value': '=',
                 'options': '=',
                 'maxValue': '=',
-		        'gaugeType': '='
+		        'gaugeType': '=',
+		        'innerText': '='
             },
             controller: function($scope, $element) {
 		        if ($scope.gaugeType === 'donut') {
@@ -26,11 +27,12 @@
                     $scope.gauge = new Gauge($element[0]);
 		        }
                 $scope.gauge.maxValue = $scope.maxValue;
-                $scope.$watchCollection('[options, value]', function(newValues){
+                $scope.$watchCollection('[options, value, innerText]', function(newValues){
                     $scope.gauge.setOptions(newValues[0]);
                     if (!isNaN(newValues[1])){
                         $scope.gauge.set(newValues[1]);
                     }
+					$scope.gauge.setInnerText(newValues[2]);
                 });
             },
         };

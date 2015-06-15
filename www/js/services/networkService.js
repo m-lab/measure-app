@@ -1,47 +1,74 @@
 angular.module('Measure.services.Network', [])
 
+.constant('ACCESS_SERVICE_URL', 'http://www.telize.com/geoip')
+
+.factory('accessInformation', function($q, $http, ACCESS_SERVICE_URL) {
+	var accessInformation = {};
+
+	accessInformation.currentAccessInformation = {};
+	accessInformation.getAccessInformation = function () {
+		var deferred = $q.defer();
+		$http.get(ACCESS_SERVICE_URL)
+			.success(function (data) {
+					accessInformation.currentAccessInformation = data;
+					deferred.resolve(accessInformation.currentAccessInformation);
+				}
+			)
+			.error(function (data) {
+					accessInformation.currentAccessInformation = {};
+					deferred.reject(data);
+				}
+			);
+    return deferred.promise;
+  };
+
+  return accessInformation;
+})
+
 .factory('connectionInformation', function($cordovaNetwork, MeasureConfig) {
 	var connectionDescription = function (connectionClass) {
 		var connectionType = {
 			'icon': 'ion-help',
 			'label': 'Unknown',
-			'class': undefined
 		}
-		switch (connectionClass) {
-			case Connection.WIFI:
-				connectionType.icon = 'ion-wifi';
-				connectionType.label = 'Wi-Fi';
-				break;
-			case Connection.CELL_2G:
-				connectionType.icon = 'ion-connection-bars';
-				connectionType.label = 'Mobile Data (2G)';
-				break;
-			case Connection.CELL_3G:
-				connectionType.icon = 'ion-connection-bars';
-				connectionType.label = 'Mobile Data (3G)';
-				break;
-			case Connection.CELL_4G:
-				connectionType.icon = 'ion-connection-bars';
-				connectionType.label = 'Mobile Data (4G)';
-				break;
-			case Connection.CELL:
-				connectionType.icon = 'ion-connection-bars';
-				connectionType.label = 'Mobile Data';
-				break;
-			case Connection.ETHERNET:
-				connectionType.icon = 'ion-network';
-				connectionType.label = 'Ethernet';
-				break;
-			default:
-				break;
+		if (typeof(Connection) !== 'undefined') {
+			switch (connectionClass) {
+				case Connection.WIFI:
+					connectionType.icon = 'ion-wifi';
+					connectionType.label = 'Wi-Fi';
+					break;
+				case Connection.CELL_2G:
+					connectionType.icon = 'ion-connection-bars';
+					connectionType.label = 'Mobile Data (2G)';
+					break;
+				case Connection.CELL_3G:
+					connectionType.icon = 'ion-connection-bars';
+					connectionType.label = 'Mobile Data (3G)';
+					break;
+				case Connection.CELL_4G:
+					connectionType.icon = 'ion-connection-bars';
+					connectionType.label = 'Mobile Data (4G)';
+					break;
+				case Connection.CELL:
+					connectionType.icon = 'ion-connection-bars';
+					connectionType.label = 'Mobile Data';
+					break;
+				case Connection.ETHERNET:
+					connectionType.icon = 'ion-network';
+					connectionType.label = 'Ethernet';
+					break;
+				default:
+					break;
+			}
 		}
 		return connectionType;
 	}
 	var connectionInformation = {}
+
 	connectionInformation.current = function () {
 		var connectionClass = undefined;
-		if (MeasureConfig.enviromentCapabilities.connectionInformation === true) {
-			var connectionClass = $cordovaNetwork.getNetwork();
+		if (MeasureConfig.environmentCapabilities.connectionInformation === true) {
+			connectionClass = $cordovaNetwork.getNetwork();
 		}
 		return connectionDescription(connectionClass);
 	};

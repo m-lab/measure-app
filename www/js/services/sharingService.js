@@ -6,9 +6,11 @@ angular.module('Measure.services.Sharing', [])
     
     SharingService.shareCSV = function (dataContent) {
         var csvOptions = {'decimalSep': '.', 'txtDelim': '"'},
-            csvContents = [], flattenedHistory = [],
-            temporaryRow, temporaryKey,
+            csvContents = [],
+			flattenedHistory = [],
             headerArray = [];
+		var temporaryRow,
+			temporaryKey;
 
         angular.forEach(dataContent, function (dataRow) {
             temporaryRow = {};
@@ -43,14 +45,14 @@ angular.module('Measure.services.Sharing', [])
         CSV.stringify(csvContents, csvOptions).then(function (csvStringified) {
             var charset = "utf-8";
             var downloadLink, csvFile;
-            if (MeasureConfig.enviromentCapabilities.sharingSupported === false) {
+            if (MeasureConfig.environmentCapabilities.sharingSupported === false) {
                 downloadLink = angular.element('<a></a>');
                 csvFile = new Blob([csvStringified], {
                     type: "text/csv;charset=" + charset + ";"
                 });
                 downloadLink.attr('href', window.URL.createObjectURL(csvFile));
                 downloadLink.attr('download', 'Measure-Exported-Results.csv');
-                downloadLink.attr('target', '_blank');
+
                 $document.find('body').append(downloadLink);
                 $timeout(function () {
                     window.open(downloadLink[0], "_blank", "location=yes");

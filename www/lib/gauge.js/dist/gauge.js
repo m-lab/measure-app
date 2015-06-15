@@ -333,6 +333,7 @@
       updateObjectValues(this.options, options);
       this.length = this.canvas.height * this.options.length;
       this.strokeWidth = this.canvas.height * this.options.strokeWidth;
+      this.fillText = this.gauge.fillText;
       this.maxValue = this.gauge.maxValue;
       this.minValue = this.gauge.minValue;
       this.animationSpeed = this.gauge.animationSpeed;
@@ -617,6 +618,8 @@
 
     BaseDonut.prototype.value = 33;
 
+	BaseDonut.prototype.fillText = '';
+
     BaseDonut.prototype.maxValue = 80;
 
     BaseDonut.prototype.minValue = 0;
@@ -655,6 +658,12 @@
       return this;
     };
 
+    BaseDonut.prototype.setInnerText = function(innerText) {
+		this.innerText = innerText;
+		this.render();
+		return;
+    };
+
     BaseDonut.prototype.set = function(value) {
       this.value = value;
       if (this.value > this.maxValue) {
@@ -664,7 +673,7 @@
     };
 
     BaseDonut.prototype.render = function() {
-      var displayedAngle, grdFill, h, start, stop, w;
+      var displayedAngle, grdFill, h, start, stop, w, textH, textW;
       displayedAngle = this.getAngle(this.displayedValue);
       w = this.canvas.width / 2;
       h = this.canvas.height / 2;
@@ -685,6 +694,14 @@
       this.ctx.strokeStyle = grdFill;
       this.ctx.beginPath();
       this.ctx.arc(w, h, this.radius, (1 - this.options.angle) * Math.PI, displayedAngle, false);
+
+      if (this.innerText !== undefined) {
+		  this.ctx.font="30px 'Helvetica Neue'";
+		  textW = w - (this.ctx.measureText(this.innerText).width/2);
+		  textH = h + 15; //+ (this.ctx.measureText(this.innerText).height/2);
+
+		  this.ctx.fillText(this.innerText, textW, textH);
+      }
       return this.ctx.stroke();
     };
 
