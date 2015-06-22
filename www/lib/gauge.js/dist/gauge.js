@@ -673,13 +673,10 @@
     };
 
     BaseDonut.prototype.render = function() {
-      var displayedAngle, grdFill, h, start, stop, w, textH, textW;
+      var displayedAngle, grdFill, h, start, stop, w, textH, textW, fullAngle;
       displayedAngle = this.getAngle(this.displayedValue);
       w = this.canvas.width / 2;
       h = this.canvas.height / 2;
-      if (this.textField) {
-        this.textField.render(this);
-      }
       grdFill = this.ctx.createRadialGradient(w, h, 39, w, h, 70);
       grdFill.addColorStop(0, this.options.colorStart);
       grdFill.addColorStop(1, this.options.colorStop);
@@ -687,7 +684,7 @@
       stop = this.radius + this.lineWidth / 2;
       this.ctx.strokeStyle = this.options.strokeColor;
       this.ctx.beginPath();
-      this.ctx.arc(w, h, this.radius, (1 - this.options.angle) * Math.PI, (2 + this.options.angle) * Math.PI, false);
+//      this.ctx.arc(w, h, this.radius, (1 - this.options.angle) * Math.PI, (2 + this.options.angle) * Math.PI, false);
       this.ctx.lineWidth = this.lineWidth;
       this.ctx.lineCap = "round";
       this.ctx.stroke();
@@ -695,13 +692,13 @@
       this.ctx.beginPath();
       this.ctx.arc(w, h, this.radius, (1 - this.options.angle) * Math.PI, displayedAngle, false);
 
-      if (this.innerText !== undefined) {
-		  this.ctx.font="30px 'Helvetica Neue'";
-		  textW = w - (this.ctx.measureText(this.innerText).width/2);
-		  textH = h + 15; //+ (this.ctx.measureText(this.innerText).height/2);
+      if (this.value === 0) {
+		fullAngle = this.getAngle(this.maxValue);
+		this.ctx.arc(w, h, this.radius, (1 - this.options.angle) * Math.PI, fullAngle, false);
+		this.ctx.lineWidth = 4;
+		this.ctx.strokeStyle = '#eee';
+	  }
 
-		  this.ctx.fillText(this.innerText, textW, textH);
-      }
       return this.ctx.stroke();
     };
 
@@ -720,10 +717,10 @@
     Donut.prototype.strokeGradient = function(w, h, start, stop) {
       var grd;
       grd = this.ctx.createRadialGradient(w, h, start, w, h, stop);
-      grd.addColorStop(0, this.options.shadowColor);
+      //grd.addColorStop(0, this.options.shadowColor);
       grd.addColorStop(0.12, this.options._orgStrokeColor);
       grd.addColorStop(0.88, this.options._orgStrokeColor);
-      grd.addColorStop(1, this.options.shadowColor);
+      //grd.addColorStop(1, this.options.shadowColor);
       return grd;
     };
 
