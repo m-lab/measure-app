@@ -1,7 +1,8 @@
 angular.module('Measure.controllers.Record', [])
 
-.controller('RecordCtrl', function($scope, $stateParams, $filter, $ionicModal,
-        HistoryService, connectionInformation) {
+.controller('RecordCtrl', function($scope, $history, $stateParams, $filter, $ionicModal,
+        HistoryService) {
+
     var RESULTS_TO_DISPLAY = {
         's2cRate': {'label': 'Download', 'filter': 'formatThroughputDisplay'},
         'c2sRate': {'label': 'Upload', 'filter': 'formatThroughputDisplay'},
@@ -22,6 +23,10 @@ angular.module('Measure.controllers.Record', [])
         $scope.MeasurementNotes = measurementNote;
         HistoryService.annonate(measurementId, measurementNote);
     };
+	$scope.hideMeasurement = function (measurementId) {
+		HistoryService.hide(measurementId);
+		$history.back();
+	};
 
     HistoryService.get(measurementId).then(function (measurementRecord) {
         var measurementSiteTemp;
@@ -31,7 +36,8 @@ angular.module('Measure.controllers.Record', [])
             'information': {},
             'results': {},
         };
-        
+        $scope.measurementRecord.index = measurementRecord.index;
+
         if (measurementRecord.timestamp !== undefined) {
             $scope.measurementRecord.information['Time'] = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy');
         }
@@ -45,8 +51,7 @@ angular.module('Measure.controllers.Record', [])
             $scope.measurementRecord.information['Test Site'] = measurementSiteTemp[3] + ' (' + measurementSiteTemp[2] + ')';
         }
         if (measurementRecord.connectionInformation !== undefined) {
-			console.log(connectionInformation.lookup(measurementRecord.connectionInformation.connectionType));
-			$scope.measurementRecord.information['Connection Type'] = connectionTypeLabel(measurementRecord.connectionInformation.connectionType)
+			$scope.measurementRecord.information['Connection Type'] = measurementRecord.connectionInformation.label;
         }
         angular.forEach(RESULTS_TO_DISPLAY, function(value, key) {
             $scope.measurementRecord.results[value.label] = $filter(value.filter)(measurementRecord.results[key]);

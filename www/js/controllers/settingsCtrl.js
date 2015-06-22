@@ -1,7 +1,7 @@
 angular.module('Measure.controllers.Settings', [])
 
 .controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService,
-		MeasureConfig, DialogueMessages, MLabService) {
+		MeasureConfig, DialogueMessages, ScheduleManagerService) {
 	$scope.dataConsumed = HistoryService.dataConsumed();
 
 	$scope.changeSelection = SettingsService.setSetting;
@@ -9,6 +9,34 @@ angular.module('Measure.controllers.Settings', [])
 	$scope.availableSettings = SettingsService.availableSettings;
 	$scope.currentSettings = SettingsService.currentSettings;
 	$scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
+	$scope.ScheduleManagerService = ScheduleManagerService.state;
+
+	$scope.initiateHistoryReset = function() {
+		var historyResetPopup = $ionicPopup.confirm(DialogueMessages.historyReset);
+
+		historyResetPopup.then(function(resetDecision) {
+			if(resetDecision === true) {
+				HistoryService.reset();
+			}
+		});
+	};
+})
+
+.controller('ServerSelectionCtrl', function($scope, $history, $ionicLoading, SettingsService, MLabService) {
+
+	$scope.changeSelection = function(selectionKey, selectionValue) {
+		SettingsService.setSetting(selectionKey, selectionValue);
+		$history.back();
+	}
+	$scope.availableSettings = SettingsService.availableSettings;
+	$scope.currentSettings = SettingsService.currentSettings;
+	
+	$ionicLoading.show({
+            content: 'Finding Servers',
+            animation: 'fade-in',
+            showBackdrop: false,
+            maxWidth: 200,
+        });
 
 	MLabService.findAll().then(
 		function (mlabAnswer) {
@@ -30,21 +58,10 @@ angular.module('Measure.controllers.Settings', [])
 					seenMetroKeys.push(mlabSiteOption.metro);
 				}
 			});
+			$ionicLoading.hide();
 		}
 	);
-
-	$scope.initiateHistoryReset = function() {
-		var historyResetPopup = $ionicPopup.confirm(DialogueMessages.historyReset);
-
-		historyResetPopup.then(function(resetDecision) {
-			if(resetDecision === true) {
-				HistoryService.reset();
-			}
-		});
-	};
-
 	$scope.metroSelectionSort = function(metroSelection) {
 		return metroSelection.metro === 'automatic' ? 0 : metroSelection;
 	};
-
 })

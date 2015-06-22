@@ -1,37 +1,58 @@
 <ion-view view-title="History">
     <ion-nav-buttons side="secondary">
       <button class="button" aria-label="Export to CSV"
-            on-tap="shareCSV(historicalData.measurements)">
-        Export
-      </button>
-    </ion-nav-buttons>
-  <ion-content>
-	<highchart id="historicalDataChart" config="historicalDataChartConfig"></highchart>
-    <div class="card" ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true"
-          ng-if="measurementRecord.hidden !== true">
-        <div class="item divider">
-          <div class="row">
-            <div class="col-50"><h2 ng-if="measurementRecord.accessInformation !== undefined">{{ measurementRecord.accessInformation.isp }}</h2></div>
-            <div class="col-50" style="text-align: right"><p>{{ measurementRecord.timestamp | date:'MMMM d, yyyy' }}</p></div>
-          </div>
-        </div>
-        <div class="item item-body">
-          <div class="row">
-            <div class="col">{{ measurementRecord.results.s2cRate | formatThroughputDisplay }}</div>
-            <div class="col">{{ measurementRecord.results.c2sRate | formatThroughputDisplay }}</div>
-            <div class="col">{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</div>
-          </div>
-        </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-			<a class="tab-item" ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" translate>More</a>
-            <a class="tab-item" href="#" on-tap="hideMeasurement(measurementRecord.index)">
-              <i class="icon ion-trash-b"></i> Hide
-            </a>
-            <a class="tab-item" href="#" on-tap="shareMeasurement()" ng-if="MeasureConfig.sharingSupported">
-              <i class="icon ion-share"></i><span translate="share">Share</span>
-            </a>
-        </div>
-    </div>
-    </md-button>
-  </ion-content>
+            on-tap="shareCSV(historicalData.measurements)"
+			translate>Export</button>
+	</ion-nav-buttons>
+	<ion-content class="panel__history" on-infinite-scroll="loadMoreHistory()">
+		<p></p>
+		<highchart id="historicalDataChart" config="historicalDataChartConfig"></highchart>
+		<ion-list show-delete="false" can-swipe="true">
+			<div class="item item-divider">
+				Measurement History
+			</div>
+			<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" ng-repeat="(measurementId, measurementRecord) in
+							historicalData.measurements |  orderBy:'timestamp':true | limitTo: scrollLimit" >
+				<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
+					<div class="col">
+						<h2>{{ measurementRecord.accessInformation.isp }}</h2>
+					</div>
+					<div class="col col-25 right">
+						<h4>{{ measurementRecord.timestamp | date:'MMMM d' }}</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<small class="label" translate>Download</small>
+					</div>
+					<div class="col right">
+						<small>{{ measurementRecord.results.s2cRate | formatThroughputDisplay }}</small></div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<small class="label" translate>Upload</small>
+					</div>
+					<div class="col right">
+						<small>{{ measurementRecord.results.c2sRate | formatThroughputDisplay }}</small>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<small class="label" translate>Latency</small>
+					</div>
+					<div class="col right">
+						<small>{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</small>
+					</div>
+				</div>
+				<ion-option-button class="button-light icon ion-heart"
+						ng-if="MeasureConfig.sharingSupported"
+						ng-click="shareMeasurement()">
+						</ion-option-button>
+				<ion-option-button class="button-assertive icon ion-trash-a"
+						ng-click="hideMeasurement(measurementRecord.index)">
+						</ion-option-button>
+			</ion-item>
+		</ion-list>
+		<ion-infinite-scroll ng-if="(historicalData.measurements.length > scrollLimit)" on-infinite="increaseScrollLimit()" distance="10%"></ion-infinite-scroll>
+	</ion-content>
 </ion-view>

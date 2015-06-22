@@ -5,8 +5,9 @@ angular.module('Measure.services.Measurement', [])
     var MeasurementWorker = new Worker('js/measurements/ndt/ndt-worker.js');
     var workerDeferred;
 
-    MeasurementService.testSemaphore = false;
-    MeasurementService.lastMeasurement = undefined;
+    MeasurementService.state = {
+		testSemaphore: false
+	};
 
     MeasurementWorker.addEventListener('message', function (e) {
         var passedMessage = e.data;
@@ -32,27 +33,27 @@ angular.module('Measure.services.Measurement', [])
                 workerDeferred.notify(deferredNotification);
                 break;
             case 'onfinish':
-                MeasurementService.testSemaphore = false;
+                MeasurementService.state.testSemaphore = false;
                 passedMessage.results.packetRetransmissions = Number(passedMessage.results.PktsRetrans) /
                     Number(passedMessage.results.PktsOut);
                 workerDeferred.resolve(passedMessage.results);
                 break;
             case 'onerror':
-                MeasurementService.testSemaphore = false;
+                MeasurementService.state.testSemaphore = false;
                 workerDeferred.reject(passedMessage.error_message);
                 break;
         }
     }, false);
     
     MeasurementWorker.addEventListener('error', function (e) {
-        MeasurementService.testSemaphore = false;
+        MeasurementService.state.testSemaphore = false;
         workerDeferred.reject(e.lineno, ' in ', e.filename, ': ', e.message);
     }, false);
 
     MeasurementService.start = function (hostname, port, path, update_interval) {
         workerDeferred = $q.defer();
-        if (MeasurementService.testSemaphore === false) {
-            MeasurementService.testSemaphore = true;
+        if (MeasurementService.state.testSemaphore === false) {
+            MeasurementService.state.testSemaphore = true;
             MeasurementWorker.postMessage({
                 'cmd': 'start',
                 'hostname': hostname,
@@ -70,12 +71,13 @@ angular.module('Measure.services.Measurement', [])
 }])
 
 .factory('MeasurementBackgroundService', function(MeasurementService,
-        HistoryService, SettingsService, MLabService, accessInformation) {
+        HistoryService, SettingsService, MLabService, accessInformation,
+		$rootScope) {
 
     var MeasurementBackgroundService = {};
 
     MeasurementBackgroundService.startBackground = function () {
-        var setMetroSelection = SettingsService.currentSettings.metroSelection.metro;
+        var setMetroSelection = SettingsService.currentSettings.metroSelection;
         var measurementRecord = {
               'timestamp': Date.now(),
               'index': HistoryService.historicalData.measurements.length,
@@ -88,7 +90,7 @@ angular.module('Measure.services.Measurement', [])
         };
         var backgroundClient;
 
-        if (MeasurementService.testSemaphore !== true) {
+        if (MeasurementService.state.testSemaphore !== true) {
             accessInformation.getAccessInformation().then(
                 function (accessInformation) {
                     measurementRecord.accessInformation = accessInformation;
@@ -100,13 +102,24 @@ angular.module('Measure.services.Measurement', [])
                     MeasurementService.start(measurementRecord.mlabInformation.fqdn,
                             3001, '/ndt_protocol', 2000).then(
                         function(passedResults) {
+							$rootScope.$emit('measurement:background', {
+								'testStatus': 'complete',
+								'passedResults': passedResults
+							});
                             measurementRecord.results = passedResults;
                             HistoryService.add(measurementRecord);
                         },
-                        function () { return true; },
+                        function () {
+							$rootScope.$emit('measurement:background:error');
+							return true;
+						},
                         function (deferredNotification) {
                             var testStatus = deferredNotification.testStatus,
                                 passedResults = deferredNotification.passedResults;
+							$rootScope.$emit('measurement:background', {
+								'testStatus': testStatus,
+								'passedResults': passedResults
+							});
                             if (testStatus === 'interval_c2s') {
                                 if (passedResults !== undefined) {
                                     measurementRecord.snapLog.c2sRate.push(passedResults.c2sRate);

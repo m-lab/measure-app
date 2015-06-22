@@ -28,9 +28,12 @@ angular.module('Measure.services.Storage', [])
             retrievedValue = ChromeAppSupport.get(keyName);
         } else if (localStorage !== undefined) {
             temporaryValue = localStorage.getItem(keyName);
-            if (temporaryValue != undefined && isJsonString(temporaryValue) === true) {
+            if (temporaryValue != undefined  && temporaryValue != null &&
+					isJsonString(temporaryValue) === true) {
 				temporaryValue = angular.fromJson(temporaryValue);
-            }
+            } else if (temporaryValue === null) {
+				temporaryValue = undefined;
+			}
             restoreDeferred.resolve(temporaryValue);
             retrievedValue = restoreDeferred.promise;
         } else {

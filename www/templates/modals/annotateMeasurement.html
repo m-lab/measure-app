@@ -1,19 +1,17 @@
 <ion-modal-view>
-<ion-header-bar class="bar bar-header">
-  <button class="button button-clear button-primary"
-    ng-click="annotateModal.hide()" translate>Cancel</button>
-  <h1 class="title" translate>Edit Measurement Notes</h1>
-  <button class="button button-primary"
-    ng-click="saveMeasurementNotes(annotateModal.MeasurementNotes); annotateModal.hide()"
-    translate>Save</button>
-</ion-header-bar>
-<ion-content class="padding">
-  <div class="list">
-    <label class="item item-input">
-        <i class="icon ion-compose placeholder-icon"></i>
-        <textarea ng-model="annotateModal.MeasurementNotes" rows="7"
-            placeholder="{{ 'Measurement Notes' | translate }}"
-            style="resize: none; overflow: scroll;" autofocus></textarea>
-    </label>
-</ion-content>
+	<ion-header-bar class="bar bar-header">
+		<button class="button button-clear button-primary"
+				ng-click="annotateModal.hide()" translate>Cancel</button>
+		<h1 class="title" translate>Edit Measurement Notes</h1>
+		<button class="button button-primary"
+				ng-click="saveMeasurementNotes(annotateModal.MeasurementNotes); annotateModal.hide()"
+				translate>Save</button>
+	</ion-header-bar>
+	<ion-content class="padding modal__anonate_measurement">
+		<label class="item item-input">
+			<i class="icon ion-compose placeholder-icon"></i>
+			<textarea ng-model="annotateModal.MeasurementNotes" rows="7"
+				placeholder="{{ 'Measurement Notes' | translate }}" autofocus></textarea>
+		</label>
+	</ion-content>
 </ion-modal-view>

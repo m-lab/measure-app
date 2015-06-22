@@ -1,78 +1,78 @@
 angular.module('Measure.services.Settings', [])
 
-.factory('SettingsService', function($q, StorageService, MLabService) {
+.factory('SettingsService', function($q, $rootScope, StorageService) {
 
-  var service = {
-	currentSettings: {},
-    availableSettings: {
-      'onlyWifi': {
-        'default': false,
-        'type': 'boolean',
-        'value': undefined
-      },
-      'applicationLanguage': {
-        'default': {'code': 'en', 'label': 'English'},
-        'options': [
-            {'code': 'en', 'label': 'English'},
-            {'code': 'fa_IR', 'label': 'فارسی'},
-        ]
-      },
-      'scheduledTesting': {
-        'default': false,
-        'type': 'boolean',
-        'value': undefined
-      },
-      'trustedTester': {
-        'default': false,
-        'type': 'boolean',
-        'value': undefined
-      },
-      'metroSelection': {
-        'default': {'metro': 'automatic', 'label': 'Automatic'},
-        'options': [],
-        'value': undefined
-      },
-      'scheduleInterval': {
-        'default': 'daily',
-        'options': ['constantly', 'hourly', 'daily', 'weekly'],
-        'value': undefined
-      }
-    },
-    lastUpdatedTimestamp: undefined,
-    savedSettings: {},
-    save: function() {
-      this.lastUpdatedTimestamp = Date.now();
-      angular.forEach(service.availableSettings, function (availableSettingValue, availableSettingKey) {
-        service.savedSettings[availableSettingKey] = availableSettingValue.value;
-      });
-      StorageService.set('savedSettings', service.savedSettings);
-    },
-    lastUpdated: function () { return this.lastUpdatedTimestamp; },
-    restore: function () {
-      var restoreDeferred = $q.defer();
-      StorageService.get('savedSettings').then(
+	var SettingsService = {};
+  
+	SettingsService.currentSettings = {};
+    SettingsService.lastUpdatedTimestamp = undefined;
+
+	SettingsService.availableSettings = {
+		'onlyWifi': {
+			'default': false,
+			'type': 'boolean',
+			'value': undefined
+		},
+		'applicationLanguage': {
+			'default': {'code': 'en', 'label': 'English'},
+			'options': [
+				{'code': 'en', 'label': 'English'},
+				{'code': 'fa_IR', 'label': 'فارسی'},
+			]
+		  },
+		'scheduledTesting': {
+			'default': false,
+			'type': 'boolean',
+			'value': undefined
+		},
+		'trustedTester': {
+			'default': false,
+			'type': 'boolean',
+		},
+		'metroSelection': {
+			'default': {'metro': 'automatic', 'label': 'Automatic'},
+			'options': [],
+		},
+		'scheduleInterval': {
+			'default': 'daily',
+			'options': ['constantly', 'hourly', 'daily', 'weekly'],
+		}
+    };
+	
+    SettingsService.save = function () {
+		var savedSettings = {}
+		this.lastUpdatedTimestamp = Date.now();
+		angular.forEach(this.currentSettings, function (settingValue, settingKey) {
+			savedSettings[settingKey] = settingValue;
+		});
+		StorageService.set('savedSettings', savedSettings);
+    };
+
+    SettingsService.restore = function () {
+		var restoreDeferred = $q.defer();
+		StorageService.get('savedSettings').then(
             function (savedSettings) {
-				angular.forEach(service.availableSettings, function (availableSettingsValue, availableSettingsKey) {
-					if (savedSettings[availableSettingsKey] !== undefined) {
-						service.currentSettings[availableSettingsKey] = savedSettings[availableSettingsKey];
-						service.availableSettings[availableSettingsKey].value = savedSettings[availableSettingsKey];
+				angular.forEach(SettingsService.availableSettings, function (availableSettingsValue, availableSettingsKey) {
+					if (savedSettings !== undefined && savedSettings[availableSettingsKey] !== undefined) {
+						SettingsService.currentSettings[availableSettingsKey] = savedSettings[availableSettingsKey];
 					} else {
-						service.currentSettings[availableSettingsKey] = availableSettingsValue.default;
+						SettingsService.currentSettings[availableSettingsKey] = availableSettingsValue.default;
 					}
 				});
                 restoreDeferred.resolve();
             }
         );
         return restoreDeferred.promise;
-    },
-    'setSetting': function (requestedSettingName, requestedSettingValue) {
-      service.availableSettings[requestedSettingName].value = requestedSettingValue;
-      service.save();
-    }
-    
-    
-  };
-
-	service.restore();
-	return service;
+    };
+    SettingsService.setSetting = function (requestedSettingName, requestedSettingValue) {
+		$rootScope.$emit('settings:changed', {
+			name: requestedSettingName,
+			value: requestedSettingValue
+		});
+		SettingsService.currentSettings[requestedSettingName] = requestedSettingValue;
+		SettingsService.save();
+    };
+		 
+	SettingsService.restore();
+	return SettingsService;
 })

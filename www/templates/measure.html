@@ -1,51 +1,84 @@
 <ion-view view-title="Measure">
-	<ion-nav-bar type="bar-light">
+	<ion-nav-bar>
 		<ion-nav-buttons side="primary">
-			<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+			<button menu-toggle="left"
+					class="button button-icon icon ion-navicon"></button>
 		</ion-nav-buttons>
 	</ion-nav-bar>
-  <ion-content class="center panel__measure">
-    <div class="row padding-vertical">
-      <div class="col center">
-		<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
-				options="progressGaugeConfig.gaugeOptions"
-				value="progressGaugeState.current"
-				max-value="progressGaugeState.maximum"
-				inner-text="progressGaugeState.message"
-				height="180" on-tap="startNDT()"></canvas>
-      </div>
-    </div>
-        <div class="row padding-vertical status_row">
-            <div class="col center col-bottom">
-				<span class="currentState"
-						ng-show="currentState !== undefined">
-					{{ currentState }}
-				</span>
-				<span class="currentRate"
-						ng-show="currentRate !== undefined">
+	<ion-content class="panel__measure" padding="false">
+        <div class="row padding-vertical">
+			<div class="col center">
+				<i class="icon ion-earth"
+						ng-show="mlabInformation.label === undefined"></i>
+				<a ui-sref="app.serverSelection()"
+					ng-show="mlabInformation.label !== undefined"
+					class="button button-clear button-dark
+						currentLocation">{{ mlabInformation.label }}</a>
+			</div>
+        </div>
+        <div class="row padding-vertical">
+			<div class="col center">
+				<i class="icon ion-cloud currentNetwork"
+						ng-show="accessInformation.isp === undefined"></i>
+				<span class="currentNetwork">{{ accessInformation.isp }}</span>
+			</div>
+        </div>
+		<div class="row padding-vertical">
+			<div class="col center displayArea">
+				<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
+						class="progressGauge"
+						options="progressGaugeConfig.gaugeOptions"
+						value="progressGaugeState.current"
+						max-value="progressGaugeState.maximum"
+						on-tap="startNDT()"
+						height="180"></canvas>
+				<img src="img/interactions/play.svg"
+						ng-model="gaugeIcon"
+						ng-mouseover="interactionHover(true)"
+						ng-mouseout="interactionHover(false)"
+						class="gaugeIcon interactionIcon currentIcon"
+						on-tap="startNDT()" />
+			</div>
+		</div>
+        <div class="row status_row" ng-show="currentRate !== undefined">
+			<div class="col center">
+				<span class="currentRate">
 					{{ currentRate | formatThroughputMeasurement }}
 				</span>
 				<span class="currentRateLabel"
 					ng-show="currentRate !== undefined" translate>Mbps</span>
 			</div>
         </div>
-        <div class="row">
-			<div class="col col-offset-33">
-				<i class="icon ion-cloud"></i>
-				<span>{{ accessInformation.isp }}</span>
+        <div class="row padding-vertical status_row">
+			<div class="col center">
+				<span class="currentState"
+						ng-show="currentState !== undefined">
+					{{ currentState }}
+				</span>
+				<span
+					ng-show="currentState === undefined && mlabInformation !== undefined"
+					class="startTest" on-tap="startNDT()"
+					translate>Tap to Start</span>
+				<span
+					ng-show="currentState === undefined && mlabInformation === undefined"
+					class="findingServer"
+					translate>Finding Server</span>
 			</div>
         </div>
-        <div class="row">
-			<div class="col col-offset-33">
-				<i class="icon ion-earth"></i>
-				<span>{{ mlabInformation.label }}</span>
+		<div class="row" ng-show="historyState.lastMeasurement !== undefined">
+			<div class="col center">
+				<a class="button button-outline button-positive icon-left ion-plus-round"
+						ui-sref="app.measurementRecord({measurementId: historyState.lastMeasurement})"
+						translate>More</a>
+				<a class="button button-outline button-balanced icon-right ion-share"
+						on-tap="shareMeasurement({{ historyState.lastMeasurement }})"
+						ng-show="MeasureConfig.sharingSupported"
+						translate>Share</a>
 			</div>
-        </div>
-        <div class="row" ng-show="lastMeasurement !== undefined">
-			<div class="col col-offset-33 right">
-				<a class="button button-positive button-clear icon-left ion-share" on-tap="shareMeasurement({{ lastMeasurement }})" ng-show="MeasureConfig.sharingSupported" translate>Share</a>
-				<a class="button button-royal button-clear icon-right ion-chevron-right" ui-sref="app.measurementRecord({measurementId: lastMeasurement})" translate>More</a>
+		</div>
+		<div class="row desktop-only">
+			<div class="col">
 			</div>
-        </div>
-  </ion-content>
+		</div>
+	</ion-content>
 </ion-view>

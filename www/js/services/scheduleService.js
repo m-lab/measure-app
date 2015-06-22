@@ -19,45 +19,55 @@ angular.module('Measure.services.Schedule', [])
 .factory('ScheduleManagerService' , function(MeasureConfig, SettingsService,
         MeasurementBackgroundService, StorageService) {
 
-	var ScheduleManagerService = {
+	var ScheduleManagerService = {};
+	
+	ScheduleManagerService.state = {
 		'scheduleSemaphore': undefined
 	};
 
+	ScheduleManagerService.initialize = function () {
+		var currentTime = Date.now();
+		var scheduleInterval = SettingsService.currentSettings.scheduleInterval;
+		var scheduledTesting = SettingsService.currentSettings.scheduledTesting;
+	}
+	
 	ScheduleManagerService.watch = function () {
 		var currentTime = Date.now();
 		var scheduleInterval = SettingsService.currentSettings.scheduleInterval;
 		var scheduledTesting = SettingsService.currentSettings.scheduledTesting;
 		
 		if (scheduledTesting === true) {
-			if (this.scheduleSemaphore === undefined) {
+			if (ScheduleManagerService.state.scheduleSemaphore === undefined) {
 				StorageService.get('scheduleSemaphore').then(
 					function (storedScheduleSemaphore) {
 						if (storedScheduleSemaphore === undefined ||
 								currentTime < storedScheduleSemaphore.start ||
 								currentTime > storedScheduleSemaphore.end ||
 								scheduleInterval !== storedScheduleSemaphore.intervalType) {
-							ScheduleManagerService.scheduleSemaphore = createScheduleSemaphore(scheduleInterval);
+							ScheduleManagerService.state.scheduleSemaphore = createScheduleSemaphore(scheduleInterval);
 							StorageService.set('scheduleSemaphore',
-									ScheduleManagerService.scheduleSemaphore);
+									ScheduleManagerService.state.scheduleSemaphore);
+						} else {
+							ScheduleManagerService.state.scheduleSemaphore = storedScheduleSemaphore;
 						}
-						ScheduleManagerService.decide(ScheduleManagerService.scheduleSemaphore);
+						ScheduleManagerService.decide(ScheduleManagerService.state.scheduleSemaphore);
 					}
 				);
 			} else {
-				ScheduleManagerService.decide(ScheduleManagerService.scheduleSemaphore);
+				ScheduleManagerService.decide(ScheduleManagerService.state.scheduleSemaphore);
 			}
 		}
 	};
 
 	ScheduleManagerService.decide = function (scheduleSemaphore) {
 		var currentTime = Date.now();
-
+		console.log(scheduleSemaphore);
 		if (scheduleSemaphore.triggered === false &&
 				currentTime > scheduleSemaphore.choice) {
 			console.log('Founded scheduled measurement ready, triggering.');
 			scheduleSemaphore.triggered = true;
 
-			ScheduleManagerService.scheduleSemaphore = scheduleSemaphore;
+			ScheduleManagerService.state.scheduleSemaphore = scheduleSemaphore;
 			StorageService.set('scheduleSemaphore', scheduleSemaphore);
 
 			MeasurementBackgroundService.startBackground();
@@ -89,7 +99,8 @@ function createScheduleSemaphore(scheduleInterval) {
     scheduleIntervalinSeconds = scheduleLabelToTimes[scheduleInterval]
     scheduleSemaphore.start = currentTime;
     scheduleSemaphore.end = currentTime + scheduleIntervalinSeconds;
-    scheduleSemaphore.choice = currentTime + Math.floor(Math.random() * scheduleIntervalinSeconds);
+    scheduleSemaphore.choice = currentTime +
+			Math.floor(Math.random() * scheduleIntervalinSeconds);
     scheduleSemaphore.intervalType = scheduleInterval;
 
     return scheduleSemaphore;
