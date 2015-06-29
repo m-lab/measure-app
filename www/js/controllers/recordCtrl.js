@@ -39,7 +39,7 @@ angular.module('Measure.controllers.Record', [])
         $scope.measurementRecord.index = measurementRecord.index;
 
         if (measurementRecord.timestamp !== undefined) {
-            $scope.measurementRecord.information['Time'] = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy');
+            $scope.measurementRecord.information['Time'] = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy (H:mm)');
         }
 
         if (measurementRecord.accessInformation !== undefined) {
