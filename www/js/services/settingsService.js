@@ -30,7 +30,7 @@ angular.module('Measure.services.Settings', [])
 			'type': 'boolean',
 		},
 		'metroSelection': {
-			'default': {'metro': 'automatic', 'label': 'Automatic'},
+			'default': 'automatic',
 			'options': [],
 		},
 		'scheduleInterval': {
