@@ -55,6 +55,10 @@ angular.module('Measure.services.Settings', [])
 				angular.forEach(SettingsService.availableSettings, function (availableSettingsValue, availableSettingsKey) {
 					if (savedSettings !== undefined && savedSettings[availableSettingsKey] !== undefined) {
 						SettingsService.currentSettings[availableSettingsKey] = savedSettings[availableSettingsKey];
+						
+						if (availableSettingsKey === 'metroSelection' && typeof(savedSettings[availableSettingsKey]) === 'object') {
+							SettingsService.currentSettings[availableSettingsKey] = savedSettings[availableSettingsKey].metro;
+						}
 					} else {
 						SettingsService.currentSettings[availableSettingsKey] = availableSettingsValue.default;
 					}

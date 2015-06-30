@@ -3,13 +3,13 @@ angular.module('Measure.services.Schedule', [])
 .factory('ScheduleService', function(MeasureConfig, ChromeAppSupport,
         ScheduleManagerService) {
 
-    var FIRST_ALARM_TIME = 1,
-        PERIOD_IN_MINUTES = 1;
+    var PERIOD_IN_MINUTES = 1;
 	var ScheduleService = {};
 
 	ScheduleService.initiate = function () {
 		if (MeasureConfig.environmentType === 'ChromeApp') {
-			ChromeAppSupport.createAlarm(FIRST_ALARM_TIME, PERIOD_IN_MINUTES,
+			ScheduleManagerService.watch();
+			ChromeAppSupport.createAlarm(PERIOD_IN_MINUTES, PERIOD_IN_MINUTES,
 				ScheduleManagerService.watch);
 		}
 	};
@@ -31,11 +31,11 @@ angular.module('Measure.services.Schedule', [])
 		var scheduledTesting = SettingsService.currentSettings.scheduledTesting;
 	}
 	
-	ScheduleManagerService.watch = function () {
-		var scheduledTesting = SettingsService.currentSettings.scheduledTesting;
-		
+	ScheduleManagerService.watch = function (eventInformation, scheduledTesting) {
+		scheduledTesting = typeof scheduledTesting !== 'undefined' ? scheduledTesting : SettingsService.currentSettings.scheduledTesting;
+		console.log(scheduledTesting);
 		if (scheduledTesting === true) {
-			if (ScheduleManagerService.state.scheduleSemaphore === undefined) {
+			if (ScheduleManagerService.state.scheduleSemaphore.choice === undefined) {
 				StorageService.get('scheduleSemaphore').then(
 					function (storedScheduleSemaphore) {
 						ScheduleManagerService.validateThenDecide(storedScheduleSemaphore);
@@ -44,6 +44,12 @@ angular.module('Measure.services.Schedule', [])
 			} else {
 				ScheduleManagerService.validateThenDecide(ScheduleManagerService.state.scheduleSemaphore);
 			}
+		} else if (scheduledTesting === undefined) {
+			StorageService.get('scheduledTesting').then(
+				function (storedScheduledTesting) {
+					ScheduleManagerService.watch(undefined, storedScheduledTesting);
+				}
+			);
 		}
 	};
 	
@@ -69,7 +75,8 @@ angular.module('Measure.services.Schedule', [])
 
 	ScheduleManagerService.decide = function (scheduleSemaphore) {
 		var currentTime = Date.now();
-		if (scheduleSemaphore.triggered === false &&
+		if (scheduleSemaphore.choice !== undefined &&
+				scheduleSemaphore.triggered === false &&
 				currentTime > scheduleSemaphore.choice) {
 			console.log('Found scheduled measurement ready, triggering.');
 			scheduleSemaphore.triggered = true;
@@ -100,21 +107,22 @@ angular.module('Measure.services.Schedule', [])
 		var scheduleIntervalinSeconds;
 		var scheduleSemaphoreChoice;
 
-		scheduleIntervalinSeconds = scheduleLabelToTimes[scheduleInterval]
-		scheduleSemaphore.start = currentTime;
-		scheduleSemaphore.end = currentTime + scheduleIntervalinSeconds;
-		scheduleSemaphore.choice = currentTime +
-				Math.floor(Math.random() * scheduleIntervalinSeconds);
-		scheduleSemaphore.intervalType = scheduleInterval;
+		if (scheduleLabelToTimes.hasOwnProperty(scheduleInterval) === true) {
+			scheduleIntervalinSeconds = scheduleLabelToTimes[scheduleInterval]
+			scheduleSemaphore.start = currentTime;
+			scheduleSemaphore.end = currentTime + scheduleIntervalinSeconds;
+			scheduleSemaphore.choice = currentTime +
+					Math.floor(Math.random() * scheduleIntervalinSeconds);
+			scheduleSemaphore.intervalType = scheduleInterval;
 
-		console.log('On ' + new Date(currentTime).toUTCString() + ' created scheduled test covering ' +
-				new Date(scheduleSemaphore.start).toUTCString() +
-				' and ' + new Date(scheduleSemaphore.end).toUTCString() +
-				' scheduled to run near ' + new Date(scheduleSemaphore.choice).toUTCString() + '.');
-		
-		ScheduleManagerService.state.scheduleSemaphore = scheduleSemaphore;
-		StorageService.set('scheduleSemaphore', scheduleSemaphore);
-
+			console.log('On ' + new Date(currentTime).toUTCString() + ' created scheduled test covering ' +
+					new Date(scheduleSemaphore.start).toUTCString() +
+					' and ' + new Date(scheduleSemaphore.end).toUTCString() +
+					' scheduled to run near ' + new Date(scheduleSemaphore.choice).toUTCString() + '.');
+			
+			ScheduleManagerService.state.scheduleSemaphore = scheduleSemaphore;
+			StorageService.set('scheduleSemaphore', scheduleSemaphore);
+		}
 		return scheduleSemaphore;
 	};
 
