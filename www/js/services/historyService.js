@@ -50,6 +50,12 @@ angular.module('Measure.services.History', [])
 			HistoryService.save();
 			HistoryService.reIndex();
 			HistoryService.populateRecentSamples();
+
+			if (HistoryService.state.lastMeasurement === measurementId) {
+				HistoryService.state.lastMeasurement = undefined;
+			} else {
+				HistoryService.state.lastMeasurement = HistoryService.historicalData.measurements.length - 1;
+			}
 			$rootScope.$emit('history:measurement:removed', measurementId);
 		}
     };
@@ -87,6 +93,7 @@ angular.module('Measure.services.History', [])
     HistoryService.reset = function () {
 		HistoryService.historicalData.measurements = [];
 		HistoryService.state.dataConsumed = 0;
+		HistoryService.state.lastMeasurement = undefined;
 		HistoryService.reIndex();
 		HistoryService.save();
 		$rootScope.$emit('history:cleared', measurementId);

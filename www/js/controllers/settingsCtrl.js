@@ -4,12 +4,13 @@ angular.module('Measure.controllers.Settings', [])
 		MeasureConfig, DialogueMessages, ScheduleManagerService) {
 
 	$scope.changeSelection = SettingsService.setSetting;
+	$scope.createScheduleSemaphore = ScheduleManagerService.createScheduleSemaphore;
 
 	$scope.availableSettings = SettingsService.availableSettings;
 	$scope.currentSettings = SettingsService.currentSettings;
 	$scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
 	$scope.historyState = HistoryService.state;
-	$scope.ScheduleManagerService = ScheduleManagerService.state;
+	$scope.scheduleSemaphore = ScheduleManagerService.state.scheduleSemaphore;
 
 	$scope.initiateHistoryReset = function() {
 		var historyResetPopup = $ionicPopup.confirm(DialogueMessages.historyReset);

@@ -19,23 +19,23 @@
 					translate>Scheduled Testing</div>
 			<ion-toggle ng-model="currentSettings.scheduledTesting"
 					ng-if="environmentCapabilities.schedulingSupported"
-					ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting)">
+					ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting); createScheduleSemaphore(currentSettings.scheduleInterval);">
 				<span translate>Scheduled Testing</span>
 			</ion-toggle>
 			<label class="item item-input item-select" ng-show="environmentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
 				<div class="input-label" translate>Schedule</div>
 				<select ng-model="currentSettings.scheduleInterval"
-                    ng-change="changeSelection('scheduleInterval', currentSettings.scheduleInterval)"
+                    ng-change="changeSelection('scheduleInterval', currentSettings.scheduleInterval); createScheduleSemaphore(currentSettings.scheduleInterval);"
                     ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
 				</select>
 			</label>
 			<ion-toggle ng-model="currentSettings.onlyWifi"
 					ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
 				   ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
-			<div class="item" ng-show="ScheduleManagerService.scheduleSemaphore !== undefined">
+			<div class="item" ng-show="currentSettings.scheduledTesting === true && scheduleSemaphore.choice !== undefined">
 				<span translate>Next Test</span>
 				<span class="badge">
-					{{ ScheduleManagerService.scheduleSemaphore.choice | date:'yyyy-MM-dd HH:mm' }}
+					{{ scheduleSemaphore.choice | date:'yyyy-MM-dd HH:mm' }}
 				</span>
 			</div>
 			<!-- -->
