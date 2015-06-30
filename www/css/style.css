@@ -41,8 +41,9 @@ span.measurement-icon:before {
 	font-weight: bold;
 }
 
-.panel__about img.logo {
+.panel__about img.logo, .panel__host_information img.logo {
 	width: 100%;
+	padding-bottom: 10px;
 }
 .panel__measure span.startTest {
 	background-color: #FF5FD8;
@@ -207,6 +208,16 @@ span.item-note {
 	font-size: 0.9em;
 	font-weight: 200;
 }
+
+.panel__privacy_information ul.privacyInformation {
+	list-style: disc;
+}
+.panel__privacy_information ul.privacyInformation li {
+	text-align: left;
+	list-style: disc;
+	margin: 5px 20px;
+}
+
 
 .modal__anonate_measurement textarea {
 	resize: none;
