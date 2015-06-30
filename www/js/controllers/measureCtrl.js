@@ -1,10 +1,18 @@
 angular.module('Measure.controllers.Measurement', [])
 
-.controller('MeasureCtrl', function($scope, $interval, $ionicPopup,
+.controller('MeasureCtrl', function($scope, $interval, $ionicPopup, $ionicLoading,
 		MeasurementService, SettingsService, $rootScope,
 		MLabService, accessInformation, HistoryService, DialogueMessages,
 		progressGaugeService, MeasureConfig, connectionInformation) {
 
+
+	$ionicLoading.show({
+		templateUrl: 'templates/modals/findingServer.html',
+		animation: 'fade-in',
+		showBackdrop: true,
+		maxWidth: 200,
+		showDelay: 200
+	});
 
 	var updateMLabServer = function () {
 		var metroSelection = SettingsService.currentSettings.metroSelection;
@@ -13,9 +21,13 @@ angular.module('Measure.controllers.Measurement', [])
 			metroSelection = 'automatic';
 		}
 		MLabService.findServer(SettingsService.currentSettings.metroSelection).then(
-			function(mlabAnswer, callbackFunction) {
+			function(mlabAnswer) {
 				$scope.mlabInformation = mlabAnswer;
 				$scope.mlabInformation.metroSelection = SettingsService.currentSettings.metroSelection;
+				$ionicLoading.hide();
+			},
+			function () {
+				console.log("MlabNSLookupException");
 			}
 		);
 	}
@@ -89,9 +101,7 @@ angular.module('Measure.controllers.Measurement', [])
 
 		if ($scope.mlabInformation === undefined) {
 			intervalPromise = $interval(function () {
-				console.log('too soon');
 				if ($scope.mlabInformation !== undefined) {
-					console.log('found mlab');
 					$interval.cancel(intervalPromise);
 					$scope.startNDT();
 				}
