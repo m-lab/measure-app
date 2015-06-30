@@ -13,6 +13,11 @@
     }
 }
 
+body {
+	min-height: 480px;
+	min-width: 320px
+}
+
 div.row div.col.center {
   display: table-cell;
   vertical-align: middle;
@@ -46,11 +51,21 @@ span.measurement-icon:before {
 	border-radius: 5px;
 	font-weight: bold;
 }
-.panel__measure span.findingServer {
-	color: #FF5FD8;
-	padding: 5px;
-	border-radius: 5px;
+
+.dialogue__findingServer {
+	vertical-align: middle;
+}
+
+.dialogue__findingServer span {
+/*	color: #FF5FD8;*/
 	font-weight: bold;
+}
+
+.dialogue__findingServer .spinner svg {
+	stroke: #FFF;
+	fill: #FFF;
+	width: 80px;
+	height: 80px;
 }
 
 .panel__measure .gaugeIcon {

@@ -10,8 +10,9 @@ angular.module('Measure.services.History', [])
     };
 
     HistoryService.state = {
-		lastMeasurement: undefined,
-		recentSamples: []
+		'lastMeasurement': undefined,
+		'dataConsumed': 0,
+		'recentSamples': []
 	};
 
 	HistoryService.reIndex = function() {
@@ -35,6 +36,7 @@ angular.module('Measure.services.History', [])
 		HistoryService.save();
 
 		HistoryService.state.lastMeasurement = this.historicalData.measurements.length - 1;
+		HistoryService.state.dataConsumed += measurementRecord.results.receivedBytes;
 		HistoryService.reIndex();
 		HistoryService.populateRecentSamples();
 		$rootScope.$emit('history:measurement:added', measurementRecord);
@@ -43,6 +45,7 @@ angular.module('Measure.services.History', [])
     HistoryService.hide = function (measurementId) {
 		if (measurementId !== undefined) {
 			console.log('Removed measurement', measurementId);
+			HistoryService.state.dataConsumed -= HistoryService.historicalData.measurements[measurementId].results.receivedBytes;
 			HistoryService.historicalData.measurements.splice(measurementId, 1);
 			HistoryService.save();
 			HistoryService.reIndex();
@@ -83,6 +86,7 @@ angular.module('Measure.services.History', [])
 
     HistoryService.reset = function () {
 		HistoryService.historicalData.measurements = [];
+		HistoryService.state.dataConsumed = 0;
 		HistoryService.reIndex();
 		HistoryService.save();
 		$rootScope.$emit('history:cleared', measurementId);
@@ -97,6 +101,7 @@ angular.module('Measure.services.History', [])
 				angular.forEach(storedHistoricalData.measurements,
 					function (historicalRecord, historicalKey) {
 						that.historicalData.measurements.push(historicalRecord);
+						that.state.dataConsumed += historicalRecord.results.receivedBytes;
 					}
 				);
 				that.reIndex();
@@ -105,15 +110,6 @@ angular.module('Measure.services.History', [])
 			
         });
     };
-
-    HistoryService.dataConsumed = function () {
-		var totalReceivedBytes = 0;
-		angular.forEach(this.historicalData.measurements,
-				function (measurementRecord) {
-			totalReceivedBytes += measurementRecord.results.receivedBytes;
-		});
-		return totalReceivedBytes;
-	};
 
 	HistoryService.restore();
 

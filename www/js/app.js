@@ -237,6 +237,15 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     }
   })
 
+  .state('app.findingServer', {
+    url: "/dialogues/findingServer",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/modals/findingServer.html"
+      }
+    }
+  })
+
   .state('app.measurementRecord', {
       url: "/record/:measurementId",
       views: {

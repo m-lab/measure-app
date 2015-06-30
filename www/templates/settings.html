@@ -43,7 +43,7 @@
 			<div class="item">
 				<span translate>Data Consumed</span>
 				<span class="badge badge-assertive">
-					{{ dataConsumed  | formatDataConsumptionMeasurement }}
+					{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}
 				</span>
 			</div>
 			<ion-toggle ng-model="currentSettings.trustedTester"

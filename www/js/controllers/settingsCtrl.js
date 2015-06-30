@@ -2,13 +2,13 @@ angular.module('Measure.controllers.Settings', [])
 
 .controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService,
 		MeasureConfig, DialogueMessages, ScheduleManagerService) {
-	$scope.dataConsumed = HistoryService.dataConsumed();
 
 	$scope.changeSelection = SettingsService.setSetting;
 
 	$scope.availableSettings = SettingsService.availableSettings;
 	$scope.currentSettings = SettingsService.currentSettings;
 	$scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
+	$scope.historyState = HistoryService.state;
 	$scope.ScheduleManagerService = ScheduleManagerService.state;
 
 	$scope.initiateHistoryReset = function() {

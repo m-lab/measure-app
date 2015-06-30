@@ -65,7 +65,7 @@
 					translate>Finding Server</span>
 			</div>
         </div>
-		<div class="row" ng-show="historyState.lastMeasurement !== undefined">
+		<div class="row" ng-show="historyState.lastMeasurement !== undefined && measurementState.testSemaphore === false">
 			<div class="col center">
 				<a class="button button-outline button-positive icon-left ion-plus-round"
 						ui-sref="app.measurementRecord({measurementId: historyState.lastMeasurement})"

@@ -63,7 +63,7 @@ angular.module('Measure.services.MeasurementLab', [])
 					findDeferred.resolve(responseObject);
 				})
 				.error(function(data) {
-				  findDeferred.reject(responseObject);
+					findDeferred.reject(data);
 				});
 		}
 		return findDeferred.promise;
