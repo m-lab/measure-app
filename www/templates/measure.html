@@ -24,7 +24,8 @@
 			</div>
         </div>
 		<div class="row padding-vertical">
-			<div class="col center displayArea">
+			<div class="col center displayArea"
+					ng-class="{testReady: measurementState.testSemaphore===false}">
 				<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
 						class="progressGauge"
 						options="progressGaugeConfig.gaugeOptions"

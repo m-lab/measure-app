@@ -61,6 +61,13 @@ span.measurement-icon:before {
 	font-weight: bold;
 }
 
+.panel__measure .displayArea.testReady .gaugeIcon,
+		.panel__measure .displayArea.testReady .progressGauge,
+		.panel__measure span.startTest
+		 {
+	cursor: pointer;
+}
+
 .dialogue__findingServer .spinner svg {
 	stroke: #FFF;
 	fill: #FFF;
