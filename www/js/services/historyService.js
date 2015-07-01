@@ -51,7 +51,7 @@ angular.module('Measure.services.History', [])
 			HistoryService.reIndex();
 			HistoryService.populateRecentSamples();
 
-			if (HistoryService.state.lastMeasurement === measurementId) {
+			if (HistoryService.state.lastMeasurement === measurementId || HistoryService.state.lastMeasurement === undefined) {
 				HistoryService.state.lastMeasurement = undefined;
 			} else {
 				HistoryService.state.lastMeasurement = HistoryService.historicalData.measurements.length - 1;
@@ -96,7 +96,7 @@ angular.module('Measure.services.History', [])
 		HistoryService.state.lastMeasurement = undefined;
 		HistoryService.reIndex();
 		HistoryService.save();
-		$rootScope.$emit('history:cleared', measurementId);
+		$rootScope.$emit('history:reset');
     };
 
     HistoryService.restore = function () {

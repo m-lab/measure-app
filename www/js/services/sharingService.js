@@ -7,8 +7,10 @@ angular.module('Measure.services.Sharing', [])
     SharingService.shareCSV = function (dataContent) {
         var csvOptions = {'decimalSep': '.', 'txtDelim': '"'},
             csvContents = [],
+			csvHeaders = [],
 			flattenedHistory = [],
-            headerArray = [];
+            headerArray = [],
+			ignoredKeys = ['$$hashKey', 'hidden', 'mlabInformation.url', 'index'];
 		var temporaryRow,
 			temporaryKey;
 
@@ -32,16 +34,19 @@ angular.module('Measure.services.Sharing', [])
             temporaryRow = {};
             angular.forEach(headerArray, function (headerRow) {
                 if (csvContentRow.hasOwnProperty(headerRow) === true &&
-                        typeof(csvContentRow[headerRow]) !== 'object' ) {
+                        typeof(csvContentRow[headerRow]) !== 'object' &&
+						ignoredKeys.indexOf(headerRow) === -1) {
                     temporaryRow[headerRow] = csvContentRow[headerRow];
-                } else {
-                    temporaryRow[headerRow] = '';
+					
+					if (csvHeaders.indexOf(headerRow) === -1) {
+						csvHeaders.push(headerRow);
+					}
                 }
             });
             csvContents.push(temporaryRow);
         });
 
-        csvOptions.header = headerArray;
+        csvOptions.header = csvHeaders;
         CSV.stringify(csvContents, csvOptions).then(function (csvStringified) {
             var charset = "utf-8";
             var downloadLink, csvFile;
@@ -51,11 +56,10 @@ angular.module('Measure.services.Sharing', [])
                     type: "text/csv;charset=" + charset + ";"
                 });
                 downloadLink.attr('href', window.URL.createObjectURL(csvFile));
-                downloadLink.attr('download', 'Measure-Exported-Results.csv');
+                downloadLink.attr('download', 'MeasureApp-Exported-Results.csv');
 
-                $document.find('body').append(downloadLink);
                 $timeout(function () {
-                    window.open(downloadLink[0], "_blank", "location=yes");
+                    downloadLink[0].click();
                     downloadLink.remove();
                 }, null);
             } else {

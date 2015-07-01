@@ -4,55 +4,65 @@
             on-tap="shareCSV(historicalData.measurements)"
 			translate>Export</button>
 	</ion-nav-buttons>
-	<ion-content class="panel__history" on-infinite-scroll="loadMoreHistory()">
-		<p></p>
-		<highchart id="historicalDataChart" config="historicalDataChartConfig"></highchart>
-		<ion-list show-delete="false" can-swipe="true">
-			<div class="item item-divider">
-				Measurement History
-			</div>
-			<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" ng-repeat="(measurementId, measurementRecord) in
-							historicalData.measurements |  orderBy:'timestamp':true | limitTo: scrollLimit" >
-				<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
-					<div class="col">
-						<h2>{{ measurementRecord.accessInformation.isp }}</h2>
-					</div>
-					<div class="col col-25 right">
-						<h4>{{ measurementRecord.timestamp | date:'MMMM d' }}</h4>
-					</div>
+	<ion-content class="panel__history"
+			on-infinite-scroll="loadMoreHistory()"
+			ng-show="historicalData.measurements.length > 0">
+			<highchart id="historicalDataChart" config="historicalDataChartConfig" class="historicalDataChart"></highchart>
+			<ion-list show-delete="false" can-swipe="true">
+				<div class="item item-divider">
+					Measurement History
 				</div>
-				<div class="row">
-					<div class="col">
-						<small class="label" translate>Download</small>
+				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" ng-repeat="(measurementId, measurementRecord) in
+								historicalData.measurements |  orderBy:'timestamp':true | limitTo: scrollLimit" >
+					<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
+						<div class="col">
+							<h2>{{ measurementRecord.accessInformation.isp }}</h2>
+						</div>
+						<div class="col col-25 right">
+							<h4>{{ measurementRecord.timestamp | date:'MMMM d' }}</h4>
+						</div>
 					</div>
-					<div class="col right">
-						<small>{{ measurementRecord.results.s2cRate | formatThroughputDisplay }}</small></div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<small class="label" translate>Upload</small>
+					<div class="row">
+						<div class="col">
+							<small class="label" translate>Download</small>
+						</div>
+						<div class="col right">
+							<small>{{ measurementRecord.results.s2cRate | formatThroughputDisplay }}</small></div>
 					</div>
-					<div class="col right">
-						<small>{{ measurementRecord.results.c2sRate | formatThroughputDisplay }}</small>
+					<div class="row">
+						<div class="col">
+							<small class="label" translate>Upload</small>
+						</div>
+						<div class="col right">
+							<small>{{ measurementRecord.results.c2sRate | formatThroughputDisplay }}</small>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<small class="label" translate>Latency</small>
+					<div class="row">
+						<div class="col">
+							<small class="label" translate>Latency</small>
+						</div>
+						<div class="col right">
+							<small>{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</small>
+						</div>
 					</div>
-					<div class="col right">
-						<small>{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</small>
-					</div>
-				</div>
-				<ion-option-button class="button-light icon ion-heart"
-						ng-if="MeasureConfig.sharingSupported"
-						ng-click="shareMeasurement()">
-						</ion-option-button>
-				<ion-option-button class="button-assertive icon ion-trash-a"
-						ng-click="hideMeasurement(measurementRecord.index)">
-						</ion-option-button>
-			</ion-item>
-		</ion-list>
-		<ion-infinite-scroll ng-if="(historicalData.measurements.length > scrollLimit)" on-infinite="increaseScrollLimit()" distance="10%"></ion-infinite-scroll>
+					<ion-option-button class="button-light icon ion-heart"
+							ng-if="MeasureConfig.sharingSupported"
+							ng-click="shareMeasurement()">
+							</ion-option-button>
+					<ion-option-button class="button-assertive icon ion-trash-a"
+							ng-click="hideMeasurement(measurementRecord.index)">
+							</ion-option-button>
+				</ion-item>
+			</ion-list>
+			<ion-infinite-scroll ng-if="(historicalData.measurements.length > scrollLimit)" on-infinite="increaseScrollLimit()" distance="10%"></ion-infinite-scroll>
+	</ion-content>
+	<ion-content class="panel__history__empty"
+				ng-show="historicalData.measurements.length === 0">
+		<div class="row">
+			<div class="col col-offset-25 col-50 center emptyIcon"><i class="ion-erlenmeyer-flask"></i></div>
+		</div>
+		<div class="row">
+			<div class="col col-offset-25 col-50 center">No measurements yet. When you conduct tests, they will fill in here.</div>
+		</div>
 	</ion-content>
 </ion-view>

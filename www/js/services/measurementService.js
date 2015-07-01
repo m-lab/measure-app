@@ -81,7 +81,6 @@ angular.module('Measure.services.Measurement', [])
         var measurementRecord = {
               'timestamp': Date.now(),
               'index': HistoryService.historicalData.measurements.length,
-              'hidden': false,
               'mlabInformation': undefined,
               'connectionInformation': undefined,
               'accessInformation': undefined,

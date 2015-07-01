@@ -92,7 +92,6 @@ angular.module('Measure.controllers.Measurement', [])
 	$scope.startNDT = function() {
 		var measurementRecord = {
 			  'timestamp': Date.now(),
-			  'hidden': false,
 			  'metadata': {},
 			  'snapLog': {'s2cRate': [], 'c2sRate': []},
 			  'results': {},

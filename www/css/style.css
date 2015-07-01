@@ -40,6 +40,9 @@ span.measurement-icon:before {
 	color: #5B6FB2;
 	font-weight: bold;
 }
+.panel__history .historicalDataChart {
+	margin-top: 10px;
+}
 
 .panel__about img.logo, .panel__host_information img.logo {
 	width: 100%;
@@ -51,6 +54,9 @@ span.measurement-icon:before {
 	padding: 5px;
 	border-radius: 5px;
 	font-weight: bold;
+}
+.panel__history__empty .emptyIcon i {
+	font-size: 90px;
 }
 
 .dialogue__findingServer {
