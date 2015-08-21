@@ -11,6 +11,7 @@ angular.module('Measure.services.Measurement', [])
 
     MeasurementWorker.addEventListener('message', function (e) {
         var passedMessage = e.data;
+
         switch (passedMessage.cmd) {
             case 'onstart':
                 var deferredNotification = {
@@ -68,70 +69,4 @@ angular.module('Measure.services.Measurement', [])
     };
 
     return MeasurementService;
-}])
-
-.factory('MeasurementBackgroundService', function(MeasurementService,
-        HistoryService, SettingsService, MLabService, accessInformation,
-		$rootScope) {
-
-    var MeasurementBackgroundService = {};
-
-    MeasurementBackgroundService.startBackground = function () {
-        var setMetroSelection = SettingsService.currentSettings.metroSelection;
-        var measurementRecord = {
-              'timestamp': Date.now(),
-              'index': HistoryService.historicalData.measurements.length,
-              'mlabInformation': undefined,
-              'connectionInformation': undefined,
-              'accessInformation': undefined,
-              'metadata': {},
-              'snapLog': {'s2cRate': [], 'c2sRate': []}
-        };
-        var backgroundClient;
-
-        if (MeasurementService.state.testSemaphore !== true) {
-            accessInformation.getAccessInformation().then(
-                function (accessInformation) {
-                    measurementRecord.accessInformation = accessInformation;
-                }
-            );
-            MLabService.findServer(setMetroSelection).then(
-                function(mlabAnswer) {
-                    measurementRecord.mlabInformation = mlabAnswer;
-                    MeasurementService.start(measurementRecord.mlabInformation.fqdn,
-                            3001, '/ndt_protocol', 2000).then(
-                        function(passedResults) {
-							$rootScope.$emit('measurement:background', {
-								'testStatus': 'complete',
-								'passedResults': passedResults
-							});
-                            measurementRecord.results = passedResults;
-                            HistoryService.add(measurementRecord);
-                        },
-                        function () {
-							$rootScope.$emit('measurement:background:error');
-							return true;
-						},
-                        function (deferredNotification) {
-                            var testStatus = deferredNotification.testStatus,
-                                passedResults = deferredNotification.passedResults;
-							$rootScope.$emit('measurement:background', {
-								'testStatus': testStatus,
-								'passedResults': passedResults
-							});
-                            if (testStatus === 'interval_c2s') {
-                                if (passedResults !== undefined) {
-                                    measurementRecord.snapLog.c2sRate.push(passedResults.c2sRate);
-                                }
-                            } else if (testStatus === 'interval_s2c') {
-                                if (passedResults !== undefined) {
-                                    measurementRecord.snapLog.s2cRate.push(passedResults.s2cRate);
-                                }
-                            }
-                        }
-                    );
-                });
-        }
-    }
-    return MeasurementBackgroundService;
-});
+}]);

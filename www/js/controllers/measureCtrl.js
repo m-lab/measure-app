@@ -1,7 +1,7 @@
 angular.module('Measure.controllers.Measurement', [])
 
 .controller('MeasureCtrl', function($scope, $interval, $ionicPopup, $ionicLoading,
-		MeasurementService, SettingsService, $rootScope,
+		MeasurementClientService, MeasurementService, SettingsService, $rootScope, StorageService, ChromeAppSupport,
 		MLabService, accessInformation, HistoryService, DialogueMessages,
 		progressGaugeService, MeasureConfig, connectionInformation) {
 
@@ -15,19 +15,21 @@ angular.module('Measure.controllers.Measurement', [])
 	});
 
 	var updateMLabServer = function () {
-		var metroSelection = SettingsService.currentSettings.metroSelection;
-		if (metroSelection === undefined || typeof(metroSelection) === 'object') {
-			console.log(metroSelection);
-			metroSelection = 'automatic';
-		}
-		MLabService.findServer(SettingsService.currentSettings.metroSelection).then(
-			function(mlabAnswer) {
-				$scope.mlabInformation = mlabAnswer;
-				$scope.mlabInformation.metroSelection = SettingsService.currentSettings.metroSelection;
-				$ionicLoading.hide();
-			},
-			function () {
-				console.log("MlabNSLookupException");
+		StorageService.get('metroSelection').then(
+			function (metroSelection) {
+				if (metroSelection === undefined || typeof(metroSelection) === 'object') {
+					metroSelection = 'automatic';
+				}
+				MLabService.findServer(SettingsService.currentSettings.metroSelection).then(
+					function(mlabAnswer) {
+						$scope.mlabInformation = mlabAnswer;
+						$scope.mlabInformation.metroSelection = SettingsService.currentSettings.metroSelection;
+						$ionicLoading.hide();
+					},
+					function () {
+						console.log("MlabNSLookupException");
+					}
+				);
 			}
 		);
 	}
@@ -62,6 +64,11 @@ angular.module('Measure.controllers.Measurement', [])
 		} else if (passedArguments.testStatus === 'interval_s2c') {
 			$scope.currentState = 'Running Background Test (Download)';
 			$scope.currentRate = passedArguments.passedResults.s2cRate;
+		} else if (passedArguments.testStatus === 'onerror') {
+			progressGaugeService.gaugeError();
+			$ionicPopup.show(DialogueMessages.measurementFailure);
+			$scope.currentState = undefined;
+			$scope.currentRate = undefined;
 		}
 	});
 
@@ -90,19 +97,17 @@ angular.module('Measure.controllers.Measurement', [])
 	};
 
 	$scope.startNDT = function() {
-		var measurementRecord = {
-			  'timestamp': Date.now(),
-			  'metadata': {},
-			  'snapLog': {'s2cRate': [], 'c2sRate': []},
-			  'results': {},
-			  'accessInformation': undefined,
-			  'connectionInformation': undefined,
-			  'mlabInformation': undefined
-		};
-		var interactionState, timeoutPromise;
-		if (MeasurementService.state.testSemaphore === true) {
-			return;
-		}
+		ChromeAppSupport.notify('measurement:foreground:start', {
+							'server': $scope.mlabInformation.fqdn,
+							'port': 3001,
+							'path': '/ndt_protocol',
+							'interval': 200
+						});
+		$scope.currentState = 'Starting';
+		$scope.currentRate = undefined;
+		progressGaugeService.gaugeReset();
+
+		driveInteractions('start_test', progressGaugeService, $interval);
 
 		if ($scope.mlabInformation === undefined) {
 			intervalPromise = $interval(function () {
@@ -113,50 +118,7 @@ angular.module('Measure.controllers.Measurement', [])
 			}, 100);
 			return;
 		}
-		
-		$scope.currentState = 'Starting';
-		$scope.currentRate = undefined;
-		progressGaugeService.gaugeReset();
-		driveInteractions('start_test', progressGaugeService, $interval);
-
-		MeasurementService.start($scope.mlabInformation.fqdn, 3001, '/ndt_protocol', 200)
-			.then(
-			  function (passedResults) {
-				progressGaugeService.gaugeComplete();
-				$scope.currentState = 'Complete';
-
-				measurementRecord.results = passedResults;
-				measurementRecord.accessInformation = $scope.accessInformation;
-				measurementRecord.connectionInformation = $scope.connectionType;
-				measurementRecord.mlabInformation = $scope.mlabInformation;
-
-				HistoryService.add(measurementRecord);
-			  }, function (passedError) {
-					progressGaugeService.gaugeError();
-					$ionicPopup.show(DialogueMessages.measurementFailure);
-					$scope.currentState = undefined;
-					$scope.currentRate = undefined;
-			  }, function (deferredNotification) {
-					var testStatus = deferredNotification.testStatus,
-						passedResults = deferredNotification.passedResults;
-					
-					if (interactionState !== testStatus) {
-						interactionState = testStatus;
-						driveInteractions(testStatus, progressGaugeService, $interval);
-					}
-					
-					if (testStatus === 'interval_c2s') {
-						$scope.currentState = 'Upload';
-						$scope.currentRate = passedResults.c2sRate;
-						measurementRecord.snapLog.c2sRate.push(passedResults.c2sRate);
-					} else if (testStatus === 'interval_s2c') {
-						$scope.currentState = 'Download';
-						$scope.currentRate = passedResults.s2cRate;
-						measurementRecord.snapLog.s2cRate.push(passedResults.s2cRate);
-					}
-			  }
-			);
-	  };
+	};
 });
 
 function driveInteractions(newState, progressGaugeService, $interval) {

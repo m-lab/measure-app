@@ -17,7 +17,7 @@ angular.module('Measure.services.Schedule', [])
 })
 
 .factory('ScheduleManagerService' , function(MeasureConfig, SettingsService,
-        MeasurementBackgroundService, StorageService) {
+        MeasurementClientService, StorageService) {
 
 	var ScheduleManagerService = {};
 	
@@ -33,7 +33,7 @@ angular.module('Measure.services.Schedule', [])
 	
 	ScheduleManagerService.watch = function (eventInformation, scheduledTesting) {
 		scheduledTesting = typeof scheduledTesting !== 'undefined' ? scheduledTesting : SettingsService.currentSettings.scheduledTesting;
-		console.log(scheduledTesting);
+
 		if (scheduledTesting === true) {
 			if (ScheduleManagerService.state.scheduleSemaphore.choice === undefined) {
 				StorageService.get('scheduleSemaphore').then(
@@ -84,7 +84,7 @@ angular.module('Measure.services.Schedule', [])
 			ScheduleManagerService.state.scheduleSemaphore = scheduleSemaphore;
 			StorageService.set('scheduleSemaphore', scheduleSemaphore);
 
-			MeasurementBackgroundService.startBackground();
+			MeasurementClientService.start(true);
 		}
 	};
 

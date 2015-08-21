@@ -45,7 +45,7 @@ angular.module('Measure.controllers.Record', [])
         if (measurementRecord.accessInformation !== undefined) {
             $scope.measurementRecord.information['Service Provider'] = measurementRecord.accessInformation.isp;
         }
-        if (measurementRecord.mlabInformation !== undefined) {
+        if (measurementRecord.mlabInformation !== undefined && measurementRecord.mlabInformation !== null) {
             measurementSiteTemp = measurementRecord.mlabInformation.fqdn.split('.');
             $scope.measurementRecord.information['Test City'] = measurementRecord.mlabInformation.label;
             $scope.measurementRecord.information['Test Site'] = measurementSiteTemp[3] + ' (' + measurementSiteTemp[2] + ')';

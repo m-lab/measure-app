@@ -1,0 +1,37 @@
+{
+	"name": "Measure.app",
+	"description": "Open Internet Measurement",
+	"version": "0.1",
+	"manifest_version": 2,
+	"app": {
+		"background": {
+			"scripts": [
+				"lib/ionic/js/ionic.bundle.js",
+				"lib/angular-aria/angular-aria.js",
+				"js/app.js",
+				"js/services.js",
+				"js/services/storageService.js",
+				"js/services/scheduleService.js",
+				"js/services/settingsService.js",
+				"js/services/networkService.js",
+				"js/services/mlabService.js",
+				"js/services/measurementService.js",
+				"js/services/historyService.js",
+				"js/support/chromeAppLauncher.js",
+				"js/support/chromeAppSupport.js"
+			],
+			"persistent": true
+		}
+	},
+	"icons": {
+		"16": "img/icon16.png",
+		"32": "img/icon32.png",
+		"48": "img/icon48.png",
+		"128": "img/icon128.png"
+	},
+	"permissions": [
+		"storage",
+		"alarms",
+		"unlimitedStorage"
+	]
+}

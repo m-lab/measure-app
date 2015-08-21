@@ -14,7 +14,7 @@
 }
 
 body {
-	min-height: 480px;
+	min-height: 520px;
 	min-width: 320px
 }
 
@@ -64,7 +64,6 @@ span.measurement-icon:before {
 }
 
 .dialogue__findingServer span {
-/*	color: #FF5FD8;*/
 	font-weight: bold;
 }
 
@@ -168,7 +167,7 @@ span.item-note {
 }
 
 .panel__measure .padding-vertical {
-	padding-bottom: 30px;
+	padding-bottom: 10px;
 }
 .panel__measure div.row div.col {
 	text-overflow: ellipsis;
