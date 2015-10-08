@@ -1,6 +1,6 @@
 angular.module('Measure.services.Network', [])
 
-.constant('ACCESS_SERVICE_URL', 'http://www.telize.com/geoip')
+.constant('ACCESS_SERVICE_URL', 'https://measure-location.appspot.com')
 
 .factory('accessInformation', function($q, $http, ACCESS_SERVICE_URL) {
 	var accessInformation = {};

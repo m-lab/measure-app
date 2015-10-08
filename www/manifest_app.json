@@ -17,8 +17,8 @@
 				"js/services/mlabService.js",
 				"js/services/measurementService.js",
 				"js/services/historyService.js",
-				"js/support/chromeAppLauncher.js",
-				"js/support/chromeAppSupport.js"
+				"js/support/chromeApp/appLauncher.js",
+				"js/support/chromeApp/appSupport.js"
 			],
 			"persistent": true
 		}

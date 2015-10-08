@@ -12,30 +12,9 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 	});
 })
 
-.constant('CLIENT_APPLICATION', 'Measure.app')
-.constant('CLIENT_VERSION', '0.1-alpha')
-.constant('ENVIRONMENT_CAPABILITIES', {
-	'iOS': {
-		'schedulingSupported': false,
-		'sharingSupported': true,
-		'connectionInformation': true
-	},
-	'Android': {
-		'schedulingSupported': false,
-		'sharingSupported': true,
-		'connectionInformation': true
-	},
-	'ChromeApp': {
-		'schedulingSupported': true,
-		'sharingSupported': false,
-		'connectionInformation': false
-	},
-	'Browser': {
-		'schedulingSupported': false,
-		'sharingSupported': false,
-		'connectionInformation': false
-	}
-})
+.constant('CLIENT_APPLICATION', CLIENT_APPLICATION)
+.constant('CLIENT_VERSION', CLIENT_VERSION)
+.constant('ENVIRONMENT_CAPABILITIES', ENVIRONMENT_CAPABILITIES)
 
 .value('MeasureConfig', {
 	'environmentType': undefined,

@@ -51,7 +51,8 @@ angular.module('Measure.services.History', [])
 			HistoryService.reIndex();
 			HistoryService.populateRecentSamples();
 
-			if (HistoryService.state.lastMeasurement === measurementId || HistoryService.state.lastMeasurement === undefined) {
+			if (HistoryService.state.lastMeasurement === measurementId ||
+          HistoryService.state.lastMeasurement === undefined) {
 				HistoryService.state.lastMeasurement = undefined;
 			} else {
 				HistoryService.state.lastMeasurement = HistoryService.historicalData.measurements.length - 1;

@@ -13,6 +13,62 @@ angular.module('Measure.controllers.Measurement', [])
 		maxWidth: 200,
 		showDelay: 200
 	});
+  
+  var driveGauge = function(event, passedArguments) {
+    console.log(passedArguments.testStatus );
+    if (event.name === 'measurement:background') {
+      if (passedArguments.testStatus === 'onstart') {
+        $scope.currentState = 'Running Background Test';
+        $scope.currentRate = undefined;
+        progressGaugeService.gaugeComplete();
+        driveInteractions('start_scheduled', progressGaugeService, $interval);
+      } else if (passedArguments.testStatus === 'complete') {
+        $scope.currentState = 'Completed Background Test';
+        $scope.currentRate = passedArguments.passedResults.s2cRate;
+        progressGaugeService.gaugeReset();
+        driveInteractions('finish_scheduled', progressGaugeService, $interval);
+      } else if (passedArguments.testStatus === 'interval_c2s') {
+        $scope.currentState = 'Running Background Test (Upload)';
+        $scope.currentRate = passedArguments.passedResults.c2sRate;
+      } else if (passedArguments.testStatus === 'interval_s2c') {
+        $scope.currentState = 'Running Background Test (Download)';
+        $scope.currentRate = passedArguments.passedResults.s2cRate;
+      } else if (passedArguments.testStatus === 'onerror') {
+        progressGaugeService.gaugeError();
+        $ionicPopup.show(DialogueMessages.measurementFailure);
+        $scope.currentState = undefined;
+        $scope.currentRate = undefined;
+      }
+    } else if (event.name === 'measurement:foreground') {
+      if (passedArguments.testStatus === 'onstart') {
+        progressGaugeService.gaugeReset();
+        $scope.currentState = 'Starting';
+        $scope.currentRate = undefined;
+        driveInteractions('start_test', progressGaugeService, $interval);
+      } else if (passedArguments.testStatus === 'running_c2s') {
+        $scope.currentState = 'Running Test (Upload)';
+        driveInteractions('running_c2s', progressGaugeService, $interval);
+      } else if (passedArguments.testStatus === 'interval_c2s') {
+        $scope.currentRate = passedArguments.passedResults.c2sRate;
+      } else if (passedArguments.testStatus === 'running_s2c') {
+        $scope.currentState = 'Running Test (Download)';
+        driveInteractions('running_s2c', progressGaugeService, $interval);
+      } else if (passedArguments.testStatus === 'interval_s2c') {
+        $scope.currentRate = passedArguments.passedResults.s2cRate;
+      } else if (passedArguments.testStatus === 'complete') {
+        $scope.currentState = 'Completed';
+        $scope.currentRate = passedArguments.passedResults.s2cRate;
+        progressGaugeService.gaugeComplete();
+        driveInteractions('finished_all', progressGaugeService, $interval);
+      }
+    }
+    if (passedArguments.testStatus === 'onerror') {
+      progressGaugeService.gaugeError();
+      $ionicPopup.show(DialogueMessages.measurementFailure);
+      $scope.currentState = undefined;
+      $scope.currentRate = undefined;
+    }
+	};
 
 	var updateMLabServer = function () {
 		StorageService.get('metroSelection').then(
@@ -47,30 +103,9 @@ angular.module('Measure.controllers.Measurement', [])
 			updateMLabServer();
 		}
 	});
-	$rootScope.$on('measurement:background', function(event, passedArguments) {
-		if (passedArguments.testStatus === 'onstart') {
-			$scope.currentState = 'Running Background Test';
-			$scope.currentRate = undefined;
-			progressGaugeService.gaugeComplete();
-			driveInteractions('start_scheduled', progressGaugeService, $interval);
-		} else if (passedArguments.testStatus === 'complete') {
-			$scope.currentState = 'Completed Background Test';
-			$scope.currentRate = passedArguments.passedResults.s2cRate;
-			progressGaugeService.gaugeReset();
-			driveInteractions('finish_scheduled', progressGaugeService, $interval);
-		} else if (passedArguments.testStatus === 'interval_c2s') {
-			$scope.currentState = 'Running Background Test (Upload)';
-			$scope.currentRate = passedArguments.passedResults.c2sRate;
-		} else if (passedArguments.testStatus === 'interval_s2c') {
-			$scope.currentState = 'Running Background Test (Download)';
-			$scope.currentRate = passedArguments.passedResults.s2cRate;
-		} else if (passedArguments.testStatus === 'onerror') {
-			progressGaugeService.gaugeError();
-			$ionicPopup.show(DialogueMessages.measurementFailure);
-			$scope.currentState = undefined;
-			$scope.currentRate = undefined;
-		}
-	});
+
+	$rootScope.$on('measurement:foreground', driveGauge);
+	$rootScope.$on('measurement:background', driveGauge);
 
 	$scope.MeasureConfig = MeasureConfig;
 	$scope.measurementState = MeasurementService.state;
@@ -104,10 +139,6 @@ angular.module('Measure.controllers.Measurement', [])
 							'interval': 200
 						});
 		$scope.currentState = 'Starting';
-		$scope.currentRate = undefined;
-		progressGaugeService.gaugeReset();
-
-		driveInteractions('start_test', progressGaugeService, $interval);
 
 		if ($scope.mlabInformation === undefined) {
 			intervalPromise = $interval(function () {
@@ -126,7 +157,7 @@ function driveInteractions(newState, progressGaugeService, $interval) {
 	var	interactionElement,
 		temporaryElement,
 		previousElement;
-	
+
 	if (newState === 'start_test') {
 		interactionElement = document.getElementsByClassName('interactionIcon')[0];
 		interactionElement.src = 'img/interactions/waiting.svg';

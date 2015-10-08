@@ -21,9 +21,9 @@
 			"js/services/clientService.js",
 			"js/services/backgroundService.js",
 			"js/support.js",
-			"js/support/chromeAppLauncher.js",
-			"js/support/chromeAppSupport.js",
-			"js/support/chromeAppBackground.js"
+			"js/support/chromeApp/appLauncher.js",
+			"js/support/chromeApp/appSupport.js",
+			"js/support/chromeApp/appBackground.js"
 		],
 		"persistent": false
     },
