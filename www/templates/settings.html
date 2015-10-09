@@ -29,6 +29,10 @@
                     ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
 				</select>
 			</label>
+			<a ng-if="currentSettings.scheduleInterval == 'custom'" class="item item-icon-right" ui-sref="app.customSchedule" translate>
+                          <i class="icon ion-ios-cloudy-night-outline"></i>
+                          Custom Schedule
+                        </a>
 			<ion-toggle ng-model="currentSettings.onlyWifi"
 					ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
 				   ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>

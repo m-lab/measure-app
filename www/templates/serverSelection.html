@@ -1,11 +1,10 @@
 <ion-view view-title="Server Selection">
-	<ion-content>
-    <ion-radio
-		ng-model="currentSettings.metroSelection"
-		ng-repeat="metroSelectionOption in availableSettings.metroSelection.options | orderBy:[metroSelectionSort, 'label']:false"
-		ng-value="metroSelectionOption.metro"
-		ng-change="changeSelection('metroSelection', metroSelectionOption.metro)">
-		  {{ metroSelectionOption.label }}
-		</ion-radio>
-	</ion-content>
+  <ion-content>
+      <ion-radio collection-repeat="metroSelectionOption in availableSettings.metroSelection.options | orderBy:[metroSelectionSort, 'label']:false"
+        ng-model="currentSettings.metroSelection"
+        ng-value="metroSelectionOption.metro"
+        ng-change="changeSelection('metroSelection', metroSelectionOption.metro)">
+        {{ metroSelectionOption.label }}
+      </ion-radio>
+  </ion-content>
 </ion-view>

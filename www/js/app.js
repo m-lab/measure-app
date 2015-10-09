@@ -173,6 +173,16 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     },
   })
 
+  .state('app.customSchedule', {
+    url: '/settings/customSchedule',
+    views: {
+      'menuContent': {
+        templateUrl: "templates/customSchedule.html",
+        controller: 'CustomScheduleCtrl'
+      }
+    }
+  })
+
   .state('app.serverSelection', {
     url: "/settings/server",
     views: {
@@ -251,4 +261,4 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/measure');
-})
+});

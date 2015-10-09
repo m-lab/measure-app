@@ -35,7 +35,7 @@ angular.module('Measure.services.Settings', [])
 		},
 		'scheduleInterval': {
 			'default': 'daily',
-			'options': ['constantly', 'hourly', 'daily', 'weekly'],
+			'options': ['constantly', 'hourly', 'daily', 'weekly', 'custom'],
 		}
     };
 	

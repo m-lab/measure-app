@@ -84,6 +84,7 @@ angular.module('Measure.controllers.Measurement', [])
 					},
 					function () {
 						console.log("MlabNSLookupException");
+                                                $ionicLoading.hide();
 					}
 				);
 			}

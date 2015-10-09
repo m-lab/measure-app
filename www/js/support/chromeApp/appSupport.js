@@ -20,7 +20,7 @@ angular.module('Measure.support.ChromeApp', [])
 
     $rootScope.$on('settings:changed', function(event, args) {
       chrome.runtime.sendMessage({action: 'settings:changed', name: args.name, value: args.value}, function (responseMessage) {
-        console.log(responseMessage);
+        console.log("settings:changed", responseMessage);
       });
     });
   };

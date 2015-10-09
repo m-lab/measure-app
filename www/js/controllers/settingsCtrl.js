@@ -1,9 +1,7 @@
 angular.module('Measure.controllers.Settings', [])
 .controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService, MeasureConfig, DialogueMessages, ScheduleManagerService) {
-
   $scope.changeSelection = SettingsService.setSetting;
   $scope.createScheduleSemaphore = ScheduleManagerService.createScheduleSemaphore;
-
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
   $scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
@@ -20,9 +18,7 @@ angular.module('Measure.controllers.Settings', [])
     });
   };
 })
-
 .controller('ServerSelectionCtrl', function($scope, $history, $ionicLoading, SettingsService, MLabService) {
-
   $scope.changeSelection = function(selectionKey, selectionValue) {
     SettingsService.setSetting(selectionKey, selectionValue);
     $history.back();
@@ -51,7 +47,6 @@ angular.module('Measure.controllers.Settings', [])
 
         mlabSiteOption.metro = mlabSite.metro;
         mlabSiteOption.label = mlabSite.country + ' (' + mlabSite.label + ')';
-
         if (seenMetroKeys.indexOf(mlabSiteOption.metro) === -1) {
           SettingsService.availableSettings.metroSelection.options.push(mlabSiteOption);
           seenMetroKeys.push(mlabSiteOption.metro);
