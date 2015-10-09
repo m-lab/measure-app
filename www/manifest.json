@@ -8,6 +8,7 @@
 			"lib/ionic/js/ionic.bundle.js",
 			"lib/angular-aria/angular-aria.js",
 			"lib/ngCordova/dist/ng-cordova.js",
+                        "js/constants.js",
 			"js/services.js",
 			"js/services/storageService.js",
 			"js/services/scheduleService.js",

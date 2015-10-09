@@ -199,12 +199,6 @@ function driveInteractions(newState, progressGaugeService, $interval) {
 		displayArea.appendChild(temporaryElement);
 		temporaryElement.classList.add('currentIcon');
 	}
-	if (previousElement !== undefined) {
-		previousElement.classList.remove('currentIcon');
-		previousElement.classList.add('removedIcon');
-		previousElement.parentNode.removeChild(previousElement);
-	}
-
 
 	var incrementalValue = incrementProgressMeter(newState);
 	var testPeriod = 10000,
