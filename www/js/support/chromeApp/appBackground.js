@@ -5,15 +5,14 @@ todo:
 	inform about new tests
 	launch front-facing tests in backgroundjs to preserve
 */
-angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
-      'Measure.services', 'Measure.support'], function ($provide) {
+angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 'Measure.services', 'Measure.support'], function ($provide) {
 
-	// Prevent Angular from sniffing for the history API
-	// since it's not supported in packaged apps.
-	$provide.decorator('$window', function($delegate) {
-		$delegate.history.pushState = null;
-		return $delegate;
-	});
+  // Prevent Angular from sniffing for the history API
+  // since it's not supported in packaged apps.
+  $provide.decorator('$window', function($delegate) {
+    $delegate.history.pushState = null;
+    return $delegate;
+  });
 
 })
 
@@ -22,8 +21,8 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
 .constant('ENVIRONMENT_CAPABILITIES', ENVIRONMENT_CAPABILITIES)
 
 .value('MeasureConfig', {
-	'environmentType': undefined,
-	'environmentCapabilities': {},
+  'environmentType': undefined,
+  'environmentCapabilities': {},
 })
 
 .run(function($ionicPlatform) {
@@ -45,8 +44,7 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
     MeasureConfig.environmentType = 'ChromeApp';
   }
   $ionicPlatform.ready(function() {
-   if (MeasureConfig.environmentType === undefined
-      && typeof(device) !== 'undefined') {
+   if (MeasureConfig.environmentType === undefined && typeof(device) !== 'undefined') {
     switch(device.platform) {
       case 'Browser':
         MeasureConfig.environmentType = 'Browser';
@@ -62,7 +60,7 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
     if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
       MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
     } else {
-      MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES['Browser'];
+      MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES.Browser;
     }
 
   });
@@ -118,7 +116,7 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
       switch (request.action) {
         case 'settings:changed':
 
-          $rootScope.$emit('settings:changed', {
+        $rootScope.$emit('settings:changed', {
           name: request.name,
           value: request.value
         });
@@ -134,21 +132,20 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background',
         );
         break;
         case 'queue:request':
-          angular.forEach(BackgroundService.eventQueue, function(queuedEvent,
-                                                                 queuedEventKey) {
-                                                                   listenerPort.postMessage(queuedEvent);
-                                                                   if (queuedEvent.persistent === false) {
-                                                                     BackgroundService.eventQueue.splice(queuedEventKey, 1);
-                                                                   }
-                                                                 });
-                                                                 break;
+        angular.forEach(BackgroundService.eventQueue, function(queuedEvent, queuedEventKey) {
+          listenerPort.postMessage(queuedEvent);
+          if (queuedEvent.persistent === false) {
+            BackgroundService.eventQueue.splice(queuedEventKey, 1);
+          }
+        });
+        break;
       }
-    })
+    });
   });
 });
 
 angular.element(document).ready(function () {
-	angular.bootstrap(document, ['Measure']);
-        console.log("Bootstrapped Measure module");
+  angular.bootstrap(document, ['Measure']);
+  console.log("Bootstrapped Measure module");
 });
 

@@ -88,7 +88,7 @@ angular.module('Measure.controllers.Measurement', [])
 				);
 			}
 		);
-	}
+	};
 	accessInformation.getAccessInformation().then(
 		function (accessInformationResponse) {
 			$scope.accessInformation = accessInformationResponse;
