@@ -67,12 +67,6 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
 })
 
 .run(function ($ionicPlatform, MeasureConfig, ScheduleService) {
-
-  $ionicPlatform.ready(function() {
-    if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
-      ScheduleService.initiate();
-    }
-  });
 })
 
 .run(function($rootScope, ChromeAppSupport, SettingsService, MeasurementClientService, BackgroundService) {
@@ -80,6 +74,10 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
   console.log("Setup Background listener port...");
   BackgroundService.eventState.mlabInformation = false;
   BackgroundService.eventState.accessInformation = false;
+
+  if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
+    ScheduleService.initiate();
+  }
 
   $rootScope.$on('measurement:background', function(event, passedArguments) {
 

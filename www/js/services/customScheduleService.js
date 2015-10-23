@@ -1,7 +1,8 @@
 angular.module('Measure.services.CustomSchedule', [])
 .factory('CustomScheduleService', function($q, StorageService) {
+  var queue = [];
   var service = {
-    "TIMESPANS": [ 
+    "TIMESPANS": [
       { "value": 0, "label": "midnight" },
       { "value": 1, "label": "1am" },
       { "value": 2, "label": "2am" },
@@ -39,7 +40,8 @@ angular.module('Measure.services.CustomSchedule', [])
     "getSchedules": function getSchedules() {
       var defer = $q.defer();
       StorageService.get('customSchedule').then(function(customSchedule) {
-        defer.resolve(customSchedule || []);
+        var now = new Date();
+        defer.resolve(customSchedule || [service.addSchedule({ "timespan": now.getHours(), "date": now.getDay() })]);
       });
       return defer.promise;
     },
@@ -52,17 +54,17 @@ angular.module('Measure.services.CustomSchedule', [])
       // get stored state
       StorageService.get('customSchedule').then(function(customSchedule) {
         var newSchedule = customSchedule || [];
-        
+
         // validate not already existing
         var exists = newSchedule.some(function(s) {
           return (s.timespan == schedule.timespan && s.date == schedule.date);
         });
-        
+
         if(exists) {
           defer.resolve(null);
         } else {
           newSchedule.push(angular.extend({}, schedule));
-          StorageService.set('customSchedule', newSchedule);
+          StorageService.set('customSchedule', newSchedule).then(emitChange);
           defer.resolve(schedule);
         }
       });
@@ -75,11 +77,21 @@ angular.module('Measure.services.CustomSchedule', [])
         var newSchedule = (customSchedule || []).filter(function(s) {
           return !(s.timespan == schedule.timespan && s.date == schedule.date);
         });
-        StorageService.set('customSchedule', newSchedule);
+        StorageService.set('customSchedule', newSchedule).then(emitChange);
         defer.resolve(newSchedule);
       });
       return defer.promise;
+    },
+    "onChange": function onChange(fn) {
+      if(queue.every(function(f) { return f != fn; })) {
+        queue.push(fn);
+      }
     }
   };
+
+  function emitChange() {
+    setTimeout(function() { queue.forEach(function(fn) { fn(); }); }, 0);
+  }
+
   return service;
 });

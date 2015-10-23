@@ -4,12 +4,12 @@ angular.module('Measure.services.Background', [])
 
 	BackgroundService = {};
 
-	BackgroundService.eventQueue = {
+	BackgroundService.eventQueue = [{
 		'event': 'background:started',
 		'persistent': false,
 		'state': {}
-	};
+	}];
 	BackgroundService.eventState = {};
 
 	return BackgroundService;
-})
+});

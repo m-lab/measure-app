@@ -65,7 +65,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 		if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
 			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
 		} else {
-			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES['Browser'];
+			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES.Browser;
 		}
 
     });
@@ -88,7 +88,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 })
 
 .value('ApplicationServices', function(ChromeAppSupport) {
-	return ChromeAppSupport
+	return ChromeAppSupport;
 })
 
 

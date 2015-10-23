@@ -5,7 +5,7 @@ angular.module('Measure.controllers.CustomSchedule', [])
     return CustomScheduleService.TIMESPANS[s.timespan].label + " hour, every " + CustomScheduleService.DATES[s.date].label; 
   }; 
 })
-.controller('CustomScheduleCtrl', function($scope, $ionicPopup, CustomScheduleService){
+.controller('CustomScheduleCtrl', function($scope, $ionicPopup, ScheduleManagerService, SettingsService, CustomScheduleService){
   $scope.showDelete = true;
   $scope.deleteCaption = "Edit";
   $scope.timespans = CustomScheduleService.TIMESPANS;
@@ -30,14 +30,14 @@ angular.module('Measure.controllers.CustomSchedule', [])
   };
 
   $scope.removeSchedule = function removeSchedule(schedule) {
-    CustomScheduleService.removeSchedule(schedule).then(function(newSchedule) {
-      $scope.schedules = newSchedule;
-    });
+    CustomScheduleService.removeSchedule(schedule).then(loadSchedules);
   };
 
   function loadSchedules() {
     CustomScheduleService.getSchedules().then(function(schedules) {
       $scope.schedules = schedules;
+    }).then(function() {
+      ScheduleManagerService.getSemaphore();
     });
   }
 
@@ -46,7 +46,7 @@ angular.module('Measure.controllers.CustomSchedule', [])
      title: 'Test Already Scheduled',
      template: '<p class="text-center">A test is already scheduled for<br>that time period.</p>'
    });
-  };
+  }
 
   loadSchedules();
 });

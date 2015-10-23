@@ -43,11 +43,27 @@ angular.module('Measure.support.ChromeApp', [])
     });
     chrome.alarms.onAlarm.addListener(alarmFunction);
   };
-  ChromeAppSupport.storageState = {};
-  ChromeAppSupport.set = function (keyName, storedValue) {
-    this.storageState[keyName] = storedValue;
-    return chrome.storage.local.set(this.storageState);
+
+  ChromeAppSupport.get = function (key) {
+    var defer = $q.defer();
+    chrome.storage.local.get(key, function(state) { defer.resolve(state[key]); });
+    return defer.promise;
   };
+
+  ChromeAppSupport.set = function (key, value) {
+    var defer = $q.defer();
+    var state = {};
+    state[key] = value;
+    chrome.storage.local.set(state, function() {
+      if(chrome.runtime.lastError) {
+        defer.reject(chrome.runtime.lastError);
+      } else {
+        defer.resolve(value);
+      }
+    });
+    return defer.promise;
+  };
+
   ChromeAppSupport.badge = {
     'start': function () {
       chrome.browserAction.setBadgeText({text: '🕐'});
@@ -60,19 +76,6 @@ angular.module('Measure.support.ChromeApp', [])
     'reset': function () {
       chrome.browserAction.setBadgeText({text: ''});
     }
-  }
-
-  ChromeAppSupport.get = function (keyName) {
-    var restoreDeferred = $q.defer();
-
-    if (ChromeAppSupport.storageState.hasOwnProperty(keyName) === true) {
-      restoreDeferred.resolve(ChromeAppSupport.storageState[keyName]);
-    } else {
-      chrome.storage.local.get(keyName, function (storageObject) {
-        restoreDeferred.resolve(storageObject[keyName]);
-      })
-    };
-    return restoreDeferred.promise;
   };
 
   return ChromeAppSupport;

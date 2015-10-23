@@ -1,12 +1,36 @@
 angular.module('Measure.controllers.Settings', [])
-.controller('SettingsCtrl', function($scope, $ionicPopup, SettingsService, HistoryService, MeasureConfig, DialogueMessages, ScheduleManagerService) {
+.controller('SettingsCtrl', function($scope, $rootScope, $state, $ionicPopup, SettingsService, HistoryService, MeasureConfig, DialogueMessages, ScheduleManagerService, CustomScheduleService) {
   $scope.changeSelection = SettingsService.setSetting;
-  $scope.createScheduleSemaphore = ScheduleManagerService.createScheduleSemaphore;
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
   $scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
   $scope.historyState = HistoryService.state;
-  $scope.scheduleSemaphore = ScheduleManagerService.state.scheduleSemaphore;
+
+  function refreshSchedule() {
+    ScheduleManagerService.getSemaphore().then(function(semaphore) {
+      $scope.scheduleSemaphore = semaphore;
+    });
+  }
+
+  CustomScheduleService.onChange(refreshSchedule);
+
+  $scope.setSchedule = function setSchedule() {
+    SettingsService.setSetting('scheduledTesting', $scope.currentSettings.scheduledTesting);
+    SettingsService.setSetting('scheduleInterval', $scope.currentSettings.scheduleInterval);
+    refreshSchedule();
+    if($scope.currentSettings.scheduledTesting && $scope.currentSettings.scheduleInterval == "custom") {
+      // TODO: this default logic shouldn't really live in a controller
+      CustomScheduleService.getSchedules().then(function(schedules) {
+        // for new custom schedules, add current time/day
+        if(schedules.length === 0) {
+          var now = new Date();
+          CustomScheduleService.addSchedule({ "timespan": now.getHours(), "date": now.getDay() }).then(function() {
+            $state.go("app.customSchedule");
+          });
+        }
+      });
+    }
+  };
 
   $scope.initiateHistoryReset = function() {
     var historyResetPopup = $ionicPopup.confirm(DialogueMessages.historyReset);
@@ -17,6 +41,10 @@ angular.module('Measure.controllers.Settings', [])
       }
     });
   };
+
+  if(SettingsService.currentSettings.scheduledTesting) {
+    refreshSchedule();
+  }
 })
 .controller('ServerSelectionCtrl', function($scope, $history, $ionicLoading, SettingsService, MLabService) {
   $scope.changeSelection = function(selectionKey, selectionValue) {

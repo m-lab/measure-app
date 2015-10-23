@@ -1,53 +1,51 @@
 <ion-view view-title="Settings">
-	<ion-content>
-		<div class="list">
-			<a class="item item-icon-right" ui-sref="app.serverSelection()" >
-				<span translate>Location</span>
-				<i class="icon ion-chevron-right"></i>
-			</a>
-			<!-- -->
-			<ion-toggle ng-model="currentSettings.scheduledTesting"
-					ng-if="environmentCapabilities.schedulingSupported"
-					ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting); createScheduleSemaphore(currentSettings.scheduleInterval);">
-				<span translate>Schedule a Test</span>
-			</ion-toggle>
-			<label class="item item-input item-select" ng-show="environmentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
-				<div class="input-label" translate>Schedule</div>
-				<select ng-model="currentSettings.scheduleInterval"
-                    ng-change="changeSelection('scheduleInterval', currentSettings.scheduleInterval); createScheduleSemaphore(currentSettings.scheduleInterval);"
-                    ng-options="scheduleIntervalOption as (scheduleIntervalOption | capitalize:true) for scheduleIntervalOption in availableSettings.scheduleInterval.options track by scheduleIntervalOption">
-				</select>
-			</label>
-			<a ng-if="currentSettings.scheduleInterval == 'custom'" class="item item-icon-right" ui-sref="app.customSchedule" translate>
-                          <i class="icon ion-ios-cloudy-night-outline"></i>
-                          Custom Schedule
-                        </a>
-			<ion-toggle ng-model="currentSettings.onlyWifi"
-					ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
-				   ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
-			<div class="item" ng-show="currentSettings.scheduledTesting === true && scheduleSemaphore.choice !== undefined">
-				<span translate>Next Test</span>
-				<span class="badge">
-					{{ scheduleSemaphore.choice | date:'yyyy-MM-dd HH:mm' }}
-				</span>
-			</div>
-			<label class="item item-input item-select">
-				<div class="input-label" translate>Language</div>
-				<select ng-model="currentSettings.applicationLanguage"
-                    ng-change="changeSelection('applicationLanguage', currentSettings.applicationLanguage)"
-                    ng-disabled="availableSettings.applicationLanguage.options.length === 0"
-                    ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
-				</select>
-			</label>
-			<!-- -->
-			<ion-toggle ng-model="currentSettings.trustedTester"
-				   ng-change="changeSelection('trustedTester', currentSettings.trustedTester)"
-				   ng-show="false"
-				   ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
-			<a class="item item-icon-right" on-tap="initiateHistoryReset()">
-				<i class="icon ion-ios-refresh-outline"></i>
-				Reset Measurement History
-			</a>
-		</div>
-	</ion-content>
+<ion-content>
+<div class="list">
+  <a class="item item-icon-right" ui-sref="app.serverSelection()" >
+    <span translate>Location</span>
+    <i class="icon ion-chevron-right"></i>
+  </a>
+  <!-- -->
+  <ion-toggle ng-model="currentSettings.scheduledTesting"
+              ng-if="environmentCapabilities.schedulingSupported"
+              ng-change="setSchedule();">
+  <span translate>Schedule a Test</span>
+  </ion-toggle>
+  <label class="item item-input item-select" ng-show="environmentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
+    <div class="input-label" translate>Schedule</div>
+    <select ng-model="currentSettings.scheduleInterval"
+            ng-change="setSchedule()"
+            ng-options="interval as (interval | capitalize:true) for interval in availableSettings.scheduleInterval.options track by interval">
+    </select>
+  </label>
+  <a ng-if="currentSettings.scheduledTesting && currentSettings.scheduleInterval == 'custom'" class="item item-icon-right" ui-sref="app.customSchedule" translate>
+    <i class="icon ion-ios-cloudy-night-outline"></i>
+    Custom Schedule
+  </a>
+  <ion-toggle ng-model="currentSettings.onlyWifi"
+              ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
+              ng-change="changeSelection('onlyWifi', currentSettings.onlyWifi)"><span translate>Only Test on WiFi</span></ion-toggle>
+              <div class="item" ng-if="currentSettings.scheduledTesting">
+                <span translate>Next Test</span>
+                <span class="badge" ng-bind="scheduleSemaphore.choice | date:'yyyy-MM-dd HH:mm'"></span>
+              </div>
+              <label class="item item-input item-select">
+                <div class="input-label" translate>Language</div>
+                <select ng-model="currentSettings.applicationLanguage"
+                        ng-change="changeSelection('applicationLanguage', currentSettings.applicationLanguage)"
+                        ng-disabled="availableSettings.applicationLanguage.options.length === 0"
+                        ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
+                </select>
+              </label>
+              <!-- -->
+              <ion-toggle ng-model="currentSettings.trustedTester"
+                          ng-change="changeSelection('trustedTester', currentSettings.trustedTester)"
+                          ng-show="false"
+                          ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
+                          <a class="item item-icon-right" on-tap="initiateHistoryReset()">
+                            <i class="icon ion-ios-refresh-outline"></i>
+                            Reset Measurement History
+                          </a>
+</div>
+</ion-content>
 </ion-view>
