@@ -11,13 +11,20 @@
 	</ion-side-menu-content>
 	<ion-side-menu side="left">
 		<ion-header-bar class="bar-light">
-			<h1 class="title" translate>Measure</h1>
+			<h1 class="title" translate>M-Lab Measure</h1>
 		</ion-header-bar>
 		<ion-content>
 			<ion-list>
 				<ion-item menu-close ui-sref="app.measure()" translate>Measure</ion-item>
-				<ion-item menu-close ui-sref="app.history()" translate>History</ion-item>
+				<div class="item">
+					<span translate>Data Usage</span>
+					<span class="badge badge-assertive">
+					{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}
+					</span>
+				</div>
 				<ion-item menu-close ui-sref="app.settings()" translate>Settings</ion-item>
+				<ion-item menu-close ui-sref="app.history()" translate>Explore Data</ion-item>
+				<ion-item menu-close ui-sref="app.about()" translate>About</ion-item>
 			</ion-list>
 		</ion-content>
 	</ion-side-menu>

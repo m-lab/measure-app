@@ -5,22 +5,11 @@
 				<span translate>Location</span>
 				<i class="icon ion-chevron-right"></i>
 			</a>
-			<label class="item item-input item-select">
-				<div class="input-label" translate>Language</div>
-				<select ng-model="currentSettings.applicationLanguage"
-                    ng-change="changeSelection('applicationLanguage', currentSettings.applicationLanguage)"
-                    ng-disabled="availableSettings.applicationLanguage.options.length === 0"
-                    ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
-				</select>
-			</label>
 			<!-- -->
-			<div class="item item-divider"
-					ng-if="environmentCapabilities.schedulingSupported"
-					translate>Scheduled Testing</div>
 			<ion-toggle ng-model="currentSettings.scheduledTesting"
 					ng-if="environmentCapabilities.schedulingSupported"
 					ng-change="changeSelection('scheduledTesting', currentSettings.scheduledTesting); createScheduleSemaphore(currentSettings.scheduleInterval);">
-				<span translate>Scheduled Testing</span>
+				<span translate>Schedule a Test</span>
 			</ion-toggle>
 			<label class="item item-input item-select" ng-show="environmentCapabilities.schedulingSupported === true && currentSettings.scheduledTesting === true">
 				<div class="input-label" translate>Schedule</div>
@@ -42,22 +31,19 @@
 					{{ scheduleSemaphore.choice | date:'yyyy-MM-dd HH:mm' }}
 				</span>
 			</div>
+			<label class="item item-input item-select">
+				<div class="input-label" translate>Language</div>
+				<select ng-model="currentSettings.applicationLanguage"
+                    ng-change="changeSelection('applicationLanguage', currentSettings.applicationLanguage)"
+                    ng-disabled="availableSettings.applicationLanguage.options.length === 0"
+                    ng-options="applicationLanguageOption.label for applicationLanguageOption in availableSettings.applicationLanguage.options | orderBy:'label':false track by applicationLanguageOption.code">
+				</select>
+			</label>
 			<!-- -->
-			<div class="item item-divider" translate>Information</div>
-			<div class="item">
-				<span translate>Data Consumed</span>
-				<span class="badge badge-assertive">
-					{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}
-				</span>
-			</div>
 			<ion-toggle ng-model="currentSettings.trustedTester"
 				   ng-change="changeSelection('trustedTester', currentSettings.trustedTester)"
 				   ng-show="false"
 				   ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
-			<a class="item" ui-sref="app.about()" translate>About</a>
-			<a class="item" ui-sref="app.hostInformation()" translate>Get Involved</a>
-			<a class="item" ui-sref="app.privacy()" translate>Privacy Policy</a>
-			<div class="item item-divider" translate>Management</div>
 			<a class="item item-icon-right" on-tap="initiateHistoryReset()">
 				<i class="icon ion-ios-refresh-outline"></i>
 				Reset Measurement History

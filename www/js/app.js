@@ -96,7 +96,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 .value('DialogueMessages', {
 	'historyReset': {
 		title: 'Confirm Reset',
-		template: 'This action will permanently removal all stored results and cannot be undone. Are you sure?'
+		template: 'This action will permanently remove all stored results and cannot be undone. Are you sure?'
 	},
 	'measurementFailure': {
 		title: 'Failure',
@@ -217,7 +217,16 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     url: "/information/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/static/about.html"
+        templateUrl: "templates/about.html"
+      }
+    }
+  })
+
+  .state('app.aboutMeasure', {
+    url: "/information/about",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/static/aboutMeasure.html"
       }
     }
   })
