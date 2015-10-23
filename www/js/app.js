@@ -217,7 +217,16 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     url: "/information/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/static/about.html"
+        templateUrl: "templates/about.html"
+      }
+    }
+  })
+
+  .state('app.aboutMeasure', {
+    url: "/information/about",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/static/aboutMeasure.html"
       }
     }
   })
