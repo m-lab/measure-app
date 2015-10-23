@@ -68,7 +68,7 @@ angular.module('Measure.controllers.Measurement', [])
       $scope.currentState = undefined;
       $scope.currentRate = undefined;
     }
-	};
+  };
 
 	var updateMLabServer = function () {
 		StorageService.get('metroSelection').then(

@@ -161,6 +161,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
+    controller: 'MenuCtrl'
   })
   
   .state('app.settings', {

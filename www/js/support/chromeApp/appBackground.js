@@ -62,25 +62,14 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
     } else {
       MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES.Browser;
     }
-
   });
 })
+.run(function($rootScope, ChromeAppSupport, SettingsService, MeasurementClientService, BackgroundService, MeasureConfig, ScheduleService) {
 
-.run(function ($ionicPlatform, MeasureConfig, ScheduleService) {
-})
-
-.run(function($rootScope, ChromeAppSupport, SettingsService, MeasurementClientService, BackgroundService) {
-
-  console.log("Setup Background listener port...");
   BackgroundService.eventState.mlabInformation = false;
   BackgroundService.eventState.accessInformation = false;
 
-  if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
-    ScheduleService.initiate();
-  }
-
   $rootScope.$on('measurement:background', function(event, passedArguments) {
-
     if (passedArguments.testStatus === 'onstart') {
       ChromeAppSupport.badge.start();
     } else if (passedArguments.testStatus === 'complete') {
@@ -96,15 +85,18 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
     }
   });
 
+  console.log("Initialize ScheduleService...");
+  if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
+    ScheduleService.initiate();
+  }
+
+  console.log("Setup Background listener port...");
   chrome.runtime.onConnect.addListener(function(listenerPort) {
-
     var listenerConnected = true;
-
     console.assert(listenerPort.name == "MeasureAppBackend");
     console.log('Frontend Listener Connected');
 
     listenerPort.onDisconnect.addListener(function () {
-
       console.log('Frontend Listener Disconnected');
       listenerConnected = false;
     });
