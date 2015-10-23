@@ -96,7 +96,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
 .value('DialogueMessages', {
 	'historyReset': {
 		title: 'Confirm Reset',
-		template: 'This action will permanently removal all stored results and cannot be undone. Are you sure?'
+		template: 'This action will permanently remove all stored results and cannot be undone. Are you sure?'
 	},
 	'measurementFailure': {
 		title: 'Failure',
