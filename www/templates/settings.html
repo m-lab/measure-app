@@ -43,20 +43,10 @@
 				</span>
 			</div>
 			<!-- -->
-			<div class="item item-divider" translate>Information</div>
-			<div class="item">
-				<span translate>Data Consumed</span>
-				<span class="badge badge-assertive">
-					{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}
-				</span>
-			</div>
 			<ion-toggle ng-model="currentSettings.trustedTester"
 				   ng-change="changeSelection('trustedTester', currentSettings.trustedTester)"
 				   ng-show="false"
 				   ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
-			<a class="item" ui-sref="app.about()" translate>About</a>
-			<a class="item" ui-sref="app.hostInformation()" translate>Get Involved</a>
-			<a class="item" ui-sref="app.privacy()" translate>Privacy Policy</a>
 			<div class="item item-divider" translate>Management</div>
 			<a class="item item-icon-right" on-tap="initiateHistoryReset()">
 				<i class="icon ion-ios-refresh-outline"></i>

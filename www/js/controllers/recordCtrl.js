@@ -47,8 +47,8 @@ angular.module('Measure.controllers.Record', [])
         }
         if (measurementRecord.mlabInformation !== undefined && measurementRecord.mlabInformation !== null) {
             measurementSiteTemp = measurementRecord.mlabInformation.fqdn.split('.');
-            $scope.measurementRecord.information['Test City'] = measurementRecord.mlabInformation.label;
-            $scope.measurementRecord.information['Test Site'] = measurementSiteTemp[3] + ' (' + measurementSiteTemp[2] + ')';
+            $scope.measurementRecord.information['Your Location'] = measurementRecord.mlabInformation.label;
+            $scope.measurementRecord.information['M-Lab Site'] = measurementSiteTemp[3] + ' (' + measurementSiteTemp[2] + ')';
         }
         if (measurementRecord.connectionInformation !== undefined) {
 			$scope.measurementRecord.information['Connection Type'] = measurementRecord.connectionInformation.label;
