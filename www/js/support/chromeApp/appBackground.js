@@ -24,45 +24,12 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
   'environmentType': undefined,
   'environmentCapabilities': {},
 })
-
-.run(function($ionicPlatform) {
-
-  $ionicPlatform.ready(function() {
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-
-})
-
 .run(function ($ionicPlatform, MeasureConfig, ENVIRONMENT_CAPABILITIES) {
-
   if (window.chrome && chrome.runtime && chrome.runtime.id) {
     MeasureConfig.environmentType = 'ChromeApp';
   }
-  $ionicPlatform.ready(function() {
-   if (MeasureConfig.environmentType === undefined && typeof(device) !== 'undefined') {
-    switch(device.platform) {
-      case 'Browser':
-        MeasureConfig.environmentType = 'Browser';
-        break;
-      default:
-        // We don't know anything about the current environment
-        // so we fall back onto only what the browser can handle.
-        MeasureConfig.environmentType = 'Browser';
-        break;
-      }
-    }
-      
-    if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
-      MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
-    } else {
-      MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES.Browser;
-    }
-  });
+  MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType] || {};
+  console.log("MeasureConfig", JSON.stringify(MeasureConfig, null, "  "));
 })
 .run(function($rootScope, ChromeAppSupport, SettingsService, MeasurementClientService, BackgroundService, MeasureConfig, ScheduleService) {
 
@@ -85,7 +52,6 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
     }
   });
 
-  console.log("Initialize ScheduleService...");
   if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
     ScheduleService.initiate();
   }

@@ -6,43 +6,14 @@ angular.module('Measure.services.Schedule', [])
 
   ScheduleService.initiate = function () {
     if (MeasureConfig.environmentType === 'ChromeApp') {
-      ScheduleManagerService.watch();
       ChromeAppSupport.createAlarm(PERIOD_IN_MINUTES, PERIOD_IN_MINUTES, ScheduleManagerService.watch);
+      console.log("Created ChromeApp alarm with " + PERIOD_IN_MINUTES + " minute(s) intervals");
     }
   };
   return ScheduleService;
 })
 
-.factory('ScheduleManagerService' , function($q, MeasureConfig, SettingsService, MeasurementClientService, StorageService, CustomScheduleService) {
-
-  var ScheduleManagerService = {
-    "getSemaphore": function() {
-      return $q.all({
-        "current": StorageService.get("scheduleSemaphore"),
-        "next": createScheduleSemaphore()
-      }).then(function(scheduled) {
-        if (!SettingsService.currentSettings.scheduledTesting) {
-          console.log("Cleared scheduled tests.");
-          return setSemaphore({});
-        } else if (scheduled.current && scheduled.current.choice && scheduled.current.start == scheduled.next.start) {
-          return scheduled.current;
-        } else {
-          console.log('On ' + new Date().toUTCString() + ' created ' + scheduled.next.intervalType + ' scheduled test covering ' +
-                    new Date(scheduled.next.start).toUTCString() +
-                    ' and ' + new Date(scheduled.next.end).toUTCString() +
-                    ' scheduled to run near ' + new Date(scheduled.next.choice).toUTCString() + '.');
-          return setSemaphore(scheduled.next);
-        }
-      });
-    },
-    "watch": function watch(e) {
-      StorageService.get('scheduledTesting').then(function(scheduledTesting) {
-        if (scheduledTesting) {
-          ScheduleManagerService.getSemaphore().then(decide);
-        }
-      });
-    }
-  };
+.factory('ScheduleManagerService', function($q, MeasureConfig, SettingsService, MeasurementClientService, StorageService, CustomScheduleService) {
 
   // private helpers
   var scheduleInitializers = {
@@ -59,12 +30,11 @@ angular.module('Measure.services.Schedule', [])
 
   function decide(scheduleSemaphore) {
     var currentTime = Date.now();
-
-    console.log('On ' + new Date(currentTime).toUTCString() + ' found scheduled test covering ' +
+    if (scheduleSemaphore.choice !== undefined && currentTime > scheduleSemaphore.choice) {
+      console.log('On ' + new Date(currentTime).toUTCString() + ' found scheduled test covering ' +
                 new Date(scheduleSemaphore.start).toUTCString() +
                 ' and ' + new Date(scheduleSemaphore.end).toUTCString() +
                 ' scheduled to run near ' + new Date(scheduleSemaphore.choice).toUTCString());
-    if (scheduleSemaphore.choice !== undefined && currentTime > scheduleSemaphore.choice) {
       console.log('Found scheduled measurement ready, triggering.');
       MeasurementClientService.start(true);
       // clear semaphore when triggered
@@ -105,17 +75,48 @@ angular.module('Measure.services.Schedule', [])
 
   function createScheduleSemaphore() {
     var defer = $q.defer();
-    var scheduleInterval = SettingsService.currentSettings.scheduleInterval;
-    if (scheduleInitializers.hasOwnProperty(scheduleInterval) === true) {
-      $q.when(scheduleInitializers[scheduleInterval]()).then(function(scheduleSemaphore) {
-        scheduleSemaphore.intervalType = scheduleInterval;
-        defer.resolve(scheduleSemaphore);
-      });
-    } else {
-      defer.reject({});
-    }
+    SettingsService.get("scheduleInterval").then(function(scheduleInterval) {
+      if (scheduleInitializers[scheduleInterval]) {
+        $q.when(scheduleInitializers[scheduleInterval]()).then(function(scheduleSemaphore) {
+          scheduleSemaphore.intervalType = scheduleInterval;
+          defer.resolve(scheduleSemaphore);
+        });
+      } else {
+        defer.reject({});
+      }
+    });
     return defer.promise;
   }
 
-  return ScheduleManagerService;
+  // exports
+  function getSemaphore() {
+    return $q.all({
+      "scheduledTesting": SettingsService.get("scheduledTesting"),
+      "current": StorageService.get("scheduleSemaphore"),
+      "next": createScheduleSemaphore()
+    }).then(function(scheduled) {
+      if (!scheduled.scheduledTesting) {
+        console.log("Cleared scheduled tests.");
+        return setSemaphore({});
+      } else if (scheduled.current && scheduled.current.choice && scheduled.current.intervalType == scheduled.next.intervalType && scheduled.next.start >= scheduled.current.start) {
+        return scheduled.current;
+      } else {
+        console.log('On ' + new Date().toUTCString() + ' created ' + scheduled.next.intervalType + ' scheduled test covering ' +
+                    new Date(scheduled.next.start).toUTCString() +
+                    ' and ' + new Date(scheduled.next.end).toUTCString() +
+                    ' scheduled to run near ' + new Date(scheduled.next.choice).toUTCString() + '.');
+        return setSemaphore(scheduled.next);
+      }
+    });
+  }
+
+  function watch(e) {
+    console.log("Woke up at " + new Date().toISOString());
+    getSemaphore().then(decide);
+  }
+
+  return {
+    "getSemaphore": getSemaphore,
+    "watch": watch
+  };
 });
