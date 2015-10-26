@@ -46,7 +46,10 @@ angular.module('Measure.support.ChromeApp', [])
 
   ChromeAppSupport.get = function (key) {
     var defer = $q.defer();
-    chrome.storage.local.get(key, function(state) { defer.resolve(state[key]); });
+    chrome.storage.local.get(key, function(state) {
+      console.log("retrieved from storage:", key, state);
+      defer.resolve(state[key]);
+    });
     return defer.promise;
   };
 
@@ -55,6 +58,7 @@ angular.module('Measure.support.ChromeApp', [])
     var state = {};
     state[key] = value;
     chrome.storage.local.set(state, function() {
+      console.log("saved to storage:", key, value);
       if(chrome.runtime.lastError) {
         defer.reject(chrome.runtime.lastError);
       } else {
