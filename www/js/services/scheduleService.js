@@ -92,7 +92,7 @@ angular.module('Measure.services.Schedule', [])
   function getSemaphore() {
     return $q.all({
       "scheduledTesting": SettingsService.get("scheduledTesting"),
-      "current": StorageService.get("scheduleSemaphore"),
+      "current": StorageService.get("scheduleSemaphore", {}),
       "next": createScheduleSemaphore()
     }).then(function(scheduled) {
       if (!scheduled.scheduledTesting) {
