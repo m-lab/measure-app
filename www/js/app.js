@@ -71,28 +71,16 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize', 'ngCsv',
     });
 })
 
-.run(function ($ionicPlatform, MeasureConfig, ChromeAppSupport, ApplicationServices) {
-    $ionicPlatform.ready(function() {
-		/*
-			In Chrome, the only platform currently supported, this is handled
-			by the Background Agent. So for now, we don't have the client
-			run a scheduler service.
-				if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
-					ScheduleService.initiate();
-				}
-		*/
-		if (MeasureConfig.environmentType === 'ChromeApp') {
-			ChromeAppSupport.initialize();
-		}
-	});
+.run(function ($ionicPlatform, $rootScope, MeasureConfig, ChromeAppSupport) {
+  $ionicPlatform.ready(function() {
+    if (MeasureConfig.environmentType === 'ChromeApp') {
+      ChromeAppSupport.badge.reset();
+      ChromeAppSupport.listen(function(msg) {
+        $rootScope.$emit(msg.action, msg);
+      });
+    }
+  });
 })
-
-.value('ApplicationServices', function(ChromeAppSupport) {
-	return ChromeAppSupport;
-})
-
-
-
 .value('DialogueMessages', {
 	'historyReset': {
 		title: 'Confirm Reset',

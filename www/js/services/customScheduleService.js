@@ -38,12 +38,10 @@ angular.module('Measure.services.CustomSchedule', [])
       { "value": 6, "label": "Saturday" }
     ],
     "getSchedules": function getSchedules() {
-      var defer = $q.defer();
-      StorageService.get('customSchedule').then(function(customSchedule) {
+      return StorageService.get('customSchedule', []).then(function(customSchedule) {
         var now = new Date();
-        defer.resolve(customSchedule || [service.addSchedule({ "timespan": now.getHours(), "date": now.getDay() })]);
+        return customSchedule || [service.addSchedule({ "timespan": now.getHours(), "date": now.getDay() })];
       });
-      return defer.promise;
     },
     "addSchedule": function addSchedule(schedule) {
       var defer = $q.defer();
@@ -52,7 +50,7 @@ angular.module('Measure.services.CustomSchedule', [])
         defer.resolve(null);
       }
       // get stored state
-      StorageService.get('customSchedule').then(function(customSchedule) {
+      StorageService.get('customSchedule', []).then(function(customSchedule) {
         var newSchedule = customSchedule || [];
 
         // validate not already existing
@@ -72,9 +70,9 @@ angular.module('Measure.services.CustomSchedule', [])
     },
     "removeSchedule": function removeSchedule(schedule) {
       var defer = $q.defer();
-      StorageService.get('customSchedule').then(function(customSchedule) {
+      StorageService.get('customSchedule', []).then(function(customSchedule) {
         // filter based on equality
-        var newSchedule = (customSchedule || []).filter(function(s) {
+        var newSchedule = customSchedule.filter(function(s) {
           return !(s.timespan == schedule.timespan && s.date == schedule.date);
         });
         StorageService.set('customSchedule', newSchedule).then(emitChange);

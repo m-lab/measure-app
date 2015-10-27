@@ -4,7 +4,7 @@ angular.module('Measure.services.Settings', [])
 
   var SettingsService = {
     "get": function get(key) {
-      return StorageService.get("savedSettings").then(function(settings) {
+      return StorageService.get("savedSettings", SettingsService.availableSettings[key].default).then(function(settings) {
         return settings && key ? settings[key] : settings;
       });
     }
@@ -51,12 +51,12 @@ angular.module('Measure.services.Settings', [])
     angular.forEach(this.currentSettings, function (settingValue, settingKey) {
       savedSettings[settingKey] = settingValue;
     });
-    StorageService.set('savedSettings', savedSettings);
+    return StorageService.set('savedSettings', savedSettings);
   };
 
   SettingsService.restore = function () {
     var restoreDeferred = $q.defer();
-    StorageService.get('savedSettings').then(
+    StorageService.get('savedSettings', {}).then(
       function (savedSettings) {
         angular.forEach(SettingsService.availableSettings, function (availableSettingsValue, availableSettingsKey) {
           if (savedSettings !== undefined && savedSettings[availableSettingsKey] !== undefined) {
@@ -75,12 +75,13 @@ angular.module('Measure.services.Settings', [])
     return restoreDeferred.promise;
   };
   SettingsService.setSetting = function (requestedSettingName, requestedSettingValue) {
-    $rootScope.$emit('settings:changed', {
-      name: requestedSettingName,
-      value: requestedSettingValue
-    });
     SettingsService.currentSettings[requestedSettingName] = requestedSettingValue;
-    SettingsService.save();
+    SettingsService.save().then(function() {
+      $rootScope.$emit('settings:changed', {
+        name: requestedSettingName,
+        value: requestedSettingValue
+      });
+    });
   };
 
   SettingsService.restore();

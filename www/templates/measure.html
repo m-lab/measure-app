@@ -25,7 +25,7 @@
         </div>
 		<div class="row padding-vertical">
 			<div class="col center displayArea"
-					ng-class="{testReady: measurementState.testSemaphore===false}">
+					ng-class="{testReady: !measurementRunning }">
 				<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
 						class="progressGauge"
 						options="progressGaugeConfig.gaugeOptions"
@@ -66,15 +66,11 @@
 					translate>Finding Server</span>
 			</div>
         </div>
-		<div class="row" ng-show="historyState.lastMeasurement !== undefined && measurementState.testSemaphore === false">
+		<div class="row" ng-show="lastMeasurementId !== undefined && !measurementRunning">
 			<div class="col center">
 				<a class="button button-outline button-positive icon-left ion-plus-round"
-						ui-sref="app.measurementRecord({measurementId: historyState.lastMeasurement})"
+						ui-sref="app.measurementRecord({measurementId: lastMeasurementId})"
 						translate>More</a>
-				<a class="button button-outline button-balanced icon-right ion-share"
-						on-tap="shareMeasurement({{ historyState.lastMeasurement }})"
-						ng-show="MeasureConfig.sharingSupported"
-						translate>Share</a>
 			</div>
 		</div>
 		<div class="row desktop-only">

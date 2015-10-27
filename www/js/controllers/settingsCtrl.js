@@ -4,8 +4,7 @@ angular.module('Measure.controllers.Settings', [])
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
   $scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
-  $scope.historyState = HistoryService.state;
-
+  
   function refreshSchedule() {
     ScheduleManagerService.getSemaphore().then(function(semaphore) {
       $scope.scheduleSemaphore = semaphore;

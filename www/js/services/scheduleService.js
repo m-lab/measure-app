@@ -67,7 +67,7 @@ angular.module('Measure.services.Schedule', [])
       schedules.sort(function(a,b) { return hourOfWeek(a) < hourOfWeek(b) ? 1 : -1; });
       var next = schedules.filter(function(s) { return hourOfWeek(s) - hourOfWeek(nowHour) > 0; }).concat(schedules)[0];
 
-      var hoursToAdd = (hourOfWeek(nowHour) >= hourOfWeek(next) ? 168 /*one week in hours*/ : 0) + hourOfWeek(next) - hourOfWeek(nowHour);
+      var hoursToAdd = (hourOfWeek(nowHour) >= hourOfWeek(next) ? 169 /*one week in hours, plus 1 */ : 0) + hourOfWeek(next) - hourOfWeek(nowHour);
       var start = epochHour + (hoursToAdd * INTERVAL_MS);
       return createIntervalSemaphore(start, INTERVAL_MS);
     });

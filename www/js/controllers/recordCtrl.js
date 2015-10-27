@@ -28,7 +28,7 @@ angular.module('Measure.controllers.Record', [])
 		$history.back();
 	};
 
-    HistoryService.get(measurementId).then(function (measurementRecord) {
+    HistoryService.getById(measurementId).then(function (measurementRecord) {
         var measurementSiteTemp;
 
         $scope.MeasurementNotes = measurementRecord.note;
@@ -39,7 +39,7 @@ angular.module('Measure.controllers.Record', [])
         $scope.measurementRecord.index = measurementRecord.index;
 
         if (measurementRecord.timestamp !== undefined) {
-            $scope.measurementRecord.information['Time'] = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy (H:mm)');
+            $scope.measurementRecord.information.Time = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy (H:mm)');
         }
 
         if (measurementRecord.accessInformation !== undefined) {
