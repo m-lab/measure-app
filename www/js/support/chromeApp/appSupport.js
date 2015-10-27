@@ -7,30 +7,11 @@ angular.module('Measure.support.ChromeApp', [])
 .factory('ChromeAppSupport', function($rootScope, $q, CHROME_APP_CONFIG) {
 
   var ChromeAppSupport = {};
-  var MeasureAppPort = chrome.runtime.connect({name: "MeasureAppBackend"});
-
-  MeasureAppPort.onMessage.addListener(function(msg) {
-    $rootScope.$emit(msg.action, msg);
-  });
-
-  ChromeAppSupport.backgroundQueue = [];
-
-  ChromeAppSupport.initialize = function () {
-    ChromeAppSupport.badge.reset();
-
-    $rootScope.$on('settings:changed', function(event, args) {
-      chrome.runtime.sendMessage({action: 'settings:changed', name: args.name, value: args.value}, function (responseMessage) {
-        console.log("settings:changed", responseMessage);
-      });
-    });
-  };
-
-  ChromeAppSupport.notify = function (passedEvent, passedProperties) {
+  ChromeAppSupport.listen = function listen(fn) { chrome.runtime.onMessage.addListener(fn); };
+  ChromeAppSupport.notify = function notify(passedEvent, passedProperties) {
     var constructedMessage = angular.extend({}, { action: passedEvent }, passedProperties);
-    MeasureAppPort.postMessage(constructedMessage);
-
-    //		chrome.runtime.sendMessage(constructedMessage, function (responseMessage) {
-    //		});
+    chrome.runtime.sendMessage(constructedMessage);
+    console.log("sent message:", constructedMessage);
   };
 
   ChromeAppSupport.clearAlarm = function () {
@@ -44,9 +25,11 @@ angular.module('Measure.support.ChromeApp', [])
     chrome.alarms.onAlarm.addListener(alarmFunction);
   };
 
-  ChromeAppSupport.get = function (key) {
+  ChromeAppSupport.get = function (key, defaultValue) {
     var defer = $q.defer();
-    chrome.storage.local.get(key, function(state) {
+    var req = {};
+    req[key] = defaultValue;
+    chrome.storage.local.get(req, function(state) {
       console.log("retrieved from storage:", key, state);
       defer.resolve(state[key]);
     });

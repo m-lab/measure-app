@@ -4,8 +4,8 @@
             on-tap="shareCSV(historicalData.measurements)"
 			translate>Export</button>
 	</ion-nav-buttons>
-	<ion-content class="panel__history__empty"
-				ng-show="historicalData.measurements.length === 0">
+        <div ng-if="historicalData.measurements.length === 0">
+	<ion-content class="panel__history__empty">
 		<div class="row">
 			<div class="col col-offset-25 col-50 center emptyIcon"><i class="ion-erlenmeyer-flask"></i></div>
 		</div>
@@ -13,16 +13,24 @@
 			<div class="col col-offset-25 col-50 center">No measurements yet. When you conduct tests, they will fill in here.</div>
 		</div>
 	</ion-content>
-	<ion-content class="panel__history"
-			ng-show="historicalData.measurements.length > 0">
+        </div>
+        <div ng-if="historicalData.measurements.length > 0">
+	<ion-content class="panel__history">
 			<highchart id="historicalDataChart" config="historicalDataChartConfig" class="historicalDataChart"></highchart>
 			<ion-list show-delete="false" can-swipe="true">
-				<div class="item item-divider">
+                        <label class="item item-input item-select">
+                          <div class="input-label" translate>Statistic</div>
+                          <select ng-model="data.series"
+                                  ng-change="refreshData()"
+                                  ng-options="stat as (stat | capitalize:true) for stat in series">
+                          </select>
+                        </label>
+                                <div class="item item-divider">
 					<span translate>Measurement History</span>
 					<span class="badge badge-assertive">{{ historicalData.measurements.length }} </span>
 				</div>
-				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" ng-repeat="measurementRecord in
-								historicalData.measurements |  orderBy:'timestamp':true | limitTo: scrollLimit track by measurementRecord.index" >
+				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" 
+                                          ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true" >
 					<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
 						<div class="col">
 							<h2>{{ measurementRecord.accessInformation.isp }}</h2>
@@ -63,6 +71,6 @@
 							</ion-option-button>
 				</ion-item>
 			</ion-list>
-			<ion-infinite-scroll ng-if="(historicalData.measurements.length > scrollLimit)" on-infinite="increaseScrollLimit()" distance="10%"></ion-infinite-scroll>
 	</ion-content>
+        </div>
 </ion-view>

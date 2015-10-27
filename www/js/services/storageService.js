@@ -8,9 +8,9 @@ angular.module('Measure.services.Storage', [])
       }
       throw "No storage backend available";
     },
-    "get": function (key) {
+    "get": function (key, defaultValue) {
       if (MeasureConfig.environmentType === 'ChromeApp') {
-        return ChromeAppSupport.get(key);
+        return ChromeAppSupport.get(key, defaultValue);
       }
       throw "No storage backend available";
     }

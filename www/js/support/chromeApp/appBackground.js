@@ -32,23 +32,41 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
   console.log("MeasureConfig", JSON.stringify(MeasureConfig, null, "  "));
 })
 .run(function($rootScope, ChromeAppSupport, SettingsService, MeasurementClientService, BackgroundService, MeasureConfig, ScheduleService) {
+  var LISTENERS = {
+    'settings:changed': function(msg) {
+      $rootScope.$emit('settings:changed', {
+        name: msg.name,
+        value: msg.value
+      });
 
-  BackgroundService.eventState.mlabInformation = false;
-  BackgroundService.eventState.accessInformation = false;
-
-  $rootScope.$on('measurement:background', function(event, passedArguments) {
-    if (passedArguments.testStatus === 'onstart') {
-      ChromeAppSupport.badge.start();
-    } else if (passedArguments.testStatus === 'complete') {
-      ChromeAppSupport.badge.finished();
-      BackgroundService.eventQueue.push({
-        'event': 'measurement:background',
-        'persistent': false,
-        'state': {
-          'test_status': 'complete',
-          'results': passedArguments.results
+      SettingsService.currentSettings[msg.name] = msg.value;
+    },
+    'measurement:start': function(msg) {
+      MeasurementClientService.start(msg.server, msg.port, msg.path, msg.interval, false);
+    },
+    'measurement:status': function(msg) {
+      if (msg.testStatus === 'onstart') {
+        ChromeAppSupport.badge.start();
+      } else if (msg.testStatus === 'complete') {
+        ChromeAppSupport.badge.finished();
+      }
+    },
+    'queue:request': function(msg) {
+      angular.forEach(BackgroundService.eventQueue, function(queuedEvent, queuedEventKey) {
+        listenerPort.postMessage(queuedEvent);
+        if (queuedEvent.persistent === false) {
+          BackgroundService.eventQueue.splice(queuedEventKey, 1);
         }
       });
+
+    }
+  };
+
+  ChromeAppSupport.listen(function(msg) {
+    if(typeof LISTENERS[msg.action] == "function") {
+      LISTENERS[msg.action](msg);
+    } else {
+      $rootScope.$emit(msg.action, msg);
     }
   });
 
@@ -67,36 +85,7 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
       listenerConnected = false;
     });
 
-    listenerPort.onMessage.addListener(function (request) {
-
-      switch (request.action) {
-        case 'settings:changed':
-
-        $rootScope.$emit('settings:changed', {
-          name: request.name,
-          value: request.value
-        });
-
-        SettingsService.currentSettings[request.name] = request.value;
-        break;
-        case 'measurement:foreground:start':
-          MeasurementClientService.start(request.server, request.port, request.path, request.interval, false)
-        .then(
-          function(passedMessage) { if (listenerConnected === true) { listenerPort.postMessage(passedMessage); } },
-          function(passedMessage) { if (listenerConnected === true) { listenerPort.postMessage(passedMessage); } },
-          function(passedMessage) { if (listenerConnected === true) { listenerPort.postMessage(passedMessage); } }
-        );
-        break;
-        case 'queue:request':
-        angular.forEach(BackgroundService.eventQueue, function(queuedEvent, queuedEventKey) {
-          listenerPort.postMessage(queuedEvent);
-          if (queuedEvent.persistent === false) {
-            BackgroundService.eventQueue.splice(queuedEventKey, 1);
-          }
-        });
-        break;
-      }
-    });
+    listenerPort.onMessage.addListener();
   });
 });
 
