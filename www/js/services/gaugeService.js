@@ -48,20 +48,27 @@ angular.module('Measure.services.Gauge', [])
   "options": {
     "chart": {
       "type": "areaspline",
+      "zoomType": 'x'
     },
     "plotOptions": {
       "series": {
-        "stacking": ""
+        "stacking": "",
+        "enableMouseTracking": true,
+        "tooltip": {
+            headerFormat: '',
+            pointFormatter: function() {
+               return (Number(this.y)/1000).toFixed(2) + ' Mbps';
+            }
+          }
       },
-      'dataLabels': false
+      'dataLabels': true
     },
     legend: {
       enabled: false
     },
     tooltip: {
-      enabled: false
+      enabled: true
     }
-
   },
   "series": [
     {
@@ -76,10 +83,12 @@ angular.module('Measure.services.Gauge', [])
     }
   ],
   title: {
-    text: null
+    text: document.ontouchstart === undefined ?
+          'Click and drag in the chart to zoom in' : 'Pinch the chart to zoom in',
+    style: { "fontSize": "12px" }
   },
   subtitle: {
-    text: null
+      text: null
   },
   xAxis: {
     title: {
@@ -122,7 +131,8 @@ angular.module('Measure.services.Gauge', [])
 
   historicalDataChartService.populateData = function (series) {
     HistoryService.get().then(function(historicalData) {
-      var data = historicalData.measurements.slice(-10).map(function(measurement) {
+      //var data = historicalData.measurements.slice(-10).map(function(measurement) {
+      var data = historicalData.measurements.map(function(measurement) {
         if (series == "upload") {
           return measurement.results.c2sRate;
         } else {

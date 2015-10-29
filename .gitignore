@@ -2,3 +2,7 @@
 .*sw*
 plugins
 platforms
+
+measureapp.crx
+
+measureapp.pem
