@@ -60,7 +60,7 @@ angular.module('Measure.services.Sharing', [])
     var newline = options.newline||"\n";
     var quote = options.quote||"\"";
     var formatter = options.formatter||function(value) {
-      value = value.toString();
+      value = (value||"").toString();
       return value.match(/[,\r\n]/) ? quote + value.replace("\"","\"\"") + quote : value.replace("\"","\"\""); 
     };
     return [headers.join(delimiter)].concat(rows.map(function(row) { return headers.map(function(k) { return formatter(row[k]); }); })).join(newline);
