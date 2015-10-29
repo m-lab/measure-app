@@ -160,7 +160,7 @@ span.measurement-icon:before {
 }
 
 span.item-note {
-	max-width: 50%;
+	max-width: 80%;
 	text-overflow: ellipsis;
 	display: inline-block;
 	overflow: hidden;
