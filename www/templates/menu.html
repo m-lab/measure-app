@@ -17,12 +17,10 @@
 			<ion-list>
 				<ion-item menu-close ui-sref="app.measure()" translate>Measure</ion-item>
 				<ion-item menu-close ui-sref="app.history()" translate>Explore Data</ion-item>
-				<div class="item">
-					<span translate>Data Usage</span>
-					<span class="badge badge-assertive">
+				<ion-item menu-close ui-sref="app.dataUsage()"translate>Data Usage <span class="badge badge-assertive">
 					{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}
 					</span>
-				</div>
+				</ion-item>
 				<ion-item menu-close ui-sref="app.settings()" translate>Settings</ion-item>
 				<ion-item menu-close ui-sref="app.about()" translate>About</ion-item>
 			</ion-list>

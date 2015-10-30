@@ -211,6 +211,15 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
     }
   })
 
+  .state('app.dataUsage', {
+    url: "/information/data",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/static/dataUsage.html"
+      }
+    }
+  })
+
   .state('app.aboutMeasure', {
     url: "/information/about",
     views: {
