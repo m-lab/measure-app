@@ -103,6 +103,18 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 })
 
 .run(function (gettextCatalog, $rootScope, SettingsService) {
+  var availableLanguages = ['en'];
+  
+  availableLanguages = availableLanguages.concat(Object.keys(gettextCatalog.strings));
+
+  availableLanguages.forEach(function (languageCode) {
+    SettingsService.availableSettings.applicationLanguage.options.push(
+            {
+              'code': languageCode,
+              'label': getLanguageNativeName(languageCode)
+            });
+  });
+  
   SettingsService.get('applicationLanguage').then(function(applicationLanguage) {
     //gettextCatalog.debug = true;
     gettextCatalog.setCurrentLanguage(applicationLanguage.code);

@@ -21,11 +21,7 @@ angular.module('Measure.services.Settings', [])
     },
     'applicationLanguage': {
       'default': {'code': 'en', 'label': 'English'},
-      'options': [
-        {'code': 'en', 'label': 'English'},
-        {'code': 'es', 'label': 'Español'},
-        {'code': 'fa_IR', 'label': 'فارسی'},
-      ]
+      'options': []
     },
     'scheduledTesting': {
       'default': false,
