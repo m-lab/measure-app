@@ -1,4 +1,4 @@
-<ion-view view-title="Server Selection">
+<ion-view view-title="{{ 'Server Selection' | translate }}">
   <ion-content>
       <ion-radio collection-repeat="metroSelectionOption in availableSettings.metroSelection.options | orderBy:[metroSelectionSort, 'label']:false"
         ng-model="currentSettings.metroSelection"

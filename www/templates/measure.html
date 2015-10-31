@@ -1,4 +1,4 @@
-<ion-view view-title="M-Lab Measure">
+<ion-view view-title="{{ 'M-Lab Measure' | translate }}">
 	<ion-nav-bar>
 		<ion-nav-buttons side="primary">
 			<button menu-toggle="left"
@@ -54,7 +54,7 @@
 			<div class="col center">
 				<span class="currentState"
 						ng-show="currentState !== undefined">
-					{{ currentState }}
+					{{ currentState | translate }}
 				</span>
 				<span
 					ng-show="currentState === undefined && mlabInformation !== undefined"

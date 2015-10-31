@@ -38,3 +38,8 @@ To create a `.crx` file, open:
 Click the `Packed extension...` button and select the `platforms/browser/www` subdirectory.
 
 This will create a `www.crx` and associated private key `www.pem`.  You'll need both to distribute this extension to testers.
+
+#### Translating
+
+`grunt nggettext_extract`
+

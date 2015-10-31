@@ -1,4 +1,4 @@
-<ion-view view-title="Custom Schedule">
+<ion-view view-title="{{ 'Custom Schedule' | translate }}">
   <ion-content class="center panel__customschedule" padding="false">
     <div class="item item-divider" translate>Current Schedule</div>
     <ion-list ng-if="schedules.length > 0" class="list" show-delete="showDelete">
@@ -8,14 +8,14 @@
       </ion-item>
     </ion-list>
     <div class="item" ng-if="schedules.length == 0">
-      <p>No tests scheduled.</p>
+      <p translate>No tests scheduled.</p>
     </div>
     <div class="item item-divider" translate>Add a scheduled test</div>
     <div class="item">
       <div class="list">
-        <label class="item item-select">Hour<select ng-model="selected.timespan" ng-options="option.value as option.label for option in timespans" ><option value=""></option></select></label>
-        <label class="item item-select">Day of Week<select ng-model="selected.date" ng-options="option.value as option.label for option in dates"><option value=""></option></select></label>
-        <button class="button button-block button-positive" ng-click="addSchedule()">Save</button>
+        <label class="item item-select"><span translate>Hour</span><select ng-model="selected.timespan" ng-options="option.value as option.label | capitalize | translate for option in timespans" ><option value=""></option></select></label>
+        <label class="item item-select"><span translate>Day of Week</span><select ng-model="selected.date" ng-options="option.value as option.label | translate for option in dates"><option value=""></option></select></label>
+        <button class="button button-block button-positive" ng-click="addSchedule()" translate>Schedule Test</button>
       </div>
     </div>
   </ion-content>

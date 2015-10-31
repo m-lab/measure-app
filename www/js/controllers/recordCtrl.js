@@ -1,7 +1,7 @@
 angular.module('Measure.controllers.Record', [])
 
 .controller('RecordCtrl', function($scope, $history, $stateParams, $filter, $ionicModal,
-        HistoryService) {
+        HistoryService, gettextCatalog) {
 
     var RESULTS_TO_DISPLAY = {
         's2cRate': {'label': 'Download', 'filter': 'formatThroughputDisplay'},
@@ -39,7 +39,7 @@ angular.module('Measure.controllers.Record', [])
         $scope.measurementRecord.index = measurementRecord.index;
 
         if (measurementRecord.timestamp !== undefined) {
-            $scope.measurementRecord.information.Time = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy (H:mm)');
+            $scope.measurementRecord.information['Time'] = $filter('date')(measurementRecord.timestamp, 'MMMM d, yyyy (H:mm)');
         }
 
         if (measurementRecord.accessInformation !== undefined) {

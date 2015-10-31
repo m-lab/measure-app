@@ -1,4 +1,4 @@
-<ion-view view-title="Explore Data">
+<ion-view view-title="{{ 'Explore Data' | translate }}">
     <ion-nav-buttons side="secondary">
       <button class="button" aria-label="Export to CSV"
             on-tap="shareCSV(historicalData.measurements)"
@@ -22,7 +22,7 @@
                           <div class="input-label" translate>Statistic</div>
                           <select ng-model="data.series"
                                   ng-change="refreshData()"
-                                  ng-options="stat as (stat | capitalize:true) for stat in series">
+                                  ng-options="stat as (stat | capitalize:true | translate) for stat in series">
                           </select>
                         </label>
                                 <div class="item item-divider">

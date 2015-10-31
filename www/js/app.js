@@ -21,6 +21,37 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 	'environmentCapabilities': {},
 })
 
+.controller("manualTranslationStrings", function (gettext) {
+    var translationStrings = {
+        "Time": gettext("Time"),
+        "Service Provider": gettext("Service Provider"),
+        "Your Location": gettext("Your Location"),
+        "M-Lab Site": gettext("M-Lab Site"),
+        "Connection Type": gettext("Connection Type"),
+        "Retransmissions": gettext("Retransmissions"),
+        "Constantly": gettext("Constantly"),
+        "Hourly": gettext("Hourly"),
+        "Daily": gettext("Daily"),
+        "Weekly": gettext("Weekly"),
+        "Custom": gettext("Custom"),
+        "Monday": gettext("Monday"),
+        "Tuesday": gettext("Tuesday"),
+        "Wednesday": gettext("Wednesday"),
+        "Thursday": gettext("Thursday"),
+        "Friday": gettext("Friday"),
+        "Saturday": gettext("Saturday"),
+        "Sunday": gettext("Sunday"),
+        "Midnight": gettext("Midnight"),
+        "Starting": gettext("Starting"),
+        "Running Test (Upload)": gettext("Running Test (Upload)"),
+        "Running Test (Download)": gettext("Running Test (Download)"),
+        "Completed": gettext("Completed"),
+        "{{timeofday}} hour, every {{dayofweek}}": gettext("{{timeofday}} hour, every {{dayofweek}}"),
+        "Click and drag in the chart to zoom in" : gettext("Click and drag in the chart to zoom in"),
+        "Pinch the chart to zoom in": gettext("Pinch the chart to zoom in")
+    };
+})
+
 .config( ['$compileProvider', function( $compileProvider ) {
 	if (window.chrome && chrome.app && chrome.app.runtime) {
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
@@ -69,6 +100,18 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 		}
 
     });
+})
+
+.run(function (gettextCatalog, $rootScope, SettingsService) {
+  SettingsService.get('applicationLanguage').then(function(applicationLanguage) {
+    //gettextCatalog.debug = true;
+    gettextCatalog.setCurrentLanguage(applicationLanguage.code);
+  });
+  $rootScope.$on('settings:changed', function(event, nameValue) {
+    if (nameValue.name == 'applicationLanguage') {
+      gettextCatalog.setCurrentLanguage(nameValue.value.code);
+    }
+  });
 })
 
 .run(function ($ionicPlatform, $rootScope, MeasureConfig, ChromeAppSupport) {

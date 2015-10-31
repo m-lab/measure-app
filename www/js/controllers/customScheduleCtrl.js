@@ -1,9 +1,11 @@
 angular.module('Measure.controllers.CustomSchedule', [])
 // TODO: make this nicer.
-.filter("formatCustomSchedule", function(CustomScheduleService) { 
-  return function(s) { 
-    return CustomScheduleService.TIMESPANS[s.timespan].label + " hour, every " + CustomScheduleService.DATES[s.date].label; 
-  }; 
+.filter("formatCustomSchedule", function(CustomScheduleService, gettextCatalog) {
+  return function(s) {
+    return gettextCatalog.getString("{{timeofday}} hour, every {{dayofweek}}",
+      { "timeofday": gettextCatalog.getString(CustomScheduleService.TIMESPANS[s.timespan].label),
+        "dayofweek": gettextCatalog.getString(CustomScheduleService.DATES[s.date].label)});
+  };
 })
 .controller('CustomScheduleCtrl', function($scope, $ionicPopup, ScheduleManagerService, SettingsService, CustomScheduleService){
   $scope.showDelete = true;

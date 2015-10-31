@@ -85,14 +85,14 @@ angular.module('Measure.controllers.Measurement', [])
 
 	$scope.MeasureConfig = MeasureConfig;
 
-        function refreshHistory() {
-          HistoryService.get().then(function(data) {
-            $scope.lastMeasurementId = data.measurements.length - 1;
-          });
-        }
+  function refreshHistory() {
+    HistoryService.get().then(function(data) {
+      $scope.lastMeasurementId = data.measurements.length - 1;
+    });
+  }
 
-        $rootScope.$on("history:measurement:change", refreshHistory);
-        refreshHistory();
+  $rootScope.$on("history:measurement:change", refreshHistory);
+  refreshHistory();
 
 	$scope.currentState = undefined;
 	$scope.currentRate = undefined;

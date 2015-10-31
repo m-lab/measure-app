@@ -124,10 +124,11 @@ angular.module('Measure.services.Gauge', [])
   }
 })
 
-.factory('historicalDataChartService', function(historicalDataChartConfig, HistoryService) {
+.factory('historicalDataChartService', function(historicalDataChartConfig, HistoryService, gettextCatalog) {
   var historicalDataChartService = {};
 
   historicalDataChartService.config = historicalDataChartConfig;
+  historicalDataChartService.config.title.text = gettextCatalog.getString(historicalDataChartService.config.title.text)
 
   historicalDataChartService.populateData = function (series) {
     HistoryService.get().then(function(historicalData) {

@@ -1,4 +1,4 @@
-<ion-view view-title="Settings">
+<ion-view view-title="{{ 'Settings' | translate }}">
 <ion-content>
 <div class="list">
   <a class="item item-icon-right" ui-sref="app.serverSelection()" >
@@ -15,12 +15,12 @@
     <div class="input-label" translate>Schedule</div>
     <select ng-model="currentSettings.scheduleInterval"
             ng-change="setSchedule()"
-            ng-options="interval as (interval | capitalize:true) for interval in availableSettings.scheduleInterval.options track by interval">
+            ng-options="interval as (interval | capitalize:true | translate) for interval in availableSettings.scheduleInterval.options track by interval">
     </select>
   </label>
-  <a ng-if="currentSettings.scheduledTesting && currentSettings.scheduleInterval == 'custom'" class="item item-icon-right" ui-sref="app.customSchedule" translate>
+  <a ng-if="currentSettings.scheduledTesting && currentSettings.scheduleInterval == 'custom'" class="item item-icon-right" ui-sref="app.customSchedule">
     <i class="icon ion-ios-cloudy-night-outline"></i>
-    Custom Schedule
+    <span translate>Custom Schedule</span>
   </a>
   <ion-toggle ng-model="currentSettings.onlyWifi"
               ng-show="environmentCapabilities.schedulingSupported === true && environmentCapabilities.connectionInformation === true && currentSettings.scheduledTesting === true"
@@ -44,7 +44,7 @@
                           ng-disabled="true"><span translate>Trusted Tester</span></ion-toggle>
                           <a class="item item-icon-right" on-tap="initiateHistoryReset()">
                             <i class="icon ion-ios-refresh-outline"></i>
-                            Reset Measurement History
+                            <span translate>Reset Measurement History</span>
                           </a>
 </div>
 </ion-content>

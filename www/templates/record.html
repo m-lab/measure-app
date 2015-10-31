@@ -1,4 +1,4 @@
-<ion-view view-title="Measurement Data">
+<ion-view view-title="{{ 'Measurement Data' | translate }}">
 	<ion-nav-buttons side="secondary">
 		<button class="button" aria-label="Add Notes to Measurement"
 				ng-click="annotateModal.show()">
@@ -16,7 +16,7 @@
 				<span class="item-note">{{ result }}</span>
 			</div>
 			<!-- -->
-			<div class="item item-divider">Performance</div>
+			<div class="item item-divider" translate>Performance</div>
 			<div class="item"
 					ng-repeat="(label, result) in measurementRecord.results"
 					href="#">
@@ -37,7 +37,7 @@
 			<a class="item item-icon-right"
 					ng-click="hideMeasurement(measurementRecord.index)">
 				<i class="icon ion-trash-a"></i>
-				Delete
+				<span translate>Delete</span>
 			</a>
 		</div>
 	</ion-content>
