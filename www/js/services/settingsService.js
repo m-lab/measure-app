@@ -23,6 +23,7 @@ angular.module('Measure.services.Settings', [])
       'default': {'code': 'en', 'label': 'English'},
       'options': [
         {'code': 'en', 'label': 'English'},
+        {'code': 'es', 'label': 'Español'},
         {'code': 'fa_IR', 'label': 'فارسی'},
       ]
     },
