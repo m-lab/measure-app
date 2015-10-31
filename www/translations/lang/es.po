@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2015-10-31 18:54+0000\n"
-"Last-Translator: Chris Ritzo <critzo@opentechinstitute.org>\n"
+"PO-Revision-Date: 2015-10-31 21:55+0000\n"
+"Last-Translator: Jack fermon <jfermon@google.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/otf/mlab-app/language/es/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,7 +54,7 @@ msgid ""
 "advance research, these data will be made publicly available. The M-Lab "
 "Measure App does not collect personal information, such as your Internet "
 "traffic, your emails or Web searches."
-msgstr ""
+msgstr "Al correr estas pruebas en la aplicación M-Lab Measure, su dispositivo generará, mandará y recibirá datos a un servidor de M-Lab. Los datos colectados tratan únicamante sobre los flujos de comunicación generados entre su dispositivo y un servidor M-Lab. Esto incluye la dirección IP que su proveedor de servicios de Internet le proporciona. Estos datos serán usados y analizados por investigdores y, con el fin del avance de la investigación, estos datos se harán públicos. La aplciación M-Lab measure no colecta ninguna información personal, como su tráfico de Internet, sus emails o sus búsquedas Web. "
 
 #: www/templates/static/hostInformation.html:15
 msgid ""
@@ -249,7 +249,7 @@ msgid ""
 " available, including the IP address provided by your ISP at the edge of "
 "your network. All tools are open source and created by researchers. For more"
 " information, see M-Lab’s privacy policy."
-msgstr ""
+msgstr "M-Lab ofrece varias herramientas de medición que permiten a los consumidores probar varios parámetros, desde la velocidad de la red y la latencia, hasta bloqueos y cuellos de botella. Todas las herramientas ejecutan solamente mediciones activas con la plataforma M-Lab. Esto significa que las pruebas de M-Lab miden como su conexión de red responde a una fuente de datos ficticia generada por la herramienta individual con el único propósito de la medición. Las herramietnas no colectan información acerca de su tráfico a internet, como emails, búsquedas web, navegación de contenido o culaquier informaición personal. Todos los datos colectados se hacen disponibles al públco, incluyendo la dirección IP proporcionada por su proveedor de Internet en el extremo de su red. Todas las herramientas son de código abierto y creadas por investigadores. Para más información, lea la política de privacidad de M-Lab."
 
 #: www/templates/static/privacy.html:15
 msgid ""
@@ -287,7 +287,7 @@ msgid ""
 "Internet measurement tools. M-Lab’s goal is to advance network research and "
 "empower the public with useful information about their broadband and mobile "
 "connections."
-msgstr ""
+msgstr "Measurement Lab (M-Lab) es un consorcio de socios de investigación, de la industria y del interés público dedicado a proveer una plataforma de mediciones, verificable y abierta, acerca del rendimiento global de la red. La plataforma de M-Lab es una red abierta y distribuída de servidores, en la cual investigadores pueden implementar herramientas de código abierto de medición del Interent . La meta de M-Lab es progresar en la investigación de redes y empoderar al público con información útil acerca de sus conexiones móviles y de banda ancha."
 
 #: www/templates/modals/annotateMeasurement.html:14
 msgid "Measurement Notes"
@@ -327,7 +327,7 @@ msgstr "Rendimiento"
 
 #: www/js/app.js:51
 msgid "Pinch the chart to zoom in"
-msgstr ""
+msgstr "Clic en la gráfica para hacer zoom"
 
 #: www/templates/static/dataUsage.html:10
 msgid ""
@@ -410,7 +410,7 @@ msgid ""
 "sophisticated speed and diagnostic test suitable for both the novice and the"
 " network researcher. For more information on NDT and other M-Lab tests, "
 "please visit our the NDT page on M-Lab's site."
-msgstr ""
+msgstr "La aplicación M-Lab Measure implementa la preuba Network Diagnsitic Tool (NDT). NDT es desarrollada y mantenida por Internet 2 y provée una prueba sofisticada de velocidad y diagnóstico, útil tanto para principiantes como para investigadores de redes. Para más información acerca de NDT y otras pruebas de M-Lab, por favor visita la página de NDT en el sitio web de M-Lab."
 
 #: www/templates/static/dataUsage.html:5
 msgid ""
@@ -424,7 +424,7 @@ msgid ""
 "individual or represent an organization. Find out other ways to <a "
 "href=\"http://measurementlab.net/contribute\" "
 "target=\"_system\">contribute</a> on our website."
-msgstr ""
+msgstr "Hay muchas maneras de participar en M-Lab, ya sea de manera individual o como representante de una organización. Encuentre otras maneras de <a href=\"http://measurementlab.net/contribute\" target=\"_system\">contribuír</a> en nuestro sitio web."
 
 #: www/templates/static/privacy.html:4
 msgid "This application:"

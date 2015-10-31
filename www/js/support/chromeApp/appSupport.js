@@ -7,6 +7,36 @@ angular.module('Measure.support.ChromeApp', [])
 .factory('ChromeAppSupport', function($rootScope, $q, CHROME_APP_CONFIG) {
 
   var ChromeAppSupport = {};
+  
+  function createChromeBadge(badgeBaseUrl, badgeAnnotationUrl) {
+      var badgeCanvas = document.createElement('canvas'),
+          badgeContext = badgeCanvas.getContext('2d'),
+          badgeBase = new Image(),
+          badgeAnnotation = new Image(),
+          badgeImageData;
+
+      badgeBase.src = badgeBaseUrl;
+
+      badgeBase.onload = function() {
+        if (badgeAnnotationUrl !== undefined) {
+          badgeContext.drawImage(badgeBase, 0, 0, 19, 19);
+          badgeAnnotation.src = badgeAnnotationUrl;
+          badgeAnnotation.onload = function() {
+            badgeContext.drawImage(badgeAnnotation, 10, 10, 9, 9);
+            badgeImageData = badgeContext.getImageData(0, 0, 19, 19);
+            chrome.browserAction.setIcon({
+              imageData: badgeImageData
+            });
+          }
+        } else {
+          badgeContext.drawImage(badgeBase, 0, 0, 19, 19);
+          badgeImageData = badgeContext.getImageData(0, 0, 19, 19);
+          chrome.browserAction.setIcon({
+            imageData: badgeImageData
+          });
+        }
+      };
+  }
   ChromeAppSupport.listen = function listen(fn) { chrome.runtime.onMessage.addListener(fn); };
   ChromeAppSupport.notify = function notify(passedEvent, passedProperties) {
     var constructedMessage = angular.extend({}, { action: passedEvent }, passedProperties);
@@ -53,15 +83,13 @@ angular.module('Measure.support.ChromeApp', [])
 
   ChromeAppSupport.badge = {
     'start': function () {
-      chrome.browserAction.setBadgeText({text: '🕐'});
-      chrome.browserAction.setBadgeBackgroundColor({color: '#FF5FD8'});
+        createChromeBadge("/img/icon64.png", "/img/interactions/inprocess.svg");
     },
     'finished': function () {
-      chrome.browserAction.setBadgeText({text: '✓'});
-      chrome.browserAction.setBadgeBackgroundColor({color: '#5B6FB2'});
+        createChromeBadge("/img/icon64.png", "/img/interactions/success.svg");
     },
     'reset': function () {
-      chrome.browserAction.setBadgeText({text: ''});
+        createChromeBadge("/img/icon64.png");
     }
   };
 
