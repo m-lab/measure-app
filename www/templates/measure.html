@@ -26,9 +26,9 @@
 		<div class="row padding-vertical">
 			<div class="col center displayArea"
 					ng-class="{testReady: !measurementRunning }">
-				<canvas gaugejs gauge-type="progressGaugeConfig.gaugeType"
+				<canvas gaugejs gauge-type="'donut'"
 						class="progressGauge"
-						options="progressGaugeConfig.gaugeOptions"
+						options="gaugeOptions"
 						value="progressGaugeState.current"
 						max-value="progressGaugeState.maximum"
 						on-tap="startNDT()"

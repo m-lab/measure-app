@@ -1,6 +1,6 @@
 // Measure.app
 /*
-todo: 
+todo:
 	retain state
 	inform about new tests
 	launch front-facing tests in backgroundjs to preserve
@@ -73,20 +73,6 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
   if (MeasureConfig.environmentCapabilities.schedulingSupported === true) {
     ScheduleService.initiate();
   }
-
-  console.log("Setup Background listener port...");
-  chrome.runtime.onConnect.addListener(function(listenerPort) {
-    var listenerConnected = true;
-    console.assert(listenerPort.name == "MeasureAppBackend");
-    console.log('Frontend Listener Connected');
-
-    listenerPort.onDisconnect.addListener(function () {
-      console.log('Frontend Listener Disconnected');
-      listenerConnected = false;
-    });
-
-    listenerPort.onMessage.addListener();
-  });
 });
 
 angular.element(document).ready(function () {

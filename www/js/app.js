@@ -60,7 +60,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 
 .run(function($ionicPlatform) {
 	$ionicPlatform.ready(function() {
-		if (window.cordova && window.cordova.plugins.Keyboard) {
+		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 		}
 		if (window.StatusBar) {
@@ -92,7 +92,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 					break;
 			}
 		}
-		
+
 		if (ENVIRONMENT_CAPABILITIES.hasOwnProperty(MeasureConfig.environmentType) === true) {
 			MeasureConfig.environmentCapabilities = ENVIRONMENT_CAPABILITIES[MeasureConfig.environmentType];
 		} else {
@@ -104,7 +104,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 
 .run(function (gettextCatalog, $rootScope, SettingsService) {
   var availableLanguages = ['en'];
-  
+
   availableLanguages = availableLanguages.concat(Object.keys(gettextCatalog.strings));
 
   availableLanguages.forEach(function (languageCode) {
@@ -114,10 +114,12 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
               'label': getLanguageNativeName(languageCode)
             });
   });
-  
+
   SettingsService.get('applicationLanguage').then(function(applicationLanguage) {
     //gettextCatalog.debug = true;
-    gettextCatalog.setCurrentLanguage(applicationLanguage.code);
+    if(applicationLanguage) {
+      gettextCatalog.setCurrentLanguage(applicationLanguage.code);
+    }
   });
   $rootScope.$on('settings:changed', function(event, nameValue) {
     if (nameValue.name == 'applicationLanguage') {
@@ -206,7 +208,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
     templateUrl: "templates/menu.html",
     controller: 'MenuCtrl'
   })
-  
+
   .state('app.settings', {
     url: "/settings",
     views: {

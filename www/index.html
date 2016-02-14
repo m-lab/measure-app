@@ -4,41 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <link href="css/ionic.app.min.css" rel="stylesheet">
+    <link href="css/custom.min.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/angular-aria/angular-aria.js"></script>
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
+
     <!-- highcharts and highcharts-ng js -->
     <script src="lib/highcharts/adapters/standalone-framework.src.js"></script>
     <script src="lib/highcharts/highcharts.js"></script>
     <script src="lib/highcharts/highcharts-more.src.js"></script>
-    <script src="lib/highcharts-ng/src/highcharts-ng.js"></script>
+    <script src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
 
-    <script src="lib/angular-gaugejs/src/angular-gauge.js"></script>
-    <script src="lib/gauge.js/dist/gauge.js"></script>
-
+    <script src="lib/sajacy-gauge.js/dist/gauge.min.js"></script>
+    
     <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
 
     <script src="lib/angular-gettext/dist/angular-gettext.js"></script>
-    <script src="translations/scripts/translations.js"></script>
-    <script src="translations/scripts/lang.js"></script>
+    <script src="translations/scripts/es.js"></script>
 
-    <!-- your app's js -->
     <script src="js/constants.js"></script>
+    <script src="js/lang.js"></script>
+    <script src="js/compat.js"></script>
     <script src="js/app.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/controllers.js"></script>
@@ -49,10 +42,12 @@
     <script src="js/controllers/recordCtrl.js"></script>
     <script src="js/controllers/settingsCtrl.js"></script>
 
+    <script src="js/directives/angular-gauge.js"></script>
+
     <script src="js/services.js"></script>
-    <script src="js/services/customScheduleService.js"></script>
+    <script src="js/services/chartService.js"></script>
     <script src="js/services/clientService.js"></script>
-    <script src="js/services/gaugeService.js"></script>
+    <script src="js/services/customScheduleService.js"></script>
     <script src="js/services/historyService.js"></script>
     <script src="js/services/measurementService.js"></script>
     <script src="js/services/mlabService.js"></script>
