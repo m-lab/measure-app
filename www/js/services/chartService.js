@@ -1,49 +1,4 @@
-angular.module('Measure.services.Gauge', [])
-
-.value('progressGaugeConfig', {
-	'gaugeType': 'donut',
-	'gaugeOptions': {
-		angle: 0.5, // The length of each line
-		lineWidth: 0.07, // The line thickness
-		limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
-		colorStart: '#07DBD0',   // Colors
-		colorStop: '#07DBD0',    // just experiment with them
-		strokeColor: '#FFF',   // to see which ones work best for you
-		generateGradient: true
-    }
-})
-
-.factory('progressGaugeService', function(progressGaugeConfig, $interval) {
-
-	var progressGaugeService = {
-		'gaugeConfig': angular.copy(progressGaugeConfig),
-		'gaugeStatus': {
-			'current': 0,
-			'maximum': 1,
-			'message': 'Start'
-		}
-	};
-
-	progressGaugeService.gaugeStart = function () {
-		this.gaugeStatus.current = 0;
-	};
-	progressGaugeService.gaugeReset = function () {
-		this.gaugeStatus.current = 0;
-	};
-	progressGaugeService.gaugeComplete = function () {
-		this.gaugeStatus.current = this.gaugeStatus.maximum;
-	};
-	progressGaugeService.gaugeError = function () {
-		this.gaugeStatus.current = this.gaugeStatus.maximum;
-		this.gaugeConfig.colorStart = '#D90000';
-		this.gaugeConfig.colorStop = '#D90000';
-	};
-	progressGaugeService.setGauge = function(value) {
-          this.gaugeStatus.current = Math.min(value, this.gaugeStatus.maximum);
-        };
-	return progressGaugeService;
-})
-
+angular.module('Measure.services.Chart', [])
 .value('historicalDataChartConfig', {
   "options": {
     "chart": {
@@ -128,7 +83,7 @@ angular.module('Measure.services.Gauge', [])
   var historicalDataChartService = {};
 
   historicalDataChartService.config = historicalDataChartConfig;
-  historicalDataChartService.config.title.text = gettextCatalog.getString(historicalDataChartService.config.title.text)
+  historicalDataChartService.config.title.text = gettextCatalog.getString(historicalDataChartService.config.title.text);
 
   historicalDataChartService.populateData = function (series) {
     HistoryService.get().then(function(historicalData) {
@@ -138,7 +93,7 @@ angular.module('Measure.services.Gauge', [])
           return measurement.results.c2sRate;
         } else {
           return measurement.results.s2cRate;
-        } 
+        }
       });
       historicalDataChartService.config.series[0].data = data;
     });

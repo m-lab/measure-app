@@ -1,11 +1,19 @@
 {
-  "name": "NDT",
+  "name": "Measure",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.0.0-rc.5"
+    "ionic": "driftyco/ionic-bower#1.1.1"
   },
   "dependencies": {
     "angular-dialgauge": "~0.1.5",
-    "ngCordova": "~0.1.15-alpha"
+    "ngCordova": "~0.1.24-alpha",
+    "angular-aria": "*",
+    "angular-gettext": "*",
+    "highcharts": "*",
+    "highcharts-ng": "*",
+    "sajacy-gauge.js": "~1.2.2"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }

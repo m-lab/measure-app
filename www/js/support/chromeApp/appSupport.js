@@ -7,8 +7,9 @@ angular.module('Measure.support.ChromeApp', [])
 .factory('ChromeAppSupport', function($rootScope, $q, CHROME_APP_CONFIG) {
 
   var ChromeAppSupport = {};
-  
+
   function createChromeBadge(badgeBaseUrl, badgeAnnotationUrl) {
+    if(chrome.browserAction) {
       var badgeCanvas = document.createElement('canvas'),
           badgeContext = badgeCanvas.getContext('2d'),
           badgeBase = new Image(),
@@ -27,7 +28,7 @@ angular.module('Measure.support.ChromeApp', [])
             chrome.browserAction.setIcon({
               imageData: badgeImageData
             });
-          }
+          };
         } else {
           badgeContext.drawImage(badgeBase, 0, 0, 19, 19);
           badgeImageData = badgeContext.getImageData(0, 0, 19, 19);
@@ -36,7 +37,9 @@ angular.module('Measure.support.ChromeApp', [])
           });
         }
       };
+    }
   }
+
   ChromeAppSupport.listen = function listen(fn) { chrome.runtime.onMessage.addListener(fn); };
   ChromeAppSupport.notify = function notify(passedEvent, passedProperties) {
     var constructedMessage = angular.extend({}, { action: passedEvent }, passedProperties);
