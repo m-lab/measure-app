@@ -1,42 +1,41 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="org.measurementlab.apps.Measure" version="0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<?xml version='1.0' encoding='utf-8'?><widget id="org.measurementlab.apps.Measure" version="0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>M-Lab Measure</name>
     <description>Measure your Internet connection using M-Lab's Open Internet Measurement tools.</description>
-    <author email="dev@measurementlab.net" href="">Measurement Lab Developers &lt;dev@measurementlab.net&gt;</author>
-    <content src="plugins/cordova-plugin-chrome-apps-bootstrap/chromeapp.html" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <allow-navigation href="*://mlab-ns.appspot.com/*" />
-    <allow-navigation href="*://measure-location.appspot.com/*" />
-    <allow-navigation href="*://*.measurement-lab.org/*" />
-    <allow-navigation href="data:*" />
-    <allow-navigation href="ws://*" />
+    <author email="dev@measurementlab.net" href="">Author Name &lt;a@b.com></author>
+    <content src="plugins/cordova-plugin-chrome-apps-bootstrap/chromeapp.html"/>
+    <plugin name="cordova-plugin-whitelist" spec="1"/>
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+    <allow-intent href="tel:*"/>
+    <allow-intent href="sms:*"/>
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
+    <allow-navigation href="*://mlab-ns.appspot.com/*"/>
+    <allow-navigation href="*://measure-location.appspot.com/*"/>
+    <allow-navigation href="*://*.measurement-lab.org/*"/>
+    <allow-navigation href="data:*"/>
+    <allow-navigation href="ws://*"/>
     <platform name="android">
-        <allow-intent href="market:*" />
-        <icon src="www/img/icon128.png" />
-        <icon src="www/img/icon16.png" width="16" />
-        <icon src="www/img/icon32.png" width="32" />
-        <icon src="www/img/icon48.png" width="48" />
-        <icon src="www/img/icon128.png" width="128" />
-    </platform>
+        <allow-intent href="market:*"/>
+        
+        
+        
+        
+        
+    <icon src="www/img/icon128.png"/><icon src="www/img/icon16.png" width="16"/><icon src="www/img/icon32.png" width="32"/><icon src="www/img/icon48.png" width="48"/><icon src="www/img/icon128.png" width="128"/></platform>
     <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
-        <icon src="www/img/icon128.png" />
-        <icon src="www/img/icon16.png" width="16" />
-        <icon src="www/img/icon32.png" width="32" />
-        <icon src="www/img/icon48.png" width="48" />
-        <icon src="www/img/icon128.png" width="128" />
-    </platform>
-    <preference name="android-minSdkVersion" value="14" />
-    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
-    <preference name="xwalkMode" value="embedded" />
-    <preference name="xwalkMultipleApk" value="true" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="~5.0.10" />
-    <preference name="xwalkVersion" value="16+" />
+        <allow-intent href="itms:*"/>
+        <allow-intent href="itms-apps:*"/>
+        
+        
+        
+        
+        
+    <icon src="www/img/icon128.png"/><icon src="www/img/icon16.png" width="16"/><icon src="www/img/icon32.png" width="32"/><icon src="www/img/icon48.png" width="48"/><icon src="www/img/icon128.png" width="128"/></platform>
+    <preference name="android-minSdkVersion" value="14"/>
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect"/>
+    <preference name="xwalkMode" value="embedded"/>
+    <preference name="xwalkMultipleApk" value="true"/>
+    <plugin name="cordova-plugin-x-socialsharing" spec="~5.0.10"/>
+    
 </widget>

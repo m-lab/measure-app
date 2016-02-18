@@ -4,7 +4,6 @@ if (!chrome.runtime.onMessage) {
   chrome.runtime.onMessage = {
     "addListener": function addListener(fn) {
       var wrapper = function(e) {
-        console.log("received message:", e.data);
         fn(e.data, { "origin": e.origin }, function() {});
       };
       window.addEventListener("message", wrapper, false);

@@ -9,6 +9,7 @@
         "lib/ionic/js/ionic.bundle.js",
         "lib/angular-aria/angular-aria.js",
         "lib/ngCordova/dist/ng-cordova.js",
+        "js/compat.js",
         "js/constants.js",
         "js/services.js",
         "js/services/backgroundService.js",
