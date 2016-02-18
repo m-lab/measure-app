@@ -4,8 +4,13 @@
 
 #### Prerequisites
 * [Node v0.12+](https://nodejs.org)
-* Cordova and [CCA](https://github.com/MobileChromeApps/mobile-chrome-apps) toolchain: `npm install -g cordova cca`
-
+* [Cordova](https://www.npmjs.com/package/cordova), [Gulp](http://gulpjs.com), and [CCA](https://github.com/MobileChromeApps/mobile-chrome-apps) toolchain: `npm install -g cordova cca gulp-cli`
+  - You may need to prepend `sudo` to avoid file permissions issues.
+* [Android SDK](http://developer.android.com/sdk/installing/index.html?pkg=tools)
+  - To completely install the SDK, you must:
+  - run `[sdk directory]/tools/android sdk` and setup the [tools](http://developer.android.com/sdk/installing/adding-packages.html)
+  - Optionally, install an emulator
+  
 #### Getting Started
 
 After installing prerequisites, run:
@@ -13,6 +18,9 @@ After installing prerequisites, run:
 ```bash
 # Setup build environment
 npm install
+
+# Check Android SDK is properly installed
+cca checkenv
 ```
 
 ## Mobile App
@@ -26,7 +34,7 @@ To build as an Android app:
 gulp app
 
 # Package
-cca platform add android
+cca prepare android
 cca build android
 ```
 
@@ -40,7 +48,7 @@ cca run android --emulator
 cca run android --device
 ```
 
-If running on a device, you can open Chrome at `chrome://inspect` to get live debugging using Developer Tools.
+Once running, you can open Chrome at `chrome://inspect` to get live debugging using Developer Tools.
 
 #### Packaging
 
@@ -51,6 +59,10 @@ cca build android --release
 ## Chrome Extension
 
 #### Building
+
+**NB:** The app can be loaded as a Chrome App (standalone) or Chrome extension (browser-embedded).
+
+Only run this command if you want to build the extension version.  Otherwise skip to [Running](#running).
 
 ```bash
 gulp extension
