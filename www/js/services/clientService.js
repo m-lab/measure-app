@@ -9,6 +9,17 @@ angular.module('Measure.services.MeasurementClient', [])
       "complete": 1
     };
 
+    // necessary because intervals are not emitted when measuring in background mode
+    var FLOORS = {
+      "preparing_c2s": 0.01,
+      "running_c2s": 0.02,
+      "finished_c2s": 0.48,
+      "preparing_s2c": 0.50,
+      "running_s2c": 0.51,
+      "finished_s2c": 0.96,
+      "complete": 1
+    };
+
     var DELTAS = {
       'onstart': 0.01,
 
@@ -28,10 +39,10 @@ angular.module('Measure.services.MeasurementClient', [])
       'complete': 0.01,
     };
 
-    var next = Math.min(current + (DELTAS[state] || 0), CEILINGS[state] || 1);
+    var next = Math.max(Math.min(current + (DELTAS[state] || 0), CEILINGS[state] || 1), FLOORS[state] || 0);
     return next;
   }
-  
+
   var MeasurementClientService = {
     "start": function start(server, port, path, interval, backgroundInitiated) {
 
@@ -52,7 +63,7 @@ angular.module('Measure.services.MeasurementClient', [])
       accessInformation.getAccessInformation().then(function (accessInformation) {
         measurementRecord.accessInformation = accessInformation;
       });
-      
+
       MLabService.findServer(setMetroSelection).then(function(mlabAnswer) {
         measurementRecord.mlabInformation = angular.copy(mlabAnswer);
         MeasurementService.start(measurementRecord.mlabInformation.fqdn, port, path, interval).then(function(passedResults) {
