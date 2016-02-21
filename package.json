@@ -2,7 +2,8 @@
   "name": "Measure",
   "version": "1.0.0",
   "description": "Open Measurement for the People",
-  "dependencies": {},
+  "private": true,
+  "dependencies": null,
   "devDependencies": {
     "bower": "^1.7.7",
     "gulp": "^3.9.1",
@@ -13,13 +14,5 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
     "gulp-util": "^3.0.7"
-  },
-  "cordovaPlugins": [
-    "org.apache.cordova.device",
-    "org.apache.cordova.console",
-    "com.ionic.keyboard"
-  ],
-  "cordovaPlatforms": [
-    "android"
-  ]
+  }
 }

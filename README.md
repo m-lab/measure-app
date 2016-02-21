@@ -4,12 +4,13 @@
 
 #### Prerequisites
 * [Node v0.12+](https://nodejs.org)
+  - Preferably via [nvm](https://github.com/creationix/nvm), e.g. `nvm use [version]`
 * [Cordova](https://www.npmjs.com/package/cordova), [Gulp](http://gulpjs.com), and [CCA](https://github.com/MobileChromeApps/mobile-chrome-apps) toolchain: `npm install -g cordova cca gulp-cli`
-  - You may need to prepend `sudo` to avoid file permissions issues.
 * [Android SDK](http://developer.android.com/sdk/installing/index.html?pkg=tools)
   - To completely install the SDK, you must:
   - run `[sdk directory]/tools/android sdk` and setup the [tools](http://developer.android.com/sdk/installing/adding-packages.html)
-  - Optionally, install an emulator
+  - **You must install SDK Build-tools for target version API 22.0.1**
+  - Optionally, install an SDK Platform and system image for the emulator.
   
 #### Getting Started
 
