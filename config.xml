@@ -33,6 +33,7 @@
         
     <icon src="www/img/icon128.png"/><icon src="www/img/icon16.png" width="16"/><icon src="www/img/icon32.png" width="32"/><icon src="www/img/icon48.png" width="48"/><icon src="www/img/icon128.png" width="128"/></platform>
     <preference name="android-minSdkVersion" value="14"/>
+    <preference name="android-targetSdkVersion" value="22"/>
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect"/>
     <preference name="xwalkMode" value="embedded"/>
     <preference name="xwalkMultipleApk" value="true"/>
