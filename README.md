@@ -9,8 +9,15 @@
 * [Android SDK](http://developer.android.com/sdk/installing/index.html?pkg=tools)
   - To completely install the SDK, you must:
   - run `[sdk directory]/tools/android sdk` and setup the [tools](http://developer.android.com/sdk/installing/adding-packages.html)
-  - **You must install SDK Build-tools for target version API 22.0.1**
-  - Optionally, install an SDK Platform and system image for the emulator.
+  - Minimal packages that must be installed:
+    - Android SDK Tools
+    - Android Platform-tools
+    - Android SDK Build-tools **22.0.1**
+    - Android 5.1.1 (API 22) > SDK Platform (this may also require you to install higher SDK Platform versions)
+    - Extras > Android Support Repository
+    - Extras > Android Support Library
+
+  - Optionally, install a system image for the emulator.
   
 #### Getting Started
 
@@ -19,9 +26,6 @@ After installing prerequisites, run:
 ```bash
 # Setup build environment
 npm install
-
-# Check Android SDK is properly installed
-cca checkenv
 ```
 
 ## Mobile App
