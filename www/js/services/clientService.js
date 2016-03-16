@@ -4,20 +4,20 @@ angular.module('Measure.services.MeasurementClient', [])
 
   function incrementProgress(current, state) {
     var CEILINGS = {
-      "interval_c2s": 0.48,
-      "interval_s2c": 0.96,
-      "complete": 1
+      'interval_c2s': 0.48,
+      'interval_s2c': 0.96,
+      'complete': 1
     };
 
     // necessary because intervals are not emitted when measuring in background mode
     var FLOORS = {
-      "preparing_c2s": 0.01,
-      "running_c2s": 0.02,
-      "finished_c2s": 0.48,
-      "preparing_s2c": 0.50,
-      "running_s2c": 0.51,
-      "finished_s2c": 0.96,
-      "complete": 1
+      'preparing_c2s': 0.01,
+      'running_c2s': 0.02,
+      'finished_c2s': 0.48,
+      'preparing_s2c': 0.50,
+      'running_s2c': 0.51,
+      'finished_s2c': 0.96,
+      'complete': 1
     };
 
     var DELTAS = {
@@ -25,12 +25,12 @@ angular.module('Measure.services.MeasurementClient', [])
 
       'preparing_c2s': 0.01,
       'running_c2s': 0.01,
-      "interval_c2s": 0.01,
+      'interval_c2s': 0.01,
       'finished_c2s': 0.02,
 
       'preparing_s2c': 0.01,
       'running_s2c': 0.01,
-      "interval_s2c": 0.01,
+      'interval_s2c': 0.01,
       'finished_s2c': 0.01,
 
       'preparing_meta': 0.01,
@@ -40,39 +40,30 @@ angular.module('Measure.services.MeasurementClient', [])
     };
 
     var next = Math.max(Math.min(current + (DELTAS[state] || 0), CEILINGS[state] || 1), FLOORS[state] || 0);
-    return next;
+    return Math.round(next + 'e2') * 1e-2;
   }
 
   var MeasurementClientService = {
-    "start": function start(server, port, path, interval, backgroundInitiated) {
+    'start': function start() {
 
-      var setMetroSelection = SettingsService.currentSettings.metroSelection;
       var clientDefer = $q.defer();
-      var emitKey = "measurement:status";
+      var emitKey = 'measurement:status';
       var measurementRecord = {
         'timestamp': Date.now(),
         'results': {},
-        'mlabInformation': undefined,
-        'connectionInformation': undefined,
-        'accessInformation': undefined,
-        'metadata': {},
         'snapLog': {'s2cRate': [], 'c2sRate': []}
       };
       var progress = 0;
 
-      accessInformation.getAccessInformation().then(function (accessInformation) {
-        measurementRecord.accessInformation = accessInformation;
-      });
-
-      MLabService.findServer(setMetroSelection).then(function(mlabAnswer) {
-        measurementRecord.mlabInformation = angular.copy(mlabAnswer);
-        MeasurementService.start(measurementRecord.mlabInformation.fqdn, port, path, interval).then(function(passedResults) {
+      $q.all({
+        'accessInformation': accessInformation.getAccessInformation(),
+        'mlabInformation': SettingsService.get('metroSelection').then(MLabService.findServer)
+      })
+      .then(function(info) {
+        angular.merge(measurementRecord, info);
+        MeasurementService.start(measurementRecord.mlabInformation.fqdn, 3001, '/ndt_protocol', 200).then(function(passedResults) {
           progress = incrementProgress(progress, 'complete');
-          ChromeAppSupport.notify("measurement:status", { 'testStatus': 'complete', 'passedResults': passedResults, "running": false, "progress": progress });
-          $rootScope.$emit(emitKey, {
-            'testStatus': 'complete',
-            'passedResults': passedResults
-          });
+          ChromeAppSupport.notify('measurement:status', { 'testStatus': 'complete', 'passedResults': passedResults, 'running': false, 'progress': progress });
           clientDefer.resolve({
             'action': emitKey,
             'testStatus': 'complete',
@@ -82,8 +73,7 @@ angular.module('Measure.services.MeasurementClient', [])
           HistoryService.add(measurementRecord);
         },
         function () {
-          ChromeAppSupport.notify("measurement:status", {'error': true, "running": false });
-          $rootScope.$emit(emitKey, {'error': true});
+          ChromeAppSupport.notify('measurement:status', {'error': true, 'running': false });
           clientDefer.reject({'error': true});
           console.log('existing test running');
           return true;
@@ -92,8 +82,7 @@ angular.module('Measure.services.MeasurementClient', [])
           var testStatus = deferredNotification.testStatus,
             passedResults = deferredNotification.passedResults;
           progress = incrementProgress(progress, testStatus);
-          ChromeAppSupport.notify("measurement:status", {'testStatus': testStatus, 'passedResults': passedResults, "running": true, "progress": progress });
-          $rootScope.$emit(emitKey, {'testStatus': testStatus, 'passedResults': passedResults});
+          ChromeAppSupport.notify('measurement:status', {'testStatus': testStatus, 'passedResults': passedResults, 'running': true, 'progress': progress });
           clientDefer.notify({
             'action': emitKey,
             'testStatus': testStatus,
@@ -109,7 +98,6 @@ angular.module('Measure.services.MeasurementClient', [])
             }
           }
         });
-
       });
       return clientDefer.promise;
     }

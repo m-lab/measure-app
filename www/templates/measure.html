@@ -8,19 +8,16 @@
 	<ion-content class="panel__measure" padding="false">
         <div class="row padding-vertical">
 			<div class="col center">
-				<i class="icon ion-earth"
-						ng-show="mlabInformation.label === undefined"></i>
-				<a ui-sref="app.serverSelection()"
-					ng-show="mlabInformation.label !== undefined"
-					class="button button-clear button-dark
-						currentLocation">{{ mlabInformation.label }}</a>
+				<i class="icon ion-earth" ng-show="!mlabInformation.label"></i>
+				<a ui-sref="app.serverSelection()" ng-show="mlabInformation.label"
+                                  class="button button-clear button-dark currentLocation"
+                                  ng-bind="mlabInformation.label"></a>
 			</div>
         </div>
         <div class="row padding-vertical">
 			<div class="col center">
-				<i class="icon ion-cloud currentNetwork"
-						ng-show="accessInformation.isp === undefined"></i>
-				<span class="currentNetwork">{{ accessInformation.isp }}</span>
+				<i class="icon ion-cloud currentNetwork" ng-show="!accessInformation.isp"></i>
+				<span class="currentNetwork" ng-bind="accessInformation.isp"></span>
 			</div>
         </div>
 		<div class="row padding-vertical">
@@ -43,19 +40,13 @@
 		</div>
         <div class="row status_row" ng-show="currentRate !== undefined">
 			<div class="col center">
-				<span class="currentRate">
-					{{ currentRate | formatThroughputMeasurement }}
-				</span>
-				<span class="currentRateLabel"
-					ng-show="currentRate !== undefined" translate>Mbps</span>
+				<span class="currentRate" ng-bind="currentRate | formatThroughputMeasurement"></span>
+				<span class="currentRateLabel" ng-show="currentRate !== undefined" translate>Mbps</span>
 			</div>
         </div>
         <div class="row padding-vertical status_row">
 			<div class="col center">
-				<span class="currentState"
-						ng-show="currentState !== undefined">
-					{{ currentState | translate }}
-				</span>
+				<span class="currentState" ng-show="currentState !== undefined" ng-bind="currentState | translate"></span>
 				<span
 					ng-show="currentState === undefined && mlabInformation !== undefined"
 					class="startTest" on-tap="startNDT()"
@@ -66,7 +57,7 @@
 					translate>Finding Server</span>
 			</div>
         </div>
-		<div class="row" ng-show="lastMeasurementId !== undefined && !measurementRunning">
+        <div class="row" ng-show="lastMeasurementId > -1 && !measurementRunning">
 			<div class="col center">
 				<a class="button button-outline button-positive icon-left ion-plus-round"
 						ui-sref="app.measurementRecord({measurementId: lastMeasurementId})"
