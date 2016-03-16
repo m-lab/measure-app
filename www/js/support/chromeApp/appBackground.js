@@ -42,7 +42,7 @@ angular.module('Measure', ['ionic', 'ngCordova', 'Measure.services.Background', 
       SettingsService.currentSettings[msg.name] = msg.value;
     },
     'measurement:start': function(msg) {
-      MeasurementClientService.start(msg.server, msg.port, msg.path, msg.interval, false);
+      MeasurementClientService.start();
     },
     'measurement:status': function(msg) {
       if (msg.testStatus === 'onstart') {

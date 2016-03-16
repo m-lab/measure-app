@@ -1,6 +1,6 @@
 angular.module('Measure.controllers.Measurement', [])
 
-.controller('MeasureCtrl', function($scope, $interval, $ionicPopup, $ionicLoading, SettingsService, $rootScope, StorageService, ChromeAppSupport, MLabService, accessInformation, HistoryService, DialogueMessages, MeasureConfig, connectionInformation) {
+.controller('MeasureCtrl', function($scope, $q, $interval, $ionicPopup, $ionicLoading, SettingsService, $rootScope, StorageService, ChromeAppSupport, MLabService, accessInformation, HistoryService, DialogueMessages, MeasureConfig, connectionInformation) {
 
   $scope.currentState = undefined;
   $scope.currentRate = undefined;
@@ -10,9 +10,9 @@ angular.module('Measure.controllers.Measurement', [])
     lineWidth: 0.07, // The line thickness, range [0, 1]
     bgLineWidth: 0.035,
     limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
-    colorStart: '#07DBD0',   // at "0" value
+    colorStart: '#07DBD0',   // at '0' value
     colorStop: '#07DBD0',   // at currently set value
-    strokeColor: '#CCCCCC',   // "unfilled" negative space background color
+    strokeColor: '#CCCCCC',   // 'unfilled' negative space background color
     generateGradient: false
   };
 
@@ -50,7 +50,7 @@ angular.module('Measure.controllers.Measurement', [])
           $scope.currentRate = undefined;
           interactionElement.src = 'img/interactions/waiting.svg';
           interactionElement.classList.add('spinIcon');
-          interactionElement.classList.remove("testCompleted");
+          interactionElement.classList.remove('testCompleted');
         } else if (data.testStatus === 'running_c2s') {
           $scope.currentState = 'Running Test (Upload)';
         } else if (data.testStatus === 'interval_c2s') {
@@ -80,29 +80,25 @@ angular.module('Measure.controllers.Measurement', [])
     });
   };
 
-  var updateMLabServer = function () {
-    SettingsService.get("metroSelection").then(MLabService.findServer).then(function(mlabAnswer) {
-      $scope.mlabInformation = mlabAnswer;
-      $scope.mlabInformation.metroSelection = SettingsService.currentSettings.metroSelection;
+  var tryConnectivity = function tryConnectivity() {
+    return $q.all({
+      'accessInformation': accessInformation.getAccessInformation(),
+      'mlabInformation': SettingsService.get('metroSelection').then(MLabService.findServer)
+    }).then(function(info) {
+      angular.merge($scope, info);
       $ionicLoading.hide();
-    },
-    function () {
-      console.log("MlabNSLookupException");
-      $ionicLoading.hide();
+    }, function() {
+      var pollConnectivity = $interval(function() {
+        tryConnectivity().then(function() { $interval.cancel(pollConnectivity); });
+      }, 10000);
     });
   };
 
-  updateMLabServer();
-
-
-  accessInformation.getAccessInformation().then(function (accessInformationResponse) {
-    $scope.accessInformation = accessInformationResponse;
-  });
+  tryConnectivity();
 
   $rootScope.$on('settings:changed', function(event, args) {
     if (args.name == 'metroSelection') {
-      console.log('Found new Metro server selection');
-      updateMLabServer();
+      tryConnectivity();
     }
   });
 
@@ -116,10 +112,8 @@ angular.module('Measure.controllers.Measurement', [])
     });
   }
 
-  $rootScope.$on("history:measurement:change", refreshHistory);
+  $rootScope.$on('history:measurement:change', refreshHistory);
   refreshHistory();
-
-
 
   $scope.interactionHover = function (mouseIn) {
     interactionElement = document.querySelector('.interactionIcon');
@@ -133,23 +127,8 @@ angular.module('Measure.controllers.Measurement', [])
   };
 
   $scope.startNDT = function() {
-    ChromeAppSupport.notify('measurement:start', {
-      'server': $scope.mlabInformation.fqdn,
-      'port': 3001,
-      'path': '/ndt_protocol',
-      'interval': 200
-    });
+    ChromeAppSupport.notify('measurement:start');
     $scope.currentState = 'Starting';
-
-    if ($scope.mlabInformation === undefined) {
-      intervalPromise = $interval(function () {
-        if ($scope.mlabInformation !== undefined) {
-          $interval.cancel(intervalPromise);
-          $scope.startNDT();
-        }
-      }, 100);
-      return;
-    }
   };
 });
 
