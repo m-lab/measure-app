@@ -80,7 +80,7 @@ In Chrome, add the "unpacked extension":
 `chrome://extensions`
 
 * Ensure `Developer mode` is checked.
-* Click the `Load unpacked extension...` button and select the `platforms/browser/www` subdirectory
+* Click the `Load unpacked extension...` button and select the `www` subdirectory
 
 Now you should see the Measure.app icon on the toolbar.
 

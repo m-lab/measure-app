@@ -5,13 +5,18 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 var rename = require('gulp-rename');
+var inject = require('gulp-inject');
 var gettext = require('gulp-angular-gettext');
 
 gulp.task('default', ['app']);
 
-gulp.task('build', ['sass', 'translations'], function() {});
-
-gulp.task('bower', bower);
+gulp.task('app', ['build'], function() {
+  var APP_MANIFEST_JSON = 'resources/manifest.app.json';
+  console.info("Copying manifest from", APP_MANIFEST_JSON);
+  gulp.src(APP_MANIFEST_JSON)
+    .pipe(rename('manifest.json'))
+    .pipe(gulp.dest('www'));
+});
 
 gulp.task('extension', ['build'], function() {
   var EXTENSION_MANIFEST_JSON = 'resources/manifest.extension.json';
@@ -21,12 +26,18 @@ gulp.task('extension', ['build'], function() {
     .pipe(gulp.dest('www'));
 });
 
-gulp.task('app', ['build'], function() {
-  var APP_MANIFEST_JSON = 'resources/manifest.app.json';
-  console.info("Copying manifest from", APP_MANIFEST_JSON);
-  gulp.src(APP_MANIFEST_JSON)
-    .pipe(rename('manifest.json'))
-    .pipe(gulp.dest('www'));
+gulp.task('build', ['sass', 'inject'], function() {});
+
+gulp.task('inject', ['translations'], function() {
+  gulp.src('www/index.html')
+  .pipe(inject(gulp.src('www/translations/scripts/*.js', {read: false}), {relative: true, name: 'translations'}))
+  .pipe(gulp.dest('www'));
+});
+
+gulp.task('translations', ['pot'], function () {
+  return gulp.src('www/translations/lang/*.po')
+  .pipe(gettext.compile())
+  .pipe(gulp.dest('www/translations/scripts/'));
 });
 
 gulp.task('pot', function () {
@@ -42,12 +53,6 @@ gulp.task('pot', function () {
   .pipe(gulp.dest('www/translations/source'));
 });
 
-gulp.task('translations', ['pot'], function () {
-  return gulp.src('www/translations/lang/*.po')
-  .pipe(gettext.compile())
-  .pipe(gulp.dest('www/translations/scripts/'));
-});
-
 gulp.task('sass', ['bower'], function(done) {
   gulp.src('./scss/*.scss')
     .pipe(sass({
@@ -59,6 +64,8 @@ gulp.task('sass', ['bower'], function(done) {
     .pipe(gulp.dest('./www/css/'))
     .on('end', done);
 });
+
+gulp.task('bower', bower);
 
 gulp.task('watch', function() {
   gulp.watch(['./scss/**/*.scss'], ['sass']);
