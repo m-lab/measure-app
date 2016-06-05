@@ -1,0 +1,225 @@
+@media (min-width:992px) {
+  .desktop-only {
+    display:block !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .mobile-only {
+    display:block !important;
+  }
+  .desktop-only {
+    display:none !important;
+  }
+}
+
+body {
+  min-height: 520px;
+  min-width: 320px
+}
+
+div.row div.col.center {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+div.row div.col.right {
+  display: table-cell;
+  text-align: right;
+}
+
+span.measurement-icon:before {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.panel__history .item-complex .item-content {
+  padding-right: 24px;
+}
+.panel__history small.label {
+  color: #5B6FB2;
+  font-weight: bold;
+}
+.panel__history .historicalDataChart {
+  margin-top: 10px;
+}
+
+.panel__about img.logo, .panel__host_information img.logo {
+  width: 100%;
+  padding-bottom: 10px;
+}
+.panel__measure span.startTest {
+  background-color: #FF5FD8;
+  color: #FFF;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.panel__history__empty .emptyIcon i {
+  font-size: 90px;
+}
+
+.dialogue__findingServer {
+  vertical-align: middle;
+}
+
+.dialogue__findingServer span {
+  font-weight: bold;
+}
+
+.panel__measure .displayArea.testReady .gaugeIcon,
+.panel__measure .displayArea.testReady .progressGauge,
+.panel__measure span.startTest
+{
+  cursor: pointer;
+}
+
+.dialogue__findingServer .spinner svg {
+  stroke: #FFF;
+  fill: #FFF;
+  width: 80px;
+  height: 80px;
+}
+
+.panel__measure .gaugeIcon {
+  width: 80px;
+  position: absolute;
+
+  margin-top: auto;
+  margin-bottom: auto;
+  top: -5px;
+  bottom: 0;
+
+  /*    right: 0;*/
+  /*	left: calc(100%);*/
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  transition:all 1s linear;
+  opacity: 0;
+}
+.panel__measure .gaugeIcon.currentIcon {
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 1;
+}
+
+.panel__measure .interactionIcon {
+  animation: pulse 5s ease infinite;
+}
+
+.panel__measure .interactionIcon.testCompleted {
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.panel__measure .spinIcon {
+  animation-name: spin; 
+  animation-duration: 2000ms; /* 40 seconds */
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.panel__measure div.row, .panel__measure div.row div.col {
+  position: relative;
+}
+
+.panel__measure .row-measurement-information {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
+}
+
+span.item-note {
+  max-width: 80%;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.panel__measure .padding-vertical {
+  padding-bottom: 10px;
+}
+.panel__measure div.row div.col {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: rgb(68, 68, 68);
+  font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+  font-size: 1.2em;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.panel__measure div.row div.col i.icon {
+  display: inline-block;
+  width: 2.8em;
+}
+
+.panel__measure div.row div.col span.currentNetwork {
+  font-size: 2.0em;
+  font-weight: bold;
+}
+.panel__measure div.row div.col span.currentLocation {
+  font-size: 0.9em;
+  font-weight: 200;
+}
+
+.panel__measure div.row div.col span.currentRate {
+  display: inline-block;
+  font-size: 2.7em;
+  font-weight: bold;
+  width: 2.8em;
+  padding-top: .2em;
+}
+
+.panel__measure div.row div.col span.currentRateLabel {
+  font-size: 0.9em;
+  font-weight: 100;
+
+}
+.panel__measure div.row div.col span.currentState {
+  font-size: 0.9em;
+  font-weight: 200;
+}
+
+.panel__privacy_information ul.privacyInformation {
+  list-style: disc;
+}
+.panel__privacy_information ul.privacyInformation li {
+  text-align: left;
+  list-style: disc;
+  margin: 5px 20px;
+}
+
+
+.modal__anonate_measurement textarea {
+  resize: none;
+  overflow: scroll;
+}

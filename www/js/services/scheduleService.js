@@ -36,7 +36,7 @@ angular.module('Measure.services.Schedule', [])
                 ' and ' + new Date(scheduleSemaphore.end).toUTCString() +
                 ' scheduled to run near ' + new Date(scheduleSemaphore.choice).toUTCString());
       console.log('Found scheduled measurement ready, triggering.');
-      MeasurementClientService.start(true);
+      MeasurementClientService.start();
       // clear semaphore when triggered
       setSemaphore({});
     }

@@ -1,5 +1,5 @@
 angular.module('Measure.services.Sharing', [])
-.factory('SharingService', function($cordovaSocialSharing, $timeout, MeasureConfig) {
+.factory('SharingService', function($timeout) {
   var SharingService = {};
 
   SharingService.shareCSV = function (dataContent) {
@@ -29,28 +29,22 @@ angular.module('Measure.services.Sharing', [])
     moveElement(csvHeaders, 1, csvHeaders.indexOf("Upload"));
     moveElement(csvHeaders, 2, csvHeaders.indexOf("Latency"));
 
-    var csvStringified = toCSV(csvHeaders, csvContents);
-    
-    //CSV.stringify(csvContents, csvOptions).then(function (csvStringified) {
-      var charset = "utf-8";
-      var downloadLink, csvFile;
-      if (MeasureConfig.environmentCapabilities.sharingSupported === false) {
-        downloadLink = angular.element('<a></a>');
-        csvFile = new Blob([csvStringified], {
-          type: "text/csv;charset=" + charset + ";"
-        });
-        downloadLink.attr('href', window.URL.createObjectURL(csvFile));
-        downloadLink.attr('download', 'MeasureApp-Exported-Results.csv');
+    var csv = toCSV(csvHeaders, csvContents);
+    var csvFile = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    var csvUri = URL.createObjectURL(csvFile);
+    if (window.plugins && window.plugins.socialsharing) {
+      csvUri = "data:text/csv;charset=utf-8;base64," + window.btoa(csv);
+      window.plugins.socialsharing.share('Attached is a spreadsheet from my performance measurement tests.', 'MeasureApp-Exported-Results.csv', csvUri, null);
+    } else {
+      var downloadLink = angular.element('<a></a>');
+      downloadLink.attr('href', csvUri);
+      downloadLink.attr('download', 'MeasureApp-Exported-Results.csv');
 
-        $timeout(function () {
-          downloadLink[0].click();
-          downloadLink.remove();
-        }, null);
-      } else {
-        csvFile = "data:text/csv;charset=" + charset + ";base64," + window.btoa(csvStringified);
-        $cordovaSocialSharing.share('Attached is a spreadsheet from my performance measurement tests.', 'Check Out My Measure Results', csvFile, null);
-      }
-    //});
+      $timeout(function () {
+        downloadLink[0].click();
+        downloadLink.remove();
+      }, null);
+    }
   };
 
   // private helpers
@@ -61,7 +55,7 @@ angular.module('Measure.services.Sharing', [])
     var quote = options.quote||"\"";
     var formatter = options.formatter||function(value) {
       value = (value||"").toString();
-      return value.match(/[,\r\n]/) ? quote + value.replace("\"","\"\"") + quote : value.replace("\"","\"\""); 
+      return value.match(/[,\r\n]/) ? quote + value.replace("\"","\"\"") + quote : value.replace("\"","\"\"");
     };
     return [headers.join(delimiter)].concat(rows.map(function(row) { return headers.map(function(k) { return formatter(row[k]); }); })).join(newline);
   };

@@ -1,89 +1,110 @@
 angular.module('Measure.controllers.Measurement', [])
 
-.controller('MeasureCtrl', function($scope, $interval, $ionicPopup, $ionicLoading,
-		SettingsService, $rootScope, StorageService, ChromeAppSupport,
-		MLabService, accessInformation, HistoryService, DialogueMessages,
-		progressGaugeService, MeasureConfig, connectionInformation) {
+.controller('MeasureCtrl', function($scope, $q, $interval, $ionicPopup, $ionicLoading, SettingsService, $rootScope, StorageService, ChromeAppSupport, MLabService, accessInformation, HistoryService, DialogueMessages, MeasureConfig, connectionInformation) {
 
-	$ionicLoading.show({
-		templateUrl: 'templates/modals/findingServer.html',
-		animation: 'fade-in',
-		showBackdrop: true,
-		maxWidth: 200,
-		showDelay: 200
-	});
+  $scope.currentState = undefined;
+  $scope.currentRate = undefined;
 
-        var driveGauge = function(event, passedArguments) {
-          $scope.$apply(function() {
-            var interactionElement = document.querySelector('.interactionIcon');
-            console.log(passedArguments.testStatus );
-            $scope.measurementRunning = passedArguments.running;
-            if (event.name === 'measurement:status') {
-              if (passedArguments.testStatus === 'onstart') {
-                progressGaugeService.gaugeReset();
-                $scope.currentState = 'Starting';
-                $scope.currentRate = undefined;
-                interactionElement.src = 'img/interactions/waiting.svg';
-                interactionElement.classList.add('spinIcon');
-                interactionElement.classList.remove("testCompleted");
-              } else if (passedArguments.testStatus === 'running_c2s') {
-                $scope.currentState = 'Running Test (Upload)';
-              } else if (passedArguments.testStatus === 'interval_c2s') {
-                $scope.currentRate = passedArguments.passedResults.c2sRate;
-              } else if (passedArguments.testStatus === 'running_s2c') {
-                $scope.currentState = 'Running Test (Download)';
-              } else if (passedArguments.testStatus === 'interval_s2c') {
-                $scope.currentRate = passedArguments.passedResults.s2cRate;
-              } else if (passedArguments.testStatus === 'complete') {
-                $scope.currentState = 'Completed';
-                $scope.currentRate = passedArguments.passedResults.s2cRate;
-                interactionElement.src = 'img/interactions/okay.svg';
-                interactionElement.classList.remove('spinIcon');
-                interactionElement.classList.add('testCompleted');
-                progressGaugeService.gaugeComplete();
-              } else if (passedArguments.testStatus === 'onerror') {
-                progressGaugeService.gaugeError();
-                $ionicPopup.show(DialogueMessages.measurementFailure);
-                $scope.currentState = undefined;
-                $scope.currentRate = undefined;
-                interactionElement.classList.remove('spinIcon');
-                interactionElement.classList.remove('testCompleted');
-                interactionElement.src = 'img/interactions/play.svg';
-              }
-              progressGaugeService.setGauge(passedArguments.progress);
+  $scope.gaugeOptions = {
+    angle: 0.5, // 0 for semicircle, 0.5 for full circle
+    lineWidth: 0.07, // The line thickness, range [0, 1]
+    bgLineWidth: 0.035,
+    limitMax: 'true',   // If true, the pointer will not go past the end of the gauge
+    colorStart: '#07DBD0',   // at '0' value
+    colorStop: '#07DBD0',   // at currently set value
+    strokeColor: '#CCCCCC',   // 'unfilled' negative space background color
+    generateGradient: false
+  };
 
-            }
-          });
-        };
+  $scope.progressGaugeState = {
+    'current': 0,
+    'maximum': 1,
+    'message': 'Start'
+  };
 
-        var updateMLabServer = function () {
-          SettingsService.get("metroSelection").then(MLabService.findServer).then(function(mlabAnswer) {
-            $scope.mlabInformation = mlabAnswer;
-            $scope.mlabInformation.metroSelection = SettingsService.currentSettings.metroSelection;
-            $ionicLoading.hide();
-          },
-          function () {
-            console.log("MlabNSLookupException");
-            $ionicLoading.hide();
-          });
-        };
+  $scope.connectionInformation = connectionInformation.current();
 
-        updateMLabServer();
+  $ionicLoading.show({
+    templateUrl: 'templates/modals/findingServer.html',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 200
+  });
 
-        accessInformation.getAccessInformation().then(function (accessInformationResponse) {
-          $scope.accessInformation = accessInformationResponse;
-        });
+  function gaugeError() {
+    $scope.progressGaugeState.current = $scope.progressGaugeState.maximum;
+    $scope.progressGaugeState.colorStart = '#D90000';
+    $scope.progressGaugeState.colorStop = '#D90000';
+  }
 
-        $rootScope.$on('settings:changed', function(event, args) {
-          if (args.name == 'metroSelection') {
-            console.log('Found new Metro server selection');
-            updateMLabServer();
-          }
-        });
+  var driveGauge = function(event, data) {
+    $scope.$apply(function() {
+      var interactionElement = document.querySelector('.interactionIcon');
+      console.log(data.testStatus );
+      $scope.measurementRunning = data.running;
+      if (event.name === 'measurement:status') {
+        if (data.testStatus === 'onstart') {
+          $scope.progressGaugeState.current = 0;
+          $scope.currentState = 'Starting';
+          $scope.currentRate = undefined;
+          interactionElement.src = 'img/interactions/waiting.svg';
+          interactionElement.classList.add('spinIcon');
+          interactionElement.classList.remove('testCompleted');
+        } else if (data.testStatus === 'running_c2s') {
+          $scope.currentState = 'Running Test (Upload)';
+        } else if (data.testStatus === 'interval_c2s') {
+          $scope.currentRate = data.passedResults.c2sRate;
+        } else if (data.testStatus === 'running_s2c') {
+          $scope.currentState = 'Running Test (Download)';
+        } else if (data.testStatus === 'interval_s2c') {
+          $scope.currentRate = data.passedResults.s2cRate;
+        } else if (data.testStatus === 'complete') {
+          $scope.currentState = 'Completed';
+          $scope.currentRate = data.passedResults.s2cRate;
+          interactionElement.src = 'img/interactions/okay.svg';
+          interactionElement.classList.remove('spinIcon');
+          interactionElement.classList.add('testCompleted');
+          $scope.progressGaugeState.current = $scope.progressGaugeState.maximum;
+        } else if (data.testStatus === 'onerror') {
+          gaugeError();
+          $ionicPopup.show(DialogueMessages.measurementFailure);
+          $scope.currentState = undefined;
+          $scope.currentRate = undefined;
+          interactionElement.classList.remove('spinIcon');
+          interactionElement.classList.remove('testCompleted');
+          interactionElement.src = 'img/interactions/play.svg';
+        }
+        $scope.progressGaugeState.current = data.progress;
+      }
+    });
+  };
 
-	$rootScope.$on('measurement:status', driveGauge);
+  var tryConnectivity = function tryConnectivity() {
+    return $q.all({
+      'accessInformation': accessInformation.getAccessInformation(),
+      'mlabInformation': SettingsService.get('metroSelection').then(MLabService.findServer)
+    }).then(function(info) {
+      angular.merge($scope, info);
+      $ionicLoading.hide();
+    }, function() {
+      var pollConnectivity = $interval(function() {
+        tryConnectivity().then(function() { $interval.cancel(pollConnectivity); });
+      }, 10000);
+    });
+  };
 
-	$scope.MeasureConfig = MeasureConfig;
+  tryConnectivity();
+
+  $rootScope.$on('settings:changed', function(event, args) {
+    if (args.name == 'metroSelection') {
+      tryConnectivity();
+    }
+  });
+
+  $rootScope.$on('measurement:status', driveGauge);
+
+  $scope.MeasureConfig = MeasureConfig;
 
   function refreshHistory() {
     HistoryService.get().then(function(data) {
@@ -91,46 +112,23 @@ angular.module('Measure.controllers.Measurement', [])
     });
   }
 
-  $rootScope.$on("history:measurement:change", refreshHistory);
+  $rootScope.$on('history:measurement:change', refreshHistory);
   refreshHistory();
 
-	$scope.currentState = undefined;
-	$scope.currentRate = undefined;
+  $scope.interactionHover = function (mouseIn) {
+    interactionElement = document.querySelector('.interactionIcon');
+    if (interactionElement.classList.contains('testCompleted')) {
+      if (mouseIn === true) {
+        interactionElement.src = 'img/interactions/reload.svg';
+      } else {
+        interactionElement.src = 'img/interactions/okay.svg';
+      }
+    }
+  };
 
-	$scope.progressGaugeConfig = progressGaugeService.gaugeConfig;
-	$scope.progressGaugeState = progressGaugeService.gaugeStatus;
-
-	$scope.connectionInformation = connectionInformation.current();
-
-        $scope.interactionHover = function (mouseIn) {
-          interactionElement = document.querySelector('.interactionIcon');
-          if (interactionElement.classList.contains('testCompleted')) {
-            if (mouseIn === true) {
-              interactionElement.src = 'img/interactions/reload.svg';
-            } else {
-              interactionElement.src = 'img/interactions/okay.svg';
-            }
-          }
-        };
-
-        $scope.startNDT = function() {
-          ChromeAppSupport.notify('measurement:start', {
-            'server': $scope.mlabInformation.fqdn,
-            'port': 3001,
-            'path': '/ndt_protocol',
-            'interval': 200
-          });
-          $scope.currentState = 'Starting';
-
-          if ($scope.mlabInformation === undefined) {
-            intervalPromise = $interval(function () {
-              if ($scope.mlabInformation !== undefined) {
-                $interval.cancel(intervalPromise);
-                $scope.startNDT();
-              }
-            }, 100);
-            return;
-          }
-        };
+  $scope.startNDT = function() {
+    ChromeAppSupport.notify('measurement:start');
+    $scope.currentState = 'Starting';
+  };
 });
 
