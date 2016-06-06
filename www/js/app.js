@@ -48,7 +48,10 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
         "Completed": gettext("Completed"),
         "{{timeofday}} hour, every {{dayofweek}}": gettext("{{timeofday}} hour, every {{dayofweek}}"),
         "Click and drag in the chart to zoom in" : gettext("Click and drag in the chart to zoom in"),
-        "Pinch the chart to zoom in": gettext("Pinch the chart to zoom in")
+        "Pinch the chart to zoom in": gettext("Pinch the chart to zoom in"),
+        "Confirm Reset": gettext("Confirm Reset"),
+        "Failure": gettext("Failure"),
+        "Dismiss": gettext("Dismiss")
     };
 })
 
@@ -141,7 +144,7 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
 .value('DialogueMessages', {
 	'historyReset': {
 		title: 'Confirm Reset',
-		template: 'This action will permanently remove all stored results and cannot be undone. Are you sure?'
+		templateUrl: 'templates/modals/messageResetHistory.html'
 	},
 	'measurementFailure': {
 		title: 'Failure',
