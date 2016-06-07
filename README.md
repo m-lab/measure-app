@@ -96,8 +96,26 @@ This will create a `www.crx` and associated private key `www.pem`.  You'll need 
 
 ## Translations
 
-User interface strings are tagged in the source code using [getttext](#) tags. When the application is built, an updated set of strings are generated automatically and saved in: /www/translations/source/application.pot
+User interface strings are tagged in the source code using the [getttext](https://en.wikipedia.org/wiki/Gettext) system. Strings presented in the application's user interface are coded with _gettext_ function calls, for example:
 
+```
+# Examples from an HTML template:
 
+<ion-view view-title="{{ 'About' | translate }}">
+<span translate>About M-Lab Measure App</span>
 
-Refer to [/www/translations/lang](www/translations/lang) to find currently available translations.
+# Examples from a JS file:
+
+.controller("manualTranslationStrings", function (gettext) {
+    var translationStrings = {
+        "Time": gettext("Time"),
+        "Service Provider": gettext("Service Provider"),
+        "Your Location": gettext("Your Location"),
+
+```
+
+When the application is built, all strings properly identified by _gettext_ function calls are automatically parsed into an updated master file of and saved in: **/www/translations/source/application.pot**. All of the strings in the master file are in English.
+
+This file must then be uploaded to the project's [Transifex account](https://www.transifex.com/otf/mlab-app/mlab_app_translations/). Click the button labelled "Updating source file", then notify translators that new strings are available to translate.
+
+When translators have completed their work, the 100% complete language files may be downloaded for use, and saved in [/www/translations/lang](www/translations/lang). Subsequent builds of the extension or app will then automatically include the updated language strings or new language string sets.
