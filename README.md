@@ -18,7 +18,7 @@
     - Extras > Android Support Library
 
   - Optionally, install a system image for the emulator.
-  
+
 #### Getting Started
 
 After installing prerequisites, run:
@@ -86,7 +86,7 @@ Now you should see the Measure.app icon on the toolbar.
 
 #### Packaging
 
-To create a `.crx` file, open: 
+To create a `.crx` file, open:
 
 `chrome://extensions`
 
@@ -96,6 +96,8 @@ This will create a `www.crx` and associated private key `www.pem`.  You'll need 
 
 ## Translations
 
-Translations are automatically added during the build process.
+User interface strings are tagged in the source code using [getttext](#) tags. When the application is built, an updated set of strings are generated automatically and saved in: /www/translations/source/application.pot
+
+
 
 Refer to [/www/translations/lang](www/translations/lang) to find currently available translations.
