@@ -157,7 +157,6 @@ span.item-note {
   max-width: 80%;
   text-overflow: ellipsis;
   display: inline-block;
-  overflow: hidden;
 }
 
 .panel__measure .padding-vertical {
@@ -165,7 +164,6 @@ span.item-note {
 }
 .panel__measure div.row div.col {
   text-overflow: ellipsis;
-  overflow: hidden;
   color: rgb(68, 68, 68);
   font-family: 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
   font-size: 1.2em;
