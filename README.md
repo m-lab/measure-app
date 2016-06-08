@@ -18,7 +18,7 @@
     - Extras > Android Support Library
 
   - Optionally, install a system image for the emulator.
-  
+
 #### Getting Started
 
 After installing prerequisites, run:
@@ -86,7 +86,7 @@ Now you should see the Measure.app icon on the toolbar.
 
 #### Packaging as a .crx
 
-To create a `.crx` file, open: 
+To create a `.crx` file, open:
 
 `chrome://extensions`
 
@@ -108,6 +108,26 @@ To publish as a Chrome App, you'll need to:
 
 ## Translations
 
-Translations are automatically added during the build process.
+User interface strings are tagged in the source code using the [getttext](https://en.wikipedia.org/wiki/Gettext) system. Strings presented in the application's user interface are coded with _gettext_ function calls, for example:
 
-Refer to [/www/translations/lang](www/translations/lang) to find currently available translations.
+```
+# Examples from an HTML template:
+
+<ion-view view-title="{{ 'About' | translate }}">
+<span translate>About M-Lab Measure App</span>
+
+# Examples from a JS file:
+
+.controller("manualTranslationStrings", function (gettext) {
+    var translationStrings = {
+        "Time": gettext("Time"),
+        "Service Provider": gettext("Service Provider"),
+        "Your Location": gettext("Your Location"),
+
+```
+
+When the application is built, all strings properly identified by _gettext_ function calls are automatically parsed into an updated master file of and saved in: **/www/translations/source/application.pot**. All of the strings in the master file are in English.
+
+This file must then be uploaded to the project's [Transifex account](https://www.transifex.com/otf/mlab-app/mlab_app_translations/). Click the button labelled "Updating source file", then notify translators that new strings are available to translate.
+
+When translators have completed their work, the 100% complete language files may be downloaded for use, and saved in [/www/translations/lang](www/translations/lang). Subsequent builds of the extension or app will then automatically include the updated language strings or new language string sets.
