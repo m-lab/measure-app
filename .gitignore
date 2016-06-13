@@ -13,3 +13,5 @@ www/translations/scripts
 
 measureapp.crx
 measureapp.pem
+
+*.zip

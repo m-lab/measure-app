@@ -73,7 +73,7 @@ Only run this command if you want to build the extension version.  Otherwise ski
 gulp extension
 ```
 
-#### Running
+#### Running in Chrome
 
 In Chrome, add the "unpacked extension":
 
@@ -84,7 +84,7 @@ In Chrome, add the "unpacked extension":
 
 Now you should see the Measure.app icon on the toolbar.
 
-#### Packaging
+#### Packaging as a .crx
 
 To create a `.crx` file, open:
 
@@ -93,6 +93,18 @@ To create a `.crx` file, open:
 Click the `Packed extension...` button and select the `platforms/browser/www` subdirectory.
 
 This will create a `www.crx` and associated private key `www.pem`.  You'll need both to distribute this extension to testers.
+
+#### Packaging for Distribution in the Chrome Store
+
+To publish as a Chrome App, you'll need to:
+
+* Edit the version in `www/manifest.json` to be higher than the previous version, Note: 0.15 < 0.16 but 0.15 > 0.2
+* Zip up the `www` folder 
+* Log into the Chrome Developers Console
+* Edit the existing application
+* Upload new version, and save to publish the app
+* Publishing takes ~15-30 minutes to fully publish an update
+* Force update the extension in `chrome://extensions` to pull the update
 
 ## Translations
 
