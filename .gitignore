@@ -15,3 +15,7 @@ measureapp.crx
 measureapp.pem
 
 *.zip
+
+*.crx
+
+*.pem
