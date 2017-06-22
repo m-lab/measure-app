@@ -10,7 +10,7 @@
     "angular-aria": "*",
     "angular-gettext": "*",
     "highcharts": "*",
-    "highcharts-ng": "*",
+    "highcharts-ng": "~0.0.13",
     "sajacy-gauge.js": "~1.2.2"
   },
   "resolutions": {
