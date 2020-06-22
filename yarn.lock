@@ -3,9 +3,9 @@
 
 
 "@babel/parser@^7.4.3":
-  version "7.10.2"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.10.2.tgz#871807f10442b92ff97e4783b9b54f6a0ca812d0"
-  integrity sha512-PApSXlNMJyB4JiGVhCOlzKIif+TKFTvu0aQAhnTvfP/z3vVSN6ZypH5bfUNwFXXjRQtUEBNFd2PtmCmG2Py3qQ==
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.10.3.tgz#7e71d892b0d6e7d04a1af4c3c79d72c1f10f5315"
+  integrity sha512-oJtNJCMFdIMwXGmx+KxuaD7i3b8uS7TTFYW/FNG2BT8m+fmGHoiPYoH0Pe3gya07WuFmM5FCDIr1x0irkD/hyA==
 
 "@bower_components/angular-animate@angular/bower-angular-animate#1.4.3":
   version "1.4.3"
@@ -670,9 +670,9 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30001084"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001084.tgz#f011ad731a4e7f469a12531984db2de2dcb307f0"
-  integrity sha512-oxprDntKFaMkhNV0vfFtaKtGDAJda8rdCsWC//6WTXsJgb44NxTImwkYym1uFiKkawI0SsC/y3Lj8gxJjH3w3A==
+  version "1.0.30001085"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30001085.tgz#4f6fcf0c10e69fabad8cf237b5990ee09718d7d8"
+  integrity sha512-+w8XO3jUi79lgiBANacwq/ZY8EnkOcatTyT7z03z/YxL2kysI9h3jUGKafkCkP69F4jpKXSjhJ9BUvsgQrGFpA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1278,9 +1278,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.2.7:
-  version "1.3.478"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.478.tgz#cfa0f2f0d3012463438a3bc81f50f2d109aca450"
-  integrity sha512-pt9GUDD52uEO9ZXWcG4UuW/HwE8T+a8iFP7K2qqWrHB5wUxbbvCIXGBVpQDDQwSR766Nn4AkmLYxOUNd4Ji5Dw==
+  version "1.3.480"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.480.tgz#190ae45074578349a4c4f336fba29e76b20e9ef5"
+  integrity sha512-wnuUfQCBMAdzu5Xe+F4FjaRK+6ToG6WvwG72s8k/3E6b+hoGVYGiQE7JD1NhiCMcqF3+wV+c2vAnaLGRSSWVqA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -2506,9 +2506,9 @@ isstream@~0.1.2:
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
 js-base64@^2.1.8, js-base64@^2.1.9:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.0.tgz#cc0091315f85616ad766789e46ced20b5c989ed3"
-  integrity sha512-jmCv6u76N7XtpXoF+aS5tNUQLRAJe1DgN9JXO5csoCkEIAPPLwWy93OQo/RoydkD6vyTf1oKKgto8SH7LM+Ong==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.1.tgz#c328374225d2e65569791ded73c258e2c59334c7"
+  integrity sha512-G5x2saUTupU9D/xBY9snJs3TxvwX8EkpLFiYlPpDt/VmMHOXprnSU1nxiTmFbijCX4BLF/cMRIfAcC5BiMYgFQ==
 
 js-yaml@~3.7.0:
   version "3.7.0"
