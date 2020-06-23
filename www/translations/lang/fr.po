@@ -1,11 +1,12 @@
 # 
 # Translators:
-# French language coordinator <french.translation@rbox.me>, 2017
+# AO <ao@localizationlab.org>, 2018,2020
+# AO <ao@localizationlab.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2017-01-27 19:31+0000\n"
-"Last-Translator: French language coordinator <french.translation@rbox.me>\n"
+"PO-Revision-Date: 2020-04-15 16:06+0000\n"
+"Last-Translator: AO <ao@localizationlab.org>\n"
 "Language-Team: French (http://www.transifex.com/otf/mlab-app/language/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -200,7 +201,7 @@ msgstr "Horaire"
 
 #: record.html:11
 msgid "Information"
-msgstr "Informations"
+msgstr "Renseignements"
 
 #: aboutMeasure.html:34
 msgid "Internet Tests"
@@ -330,7 +331,7 @@ msgstr "Aucun test n'est planifié."
 
 #: settings.html:27
 msgid "Only Test on WiFi"
-msgstr "Test par Wi-Fi"
+msgstr "Ne tester que par Wi-Fi"
 
 #: record.html:19
 msgid "Performance"
@@ -421,7 +422,7 @@ msgid ""
 "sophisticated speed and diagnostic test suitable for both the novice and the"
 " network researcher. For more information on NDT and other M-Lab tests, "
 "please visit our the NDT page on M-Lab's site."
-msgstr "L'appli Mesurer de M-Lab met en œuvre un test, le test de diagnostic réseau (TDR). Le TDR est développé et maintenu par internet 2, et fournit un test de diagnostic et de vitesse sophistiqué convenant aux novices comme aux chercheurs en réseaux. Pour plus d'informations sur le TDR et les autres tests de M-Lab, veuillez visiter notre page TDR (NDT) sur le site de M-Lab."
+msgstr "L'appli Mesurer de M-Lab met en œuvre un test, l’outil de diagnostic réseau (ODR). L’ODR est développé et maintenu par Internet 2, et fournit un test de diagnostic et de vitesse sophistiqué convenant aux novices comme aux chercheurs en réseaux. Pour plus d'informations sur l’ODR et les autres tests de M-Lab, veuillez visiter notre page ODR (NDT) sur le site de M-Lab."
 
 #: dataUsage.html:5
 msgid ""

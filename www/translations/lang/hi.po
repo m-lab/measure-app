@@ -1,11 +1,11 @@
 # 
 # Translators:
-# U.M.K. Dikshit <dikshitrocks93@gmail.com>, 2017
+# Kalyan Dikshit <dikshitrocks93@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2017-03-27 15:54+0000\n"
-"Last-Translator: U.M.K. Dikshit <dikshitrocks93@gmail.com>\n"
+"PO-Revision-Date: 2017-11-28 16:12+0000\n"
+"Last-Translator: erinm\n"
 "Language-Team: Hindi (http://www.transifex.com/otf/mlab-app/language/hi/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

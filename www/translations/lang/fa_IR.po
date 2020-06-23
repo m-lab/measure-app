@@ -1,0 +1,501 @@
+# 
+# Translators:
+# Collin Anderson, 2015
+# b0b47d46632b78a09a40de799fda9a65, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: M-Lab Chrome App\n"
+"PO-Revision-Date: 2017-11-17 11:06+0000\n"
+"Last-Translator: b0b47d46632b78a09a40de799fda9a65\n"
+"Language-Team: Persian (Iran) (http://www.transifex.com/otf/mlab-app/language/fa_IR/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: app.js:49
+msgid "{{timeofday}} hour, every {{dayofweek}}"
+msgstr "{{timeofday}} ساعت، {{dayofweek}} روز هفته"
+
+#: about.html:1 aboutMeasure.html:10 menu.html:25
+msgid "About"
+msgstr "درباره"
+
+#: aboutMeasure.html:24 privacy.html:10
+msgid "About M-Lab"
+msgstr "درباره M-Lab"
+
+#: about.html:5
+msgid "About M-Lab Measure App"
+msgstr "درباره اپ اندازه‌گیری M-Lab"
+
+#: aboutMeasure.html:1
+msgid "About Measure App"
+msgstr "درباره اپ اندازه‌گیری"
+
+#: customSchedule.html:13
+msgid "Add a scheduled test"
+msgstr "افزودن تست برنامه‌ریزی شده"
+
+#: record.html:5
+msgid "Annotate"
+msgstr "یادداشت"
+
+#: record.html:27
+msgid "Annotations"
+msgstr "یادداشت‌ها"
+
+#: privacy.html:14
+msgid ""
+"By running the tests in the M-Lab Measure App, your device will generate and"
+" send some data back-and-forth with an M-Lab server. The data collected "
+"relates to the particular communication \"flows\" generated between your "
+"device and an M-Lab server. This includes the IP address provided by your "
+"ISP. These data will be used and analyzed by researchers and, in order to "
+"advance research, these data will be made publicly available. The M-Lab "
+"Measure App does not collect personal information, such as your Internet "
+"traffic, your emails or Web searches."
+msgstr "با اجرای تست در اپ M-Lab، دستگاه شما مقادیری از داده را به سرور M-Lab فرستاده و دریافت خواهد کرد. این داده‌های جمع‌اوری شده بین ارتباط خاصی بین دستگاه شما و سرور M-Lab جاری خواهد کرد. داده‌ها شامل آدرس IP که ISP برای شما تعیین کرده می‌باشد. این داده ها برای مقاصد تحقیقاتی استفاده شده و برای عموم قابل مشاهده خواهد بود. اپ اندازه‌گیری M-Lab اطلاعات خصوصی مانند ترافیک اینترنت، ایمیل‌ها و جستجوهای اینترنتی شما را جمع‌آوری نخواهد کرد."
+
+#: hostInformation.html:15
+msgid ""
+"By using the M-Lab Measure app, the data about the health of the network "
+"connections you use is shared in a public dataset that researchers, ISPs, "
+"regulators and others can use to understand the Internet and how it can be "
+"improved. You can also choose to get more involved with M-Lab beyond that as"
+" well."
+msgstr "با استفاده از اپ اندازه‌گیری M-Lab، داده‌های مرتبط با سلامت ارتباط شبکه‌ی شما با محققین، ISPها،‌ شبکه‌ها و… برای فهم مشکلات و بهبود آن‌ها، به اشتراک گذاشته خواهد شد. همچنین شما می‌توانید برای مشارکت بیشتر به ما کمک کنید."
+
+#: annotateMeasurement.html:3
+msgid "Cancel"
+msgstr "لغو"
+
+#: app.js:50
+msgid "Click and drag in the chart to zoom in"
+msgstr "برای بزرگنمایی، در داخل چارت کلیک کرده و بکشید"
+
+#: app.js:48
+msgid "Completed"
+msgstr "تکمیل شد"
+
+#: app.js:52
+msgid "Confirm Reset"
+msgstr "تائید بازنشانی"
+
+#: app.js:30
+msgid "Connection Type"
+msgstr "نوع اتصال"
+
+#: app.js:32
+msgid "Constantly"
+msgstr "پیوسته"
+
+#: customSchedule.html:3
+msgid "Current Schedule"
+msgstr "برنامه‌ریزی فعلی"
+
+#: dataUsage.html:6
+msgid ""
+"Currently the app has used <span class=\"badge badge-assertive\">\n"
+"{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}\n"
+"</span> of data from this device."
+msgstr "اپ در حال حاضر از داده‌های <span class=\"badge badge-assertive\">\n{{ historyState.dataConsumed | formatDataConsumptionMeasurement }}\n</span> این دستگاه استفاده کرده است."
+
+#: app.js:36
+msgid "Custom"
+msgstr "سفارشی"
+
+#: customSchedule.html:1 settings.html:23
+msgid "Custom Schedule"
+msgstr "برنامه‌ریزی سفارشی"
+
+#: app.js:34
+msgid "Daily"
+msgstr "روزانه"
+
+#: dataUsage.html:1 menu.html:20
+msgid "Data Usage"
+msgstr "مصرف داده"
+
+#: dataUsage.html:4
+msgid "Data Used by Measure App"
+msgstr "داده مصرف‌شده توسط این اپ"
+
+#: customSchedule.html:17
+msgid "Day of Week"
+msgstr "روز هفته"
+
+#: record.html:40
+msgid "Delete"
+msgstr "حذف"
+
+#: app.js:54
+msgid "Dismiss"
+msgstr "رد"
+
+#: privacy.html:8
+msgid ""
+"Does not collect personal information on M-Lab servers, e.g. your Internet "
+"traffic, your emails or Web searches"
+msgstr "اطلاعات شخصی شما مانند ترافیک اینترنت، ایمیل و جستجوهای وب شما در سرورهای M-Lab جمع‌آوری نمی‌شود."
+
+#: privacy.html:7
+msgid "Does share your IP Address"
+msgstr "آدرس IP شما به اشتراک گذاشته می‌شود"
+
+#: history.html:44
+msgid "Download"
+msgstr "دانلود"
+
+#: annotateMeasurement.html:5
+msgid "Edit Measurement Notes"
+msgstr "ویرایش یادداشت‌های اندازه‌گیری"
+
+#: history.html:1 menu.html:19
+msgid "Explore Data"
+msgstr "کاوش داده‌ها"
+
+#: hostInformation.html:17
+msgid "Explore M-Lab Data"
+msgstr "کاوش داده‌های M-Lab"
+
+#: history.html:3
+msgid "Export"
+msgstr "ارسال به خارج"
+
+#: messageTestFailure.html:1
+msgid "Failed to complete the measurement."
+msgstr "خطا در تکمیل اندازه‌گیری."
+
+#: app.js:53
+msgid "Failure"
+msgstr "خطا"
+
+#: hostInformation.html:22
+msgid "Find Out More"
+msgstr "بیشتر بدانید"
+
+#: findingServer.html:3
+msgid "Finding Closest Server"
+msgstr "پیدا کردن نزدیک‌ترین سرور"
+
+#: measure.html:54
+msgid "Finding Server"
+msgstr "پیدا کردن سرور"
+
+#: app.js:41
+msgid "Friday"
+msgstr "جمعه"
+
+#: about.html:13 hostInformation.html:1 hostInformation.html:10
+msgid "Get Involved"
+msgstr "مشارکت کنید"
+
+#: customSchedule.html:16
+msgid "Hour"
+msgstr "ساعت"
+
+#: app.js:33
+msgid "Hourly"
+msgstr "ساعتی"
+
+#: record.html:11
+msgid "Information"
+msgstr "اطلاعات"
+
+#: aboutMeasure.html:34
+msgid "Internet Tests"
+msgstr "تست اینترنت"
+
+#: settings.html:33
+msgid "Language"
+msgstr "زبان"
+
+#: history.html:59
+msgid "Latency"
+msgstr "تاخیر"
+
+#: aboutMeasure.html:19
+msgid "Learn more about NDT"
+msgstr "درباره‌ی NDT بیشتر بدانید"
+
+#: settings.html:5
+msgid "Location"
+msgstr "مکان"
+
+#: hostInformation.html:18
+msgid ""
+"M-Lab data is openly available to researchers, but we also have developed "
+"tools to let anyone explore our data. If you're interested in seeing the "
+"measurements of Internet speed and health are in your area, browse our data "
+"on our <a href=\"http://www.measurementlab.net/observatory\" "
+"target=\"_system\">Internet Observatory</a>."
+msgstr "داده‌های M-Lab آزادانه در دسترس محققین است، علاوه‌بر این هر کسی می‌تواند داده‌های ما را بررسی کنید. در صورتی که مایل به مشاهده اندازه‌گیری‌های سرعت و کیفیت اینترنت در منطقه‌ی خود هستید، داده‌های ما را در <a href=\"http://www.measurementlab.net/observatory\" target=\"_system\">رصدخانه اینترنت</a> مشاهده کنید."
+
+#: privacy.html:11
+msgid ""
+"M-Lab is a platform for the use of independent tools created by researchers "
+"to gather information relevant to broadband services. The goal of the "
+"project is to analyze information regarding broadband networks and report "
+"this information to the public."
+msgstr "M-Lab پلتفرمی برای استفاده محققین به منظور جمع‌آوری اطلاعات مرتبط با سرویس‌های پهنای باند است. هدف این پروژه، تحلیل داده‌های مرتبط با شبکه‌های پهن باند و گزارش این اطلاعات به عموم است."
+
+#: measure.html:1 menu.html:14
+msgid "M-Lab Measure"
+msgstr "M-Lab Measure"
+
+#: aboutMeasure.html:39
+msgid ""
+"M-Lab offers a number of measurement tools, allowing consumers to test for "
+"everything from network speed and latency to blocking and throttling. All "
+"tools perform only active measurements against the M-Lab platform. This "
+"means that M-Lab tests measure how your network connection responds to a "
+"synthetic stream of data generated by the individual tool solely for the "
+"purpose of measurement. The tools do not collect information about your "
+"other Internet traffic, such as emails, web searches, content you view, or "
+"any personally identifiable information. All data collected is made publicly"
+" available, including the IP address provided by your ISP at the edge of "
+"your network. All tools are open source and created by researchers. For more"
+" information, see M-Lab’s privacy policy."
+msgstr "M-Lab ابزارهای اندازه‌گیری برای انواع تست شبکه، از سرعت و تاخیر شبکه تا مسدودسازی‌ها ارائه می‌کند. تمامی ابزارها  تنها اندازه‌گیری فعال بر پلتفرم M-Lab انجام می‌دهند. یعنی تست‌های M-Lab، پاسخ اتصال شبکه شما را با جریانی از داده‌های مصنوعی تنها با هدف اندازه‌گیری، سنجش می‌کند. این ابزارها اطلاعات شخصی شما مانند ترافیک اینترنت، ایمیل‌ها، جستجوهای وب و سایت‌هایی که مشاهده می‌کنید را جمع‌آوری نمی‌کند. سایر اطلاعات جمع‌آوری شده مانند آدرس IP شبکه، در دسترس عموم قرار می‌گیرند. تمامی ابزارها منبع باز بوده و در دسترس محققین قرار دارد. برای اطلاعات بیشتر، سیاست حفظ حریم خصوصی M-Lab را مشاهده کنید."
+
+#: app.js:29
+msgid "M-Lab Site"
+msgstr "سایت M-Lab"
+
+#: privacy.html:15
+msgid ""
+"M-Lab's complete <a href=\"http://www.measurementlab.net/privacy\" "
+"target=\"_system\">Acceptable Use and Privacy Policies</a> are available on "
+"our website."
+msgstr "<a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">سیاست‌های پذیرش و حفظ حریم خصوصی</a> کامل M-Lab بر روی سایت ما در دسترس است."
+
+#: record.html:35
+msgid "Management"
+msgstr "مدیریت"
+
+#: measure.html:44
+msgid "Mbps"
+msgstr "Mbps"
+
+#: menu.html:18
+msgid "Measure"
+msgstr "اندازه‌گیری"
+
+#: record.html:1
+msgid "Measurement Data"
+msgstr "داده‌های اندازه‌گیری"
+
+#: history.html:29
+msgid "Measurement History"
+msgstr "تاریخچه اندازه‌گیری"
+
+#: aboutMeasure.html:29
+msgid ""
+"Measurement Lab (M-Lab) is a consortium of research, industry, and public "
+"interest partners dedicated to providing an open, verifiable measurement "
+"platform for global network performance. The M-Lab platform is an open, "
+"distributed network of servers on which researchers can deploy open source "
+"Internet measurement tools. M-Lab’s goal is to advance network research and "
+"empower the public with useful information about their broadband and mobile "
+"connections."
+msgstr "آزمایشگاه اندازه‌گیری (M-Lab)، کنسرسیومی پژوهشی، صنعتی و عام المنفعه با هدف ارائه پلتفرم اندازه‌گیری آزاد و قابل تائید برای عملکرد شبکه جهانی است. پلتفرم M-Lab، شبکه‌هایی توزیع‌شده و باز است که محققین می‌توانند از این منبع باز از ابزار اندازه‌گیری اینترنت استفاده کنند. هدف M-Lab پیشبرد تحقیقات شبکه و توانمندسازی مردم با اطلاعات مفید درباره پهنای باند و ارتباطات تلفن همراه است."
+
+#: annotateMeasurement.html:14
+msgid "Measurement Notes"
+msgstr "یادداشت‌های اندازه‌گیری"
+
+#: app.js:44
+msgid "Midnight"
+msgstr "نیمه‌شب"
+
+#: app.js:37
+msgid "Monday"
+msgstr "دوشنبه"
+
+#: measure.html:62
+msgid "More"
+msgstr "بیشتر"
+
+#: privacy.html:13
+msgid "More Information"
+msgstr "اطلاعات بیشتر"
+
+#: settings.html:29
+msgid "Next Test"
+msgstr "تست بعدی"
+
+#: customSchedule.html:11
+msgid "No tests scheduled."
+msgstr "تستی برنامه‌ریزی نشده."
+
+#: settings.html:27
+msgid "Only Test on WiFi"
+msgstr "تست تنها بر روی وای‌فای"
+
+#: record.html:19
+msgid "Performance"
+msgstr "عملکرد"
+
+#: app.js:51
+msgid "Pinch the chart to zoom in"
+msgstr "برای بزرگنمایی، دو انگشت خود را روی نمودار از هم دور کنید."
+
+#: dataUsage.html:10
+msgid ""
+"Please be aware that the data the Measure App uses does count toward any "
+"monthly service or data plan you subscribe to."
+msgstr "توجه داشته باشید که داده‌های این اپ، از سرویس ماهیانه یا طرح اینترنت شما استفاده می‌کند."
+
+#: about.html:9 privacy.html:1
+msgid "Privacy Policy"
+msgstr "حریم خصوصی"
+
+#: settings.html:47
+msgid "Reset Measurement History"
+msgstr "بازنشانی تاریخچه اندازه‌گیری"
+
+#: app.js:31
+msgid "Retransmissions"
+msgstr "ارسال مجدد"
+
+#: app.js:47
+msgid "Running Test (Download)"
+msgstr "اجرای تست (دانلود)"
+
+#: app.js:46
+msgid "Running Test (Upload)"
+msgstr "اجرای تست (آپلود)"
+
+#: app.js:42
+msgid "Saturday"
+msgstr "شنبه"
+
+#: annotateMeasurement.html:6
+msgid "Save"
+msgstr "ذخیره"
+
+#: settings.html:15
+msgid "Schedule"
+msgstr "برنامه‌ریزی"
+
+#: settings.html:12
+msgid "Schedule a Test"
+msgstr "یک تست را برنامه‌ریزی کنید"
+
+#: customSchedule.html:18
+msgid "Schedule Test"
+msgstr "برنامه‌ریزی تست"
+
+#: serverSelection.html:1
+msgid "Server Selection"
+msgstr "انتخاب سرور"
+
+#: app.js:27
+msgid "Service Provider"
+msgstr "ارائه‌دهنده سرویس"
+
+#: menu.html:24 settings.html:1
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: measure.html:50
+msgid "Start Test"
+msgstr "شروع تست"
+
+#: app.js:45
+msgid "Starting"
+msgstr "در حال شروع"
+
+#: history.html:22
+msgid "Statistic"
+msgstr "آمار"
+
+#: app.js:43
+msgid "Sunday"
+msgstr "یکشنبه"
+
+#: aboutMeasure.html:15
+msgid ""
+"The M-Lab Measure App implements one test, the Network Diagnostic Tool "
+"(NDT). NDT is developed and maintained by Internet 2 and provides a "
+"sophisticated speed and diagnostic test suitable for both the novice and the"
+" network researcher. For more information on NDT and other M-Lab tests, "
+"please visit our the NDT page on M-Lab's site."
+msgstr "اپ اندازه‌گیری M-Lab، یک تست NDT اجرا می‌کند. NDT توسط Internet 2 توسعه یافته و تست‌های سرعت و تشخیصی مناسبی برای اشخاص و محققیت شبکه ارائه می‌دهد. برای اطلاعات بیشتر درباره NDT و سایر تست‌های M-Lab، صفحه NDT را در سایت M-Lab مشاهده کنید."
+
+#: dataUsage.html:5
+msgid ""
+"The M-Lab Measure App uploads and downloads data for the purposes of "
+"measuring your connections to the Internet."
+msgstr "اپ اندازه‌گیری M-Lab داده‌هایی را با هدف اندازه‌گیری اتصال شما به اینترنت، دانلود و آپلود می‌کند."
+
+#: hostInformation.html:23
+msgid ""
+"There are a many ways to get involved with M-Lab, whether you're an "
+"individual or represent an organization. Find out other ways to <a "
+"href=\"http://measurementlab.net/contribute\" "
+"target=\"_system\">contribute</a> on our website."
+msgstr "راه‌های زیادی برای مشارکت با M-Lab شخصا یا به عنوان یک سازمان وجود داره. راه‌های دیگر <a href=\"http://measurementlab.net/contribute\" target=\"_system\">مشارکت</a> را در سایت ما مشاهده کنید."
+
+#: messageResetHistory.html:1
+msgid ""
+"This action will permanently remove all stored results and cannot be undone."
+" Are you sure?"
+msgstr "با این کار، تمامی نتایج ذخیره شده به طور غیرقابل برگشت، حذف خواهند شد. آیا از انجام این کار مطمئنید؟"
+
+#: privacy.html:4
+msgid "This application:"
+msgstr "این اپ:"
+
+#: messageTestFailure.html:2
+msgid ""
+"This could be due to a change in connectivity during the test, blocking of "
+"the test by the network or other factors."
+msgstr "ممکن است به دلیل تغییر اتصال در طول تست، مسدودسازی تست توسط شبکه و… باشد."
+
+#: app.js:40
+msgid "Thursday"
+msgstr "پنج‌شنبه"
+
+#: app.js:26
+msgid "Time"
+msgstr "زمان"
+
+#: hostInformation.html:19
+msgid "Translate the M-Lab Measure App"
+msgstr "اپ اندازه‌گیری M-Lab را ترجمه کنید"
+
+#: settings.html:44
+msgid "Trusted Tester"
+msgstr "تست‌کننده‌های تائیدشده"
+
+#: app.js:38
+msgid "Tuesday"
+msgstr "سه‌شنبه"
+
+#: history.html:51
+msgid "Upload"
+msgstr "آپلود"
+
+#: app.js:39
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+#: app.js:35
+msgid "Weekly"
+msgstr "هفتگی"
+
+#: hostInformation.html:20
+msgid ""
+"Would you like to help translate the M-Lab Measure App for other languages? "
+"Get involved as a translator or translation reviewer on <a "
+"href=\"https://www.transifex.com/otf/mlab-app/\" "
+"target=\"_system\">Transifex</a>, or <a "
+"href=\"http://www.measurementlab.net/contact\" target=\"_system\">contact us"
+" for more information!</a>!"
+msgstr "آیا مایل به کمک برای ترجمه اپ M-Lab هستید؟ به عنوان مترجم در <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Tansifex</a> مشارکت کرده و یا <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">برای اطلاعات بیشتر با ما تماس بگیرید</a>!"
+
+#: app.js:28
+msgid "Your Location"
+msgstr "مکان شما"

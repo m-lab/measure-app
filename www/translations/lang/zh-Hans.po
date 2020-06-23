@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2017-03-29 11:51+0000\n"
+"PO-Revision-Date: 2017-09-22 15:24+0000\n"
 "Last-Translator: Guo Alex <bobcg@outlook.com>\n"
 "Language-Team: Chinese Simplified (http://www.transifex.com/otf/mlab-app/language/zh-Hans/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
