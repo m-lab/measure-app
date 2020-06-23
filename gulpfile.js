@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
@@ -53,7 +52,7 @@ gulp.task('pot', function () {
   .pipe(gulp.dest('www/translations/source'));
 });
 
-gulp.task('sass', ['bower'], function(done) {
+gulp.task('sass', function(done) {
   gulp.src('./scss/*.scss')
     .pipe(sass({
       errLogToConsole: true
@@ -65,9 +64,6 @@ gulp.task('sass', ['bower'], function(done) {
     .on('end', done);
 });
 
-gulp.task('bower', bower);
-
 gulp.task('watch', function() {
   gulp.watch(['./scss/**/*.scss'], ['sass']);
 });
-
