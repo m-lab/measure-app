@@ -1,48 +1,49 @@
 # 
 # Translators:
-# Sartika Kurniali <slickdusky@gmail.com>, 2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2016
+# 38b991705053a11862912edec5d4fc15_99319de <e3751b561a133daad5ac37aeb3619d1a_667224>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2017-09-22 15:24+0000\n"
-"Last-Translator: Sartika Kurniali <slickdusky@gmail.com>\n"
-"Language-Team: Indonesian (http://www.transifex.com/otf/mlab-app/language/id/)\n"
+"PO-Revision-Date: 2018-01-31 03:18+0000\n"
+"Last-Translator: 38b991705053a11862912edec5d4fc15_99319de <e3751b561a133daad5ac37aeb3619d1a_667224>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/otf/mlab-app/language/de_DE/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: app.js:49
 msgid "{{timeofday}} hour, every {{dayofweek}}"
-msgstr "jam {{timeofday}}, setiap {{dayofweek}}"
+msgstr "{{timeofday}} Stunde, jeden {{dayofweek}}"
 
 #: about.html:1 aboutMeasure.html:10 menu.html:25
 msgid "About"
-msgstr "Tentang"
+msgstr "Über"
 
 #: aboutMeasure.html:24 privacy.html:10
 msgid "About M-Lab"
-msgstr "Tentang M-Lab"
+msgstr "Über M-Lab"
 
 #: about.html:5
 msgid "About M-Lab Measure App"
-msgstr "Tentang M-Lab Measure App"
+msgstr "Über M-Lab Mess-App"
 
 #: aboutMeasure.html:1
 msgid "About Measure App"
-msgstr "Tentang Measure App"
+msgstr "Über Mess-App"
 
 #: customSchedule.html:13
 msgid "Add a scheduled test"
-msgstr "Tambahkan tes terjadwal"
+msgstr "Fügen Sie einen geplanten Test hinzu"
 
 #: record.html:5
 msgid "Annotate"
-msgstr "Beri Anotasi"
+msgstr "Anmerken"
 
 #: record.html:27
 msgid "Annotations"
-msgstr "Anotasi"
+msgstr "Anmerkungen"
 
 #: privacy.html:14
 msgid ""
@@ -54,7 +55,7 @@ msgid ""
 "advance research, these data will be made publicly available. The M-Lab "
 "Measure App does not collect personal information, such as your Internet "
 "traffic, your emails or Web searches."
-msgstr "Dengan menjalankan tes di Aplikasi M-Lab Measure App, perangkat Anda akan menghasilkan dan mengirimkan beberapa data bolak-balik dengan sebuah server M-Lab. Data yang dikumpulkan berhubungan dengan \"aliran\" komunikasi tertentu yang dihasilkan antara perangkat Anda dan server M-Lab. Ini termasuk alamat IP yang disediakan oleh ISP Anda. Data ini akan digunakan dan dianalisa oleh peneliti dan, dalam rangka untuk memajukan penelitian, data ini akan dibuat tersedia untuk publik. M-Lab Measure App tidak mengumpulkan informasi pribadi, seperti penggunaan internet Anda, email atau pencarian Web Anda."
+msgstr "Durch das ausführen der tests in der M-Lab Measure App, Ihr Gerät  generiert und sendet einige Daten zu M-Lab-Servern. Die erhobenen Daten beziehen sich auf die besondere Kommunikation \"fließend\" generiert,  zwischen Ihrem Gerät und einem M-Lab-Server. Dies beinhaltet die IP-Adresse von Ihrem ISP bereitgestellt wird. Diese Daten werden verwendet und analysiert, damit Forschern diese Daten öffentlich zugänglich gemacht werden kann. Das M-Lab Measure App sammelt keine persönlichen Informationen, wie z.B. ihren Internet-Verkehr, Ihre E-Mails oder ihre Web-Suche."
 
 #: hostInformation.html:15
 msgid ""
@@ -63,164 +64,164 @@ msgid ""
 "regulators and others can use to understand the Internet and how it can be "
 "improved. You can also choose to get more involved with M-Lab beyond that as"
 " well."
-msgstr "Dengan menggunakan M-Lab Measure App, data tentang kesehatan koneksi jaringan yang Anda gunakan dibagikan dengan set data publik yang digunakan peneliti, ISP, regulator, dan lainnya untuk memahami internet dan cara meningkatkannya. Anda bisa juga memilih untuk terlibat lebih jauh dengan M-Lab di luar hal ini."
+msgstr "Mithilfe der Benutzung der M-Lab Measure App, werden Daten über den Gesundheitszustand der Netzwerkverbindungen, die Sie verwenden, in einen öffentlichen Datensatz freigegeben, so dass Forscher, ISPs, Behörden und andere sie verwenden können, um das Internet zu verstehen und wie es verbessert werden kann."
 
 #: annotateMeasurement.html:3
 msgid "Cancel"
-msgstr "Batal"
+msgstr "Abbrechen"
 
 #: app.js:50
 msgid "Click and drag in the chart to zoom in"
-msgstr "Klik dan tarik dalam grafik untuk memperbesar"
+msgstr "Zum Hineinzoomen in das Diagramm klicken und ziehen"
 
 #: app.js:48
 msgid "Completed"
-msgstr "Selesai"
+msgstr "Fertiggestellt"
 
 #: app.js:52
 msgid "Confirm Reset"
-msgstr "Konfirmasi Pengaturan Ulang"
+msgstr "Zurücksetzen bestätigen"
 
 #: app.js:30
 msgid "Connection Type"
-msgstr "Tipe Koneksi"
+msgstr "Verbindungstyp"
 
 #: app.js:32
 msgid "Constantly"
-msgstr "Konstan"
+msgstr "Konstant"
 
 #: customSchedule.html:3
 msgid "Current Schedule"
-msgstr "Jadwal Sekarang"
+msgstr "Aktueller Zeitplan"
 
 #: dataUsage.html:6
 msgid ""
 "Currently the app has used <span class=\"badge badge-assertive\">\n"
 "{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}\n"
 "</span> of data from this device."
-msgstr "Saat ini aplikasi telah menggunakan <span class=\"badge badge-assertive\">\n{{ historyState.dataConsumed | formatDataConsumptionMeasurement }}\n</span> data di perangkat ini."
+msgstr "Derzeit verwendet die App, 1<span class=\"badge badge-assertive\">\n{{ historyState.dataConsumed | formatDataConsumptionMeasurement }}\nDaten von diesem Gerät."
 
 #: app.js:36
 msgid "Custom"
-msgstr "Sesuaikan"
+msgstr "Benutzerdefiniert"
 
 #: customSchedule.html:1 settings.html:23
 msgid "Custom Schedule"
-msgstr "Jadwal yang Disesuaikan"
+msgstr "Benutzerdefinierter Zeitplan"
 
 #: app.js:34
 msgid "Daily"
-msgstr "Harian"
+msgstr "Täglich"
 
 #: dataUsage.html:1 menu.html:20
 msgid "Data Usage"
-msgstr "Penggunaan Data"
+msgstr "Datenverbrauch"
 
 #: dataUsage.html:4
 msgid "Data Used by Measure App"
-msgstr "Penggunaan Data oleh Measure App"
+msgstr "Von Mess-App verbrauchte Daten"
 
 #: customSchedule.html:17
 msgid "Day of Week"
-msgstr "Hari"
+msgstr "Wochentag"
 
 #: record.html:40
 msgid "Delete"
-msgstr "Hapus"
+msgstr "Löschen"
 
 #: app.js:54
 msgid "Dismiss"
-msgstr "Abaikan"
+msgstr "Ablehnen"
 
 #: privacy.html:8
 msgid ""
 "Does not collect personal information on M-Lab servers, e.g. your Internet "
 "traffic, your emails or Web searches"
-msgstr "Tidak mengumpulkan informasi pribadi pada server M-Lab, seperti penggunaan Internet Anda, email atau pencarian Web Anda"
+msgstr "Sammelt keine persönlichen Informationen auf M-Lab-Servern, z.B. Ihren Internetverkehr, Ihre E-Mails oder Websuchen"
 
 #: privacy.html:7
 msgid "Does share your IP Address"
-msgstr "Membagikan Alamat IP Anda"
+msgstr "Teilt Ihre IP-Adresse"
 
 #: history.html:44
 msgid "Download"
-msgstr "Unduh"
+msgstr "Herunterladen"
 
 #: annotateMeasurement.html:5
 msgid "Edit Measurement Notes"
-msgstr "Edit Catatan Pengukuran"
+msgstr "Messhinweise bearbeiten"
 
 #: history.html:1 menu.html:19
 msgid "Explore Data"
-msgstr "Eksplorasi Data"
+msgstr "Daten untersuchen"
 
 #: hostInformation.html:17
 msgid "Explore M-Lab Data"
-msgstr "Eksplorasi Data M-Lab"
+msgstr "M-Lab-Daten untersuchen"
 
 #: history.html:3
 msgid "Export"
-msgstr "Ekspor"
+msgstr "Exportieren"
 
 #: messageTestFailure.html:1
 msgid "Failed to complete the measurement."
-msgstr "Gagal menyelesaikan pengukuran"
+msgstr "Fehler beim Fertigstellen der Messung."
 
 #: app.js:53
 msgid "Failure"
-msgstr "Kegagalan"
+msgstr "Fehler"
 
 #: hostInformation.html:22
 msgid "Find Out More"
-msgstr "Cari Tahu Lebih Banyak"
+msgstr "Finden Sie mehr heraus"
 
 #: findingServer.html:3
 msgid "Finding Closest Server"
-msgstr "Mencari Server Terdekat"
+msgstr "Nächstgelegener Server wird gesucht"
 
 #: measure.html:54
 msgid "Finding Server"
-msgstr "Mencari Server"
+msgstr "Server wird gesucht"
 
 #: app.js:41
 msgid "Friday"
-msgstr "Jumat"
+msgstr "Freitag"
 
 #: about.html:13 hostInformation.html:1 hostInformation.html:10
 msgid "Get Involved"
-msgstr "Ikut Terlibat"
+msgstr "Beteiligen Sie sich"
 
 #: customSchedule.html:16
 msgid "Hour"
-msgstr "Jam"
+msgstr "Stunde"
 
 #: app.js:33
 msgid "Hourly"
-msgstr "Per Jam"
+msgstr "Stündlich"
 
 #: record.html:11
 msgid "Information"
-msgstr "Informasi"
+msgstr "Information"
 
 #: aboutMeasure.html:34
 msgid "Internet Tests"
-msgstr "Tes Internet"
+msgstr "Internettests"
 
 #: settings.html:33
 msgid "Language"
-msgstr "Bahasa"
+msgstr "Sprache"
 
 #: history.html:59
 msgid "Latency"
-msgstr "Waktu Respon"
+msgstr "Latenz"
 
 #: aboutMeasure.html:19
 msgid "Learn more about NDT"
-msgstr "Pelajari NDT Lebih Jauh"
+msgstr "Erfahren Sie mehr über NDT"
 
 #: settings.html:5
 msgid "Location"
-msgstr "Lokasi"
+msgstr "Standort"
 
 #: hostInformation.html:18
 msgid ""
@@ -229,7 +230,7 @@ msgid ""
 "measurements of Internet speed and health are in your area, browse our data "
 "on our <a href=\"http://www.measurementlab.net/observatory\" "
 "target=\"_system\">Internet Observatory</a>."
-msgstr "Data M-Lab terbuka tersedia untuk peneliti, tetapi kami juga telah mengembangkan alat bantu untuk memungkinkan siapa pun untuk mengeksplorasi data kami. Jika Anda tertarik untuk melihat pengukuran kecepatan dan kesehatan internet di area Anda, jelajahi data kami di <a href=\"http://www.measurementlab.net/observatory\" target=\"_system\">Observatorium Internet</a> kami."
+msgstr "Die M-Lab-Daten ist offen zugänglich für Forscher, aber wir haben auch Werkzeuge entwickelt, wenn irgendjemand anderes unsere Daten einsehen möchte. Wenn Sie daran interessiert, die Messungen von Internet-Geschwindigkeiten und die Gesundheit der in Ihrem Gebiet zu durchsuchen schauen Sie sich unsere Daten an, im <a href=\"http://www.measurementlab.net/observatory\" target=\"_system\">Internet-Observatorium</a>."
 
 #: privacy.html:11
 msgid ""
@@ -237,11 +238,11 @@ msgid ""
 "to gather information relevant to broadband services. The goal of the "
 "project is to analyze information regarding broadband networks and report "
 "this information to the public."
-msgstr "M-Lab adalah platform untuk penggunaan alat bantu mandiri yang dibuat oleh peneliti untuk mengumpulkan informasi yang relevan terhadap layanan broadband. Tujuan dari proyek ini adalah untuk menganalisa informasi terkait jaringan broadband dan melaporkan informasi ini ke publik."
+msgstr "M-Lab ist eine Plattform für die Nutzung von unabhängigen Tools, die von Forschern erstellt wurde um Informationen zu sammeln, die relevant für Breitband-Dienste sind. Das Ziel des Projektes ist die Analyse von Informationen über Breitband-Netzwerke und das melden dieser Informationen an die Öffentlichkeit."
 
 #: measure.html:1 menu.html:14
 msgid "M-Lab Measure"
-msgstr "M-Lab Measure"
+msgstr "M-Lab-Messung"
 
 #: aboutMeasure.html:39
 msgid ""
@@ -256,38 +257,38 @@ msgid ""
 " available, including the IP address provided by your ISP at the edge of "
 "your network. All tools are open source and created by researchers. For more"
 " information, see M-Lab’s privacy policy."
-msgstr "M-Lab menawarkan sejumlah alat bantu pengukuran, memungkinkan pelanggan untuk mengetes segala sesuatu dari kecepatan jaringan dan waktu respon sampai pemblokiran dan penyempitan. Semua alat bantu hanya melakukan pengukuran aktif terhadap platform M-Lab. Ini bearti bahwa tes M-Lab mengukur bagaimana koneksi jaringan Anda merespon ke aliran data sintesis yang dihasilkan oleh alat bantu individu hanya untuk tujuan pengukuran. Alat bantu tidak mengumpulkan informasi tentang penggunaan internet Anda lainnya, seperti email, pencarian web, materi yang Anda lihat, atau informasi identifikasi pribadi lainnya. Semua data yang dikumpulkan dibuat tersedia untuk publik, termasuk alamat IP yang disediakan oleh ISP Anda pada ujung jaringan Anda. Semua alat bantu adalah open source dan dibuat oleh peneliti. untuk informasi lebih lanjut, lihat kebijakan privasi M-Lab. "
+msgstr "M-Lab bietet eine Reihe von Messwerkzeugen, so dass die Verbraucher für alles von der Netzwerkgeschwindigkeit und der Latenz bis auf die Sperrung und Drosselung, erfahren können. Alle Werkzeuge führen nur aktive Messungen für die M-Lab-Plattform. Dies bedeutet, dass M-Lab-Tests Messen, wie Ihre Netzwerk-Verbindung reagiert auf einen synthetischen Datenstrom, erzeugt durch das individuelle Werkzeug ausschließlich für den Zweck der Messung. Die Werkzeuge sammeln keine Informationen über Ihren sonstigen Internet-Datenverkehr wie E-Mails, Web-Suche, die Inhalte, die Sie ansehen, oder keine persönlich identifizierbaren Informationen. Alle erhobenen Daten werden öffentlich verfügbar gemacht, einschließlich der IP-Adresse die von Ihrem ISP bereitgestellt wird. Alle Werkzeuge sind open source und wurden erstellt von Forschern. Weitere Informationen finden Sie unter M-Lab ' s privacy policy."
 
 #: app.js:29
 msgid "M-Lab Site"
-msgstr "Situs M-Lab"
+msgstr "M-Lab-Lage"
 
 #: privacy.html:15
 msgid ""
 "M-Lab's complete <a href=\"http://www.measurementlab.net/privacy\" "
 "target=\"_system\">Acceptable Use and Privacy Policies</a> are available on "
 "our website."
-msgstr "<a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">Kebijakan Penggunaan dan Privasi yang Diterima</a> M-Lab yang lengkap tersedia di website kami."
+msgstr "M-Lab komplette <a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">Verwenden und Privatsphäre Policies</a> sind auf unserer website verfügbar."
 
 #: record.html:35
 msgid "Management"
-msgstr "Manajemen"
+msgstr "Verwaltung"
 
 #: measure.html:44
 msgid "Mbps"
-msgstr "Mbps"
+msgstr "Mbit/s"
 
 #: menu.html:18
 msgid "Measure"
-msgstr "Ukur"
+msgstr "Messen"
 
 #: record.html:1
 msgid "Measurement Data"
-msgstr "Data Pengukuran"
+msgstr "Messdaten"
 
 #: history.html:29
 msgid "Measurement History"
-msgstr "Riwayat Pengukuran"
+msgstr "Messchronik"
 
 #: aboutMeasure.html:29
 msgid ""
@@ -298,113 +299,113 @@ msgid ""
 "Internet measurement tools. M-Lab’s goal is to advance network research and "
 "empower the public with useful information about their broadband and mobile "
 "connections."
-msgstr "Measurement Lab (M-Lab) adalah konsorsium penelitian, industri, dan rekanan minat publik yang terdedikasi untuk menyediakan platform pengukuran performa jaringan global yang terbuka dan terbukti. Platform M-Lab adalah server yang terbuka dan terdistribusi yang bisa digunakan peneliti untuk menerapkan alat bantu pengukuran internet open source. Tujuan M-Lab adalah untuk memajukan penelitian jaringan dan memberdayakan publik dengan informasi yang berguna tentang koneksi broadband dan mobile mereka."
+msgstr "Das Measurement Lab (M-Lab) ist ein Konsortium aus Forschung, Industrie und dem öffentlichen Interesse Partnern gewidmet, für eine  offene, überprüfbare Messplattform für Globale Netzwerkperformance. Die M-Lab-Plattform ist ein offenes, verteiltes Netzwerk von Servern, auf denen Forscher bereitstellen können open-source-Internet measurement tools. M-Lab verfolgt das Ziel die Netzwerkforschung voranzutreiben und der Öffentlichkeit nützliche Informationen über Ihre Breitband-und Mobilfunk-verbindungen mitzuteilen."
 
 #: annotateMeasurement.html:14
 msgid "Measurement Notes"
-msgstr "Catatan Pengukuran"
+msgstr "Messhinweise"
 
 #: app.js:44
 msgid "Midnight"
-msgstr "Tengah Malam"
+msgstr "Mitternacht"
 
 #: app.js:37
 msgid "Monday"
-msgstr "Senin"
+msgstr "Montag"
 
 #: measure.html:62
 msgid "More"
-msgstr "Lebih Banyak"
+msgstr "Mehr"
 
 #: privacy.html:13
 msgid "More Information"
-msgstr "Lebih Banyak Informasi"
+msgstr "Mehr Informationen"
 
 #: settings.html:29
 msgid "Next Test"
-msgstr "Tes Berikutnya"
+msgstr "Nächster Text"
 
 #: customSchedule.html:11
 msgid "No tests scheduled."
-msgstr "Tidak ada tes terjadwal"
+msgstr "Keine Tests geplant."
 
 #: settings.html:27
 msgid "Only Test on WiFi"
-msgstr "Hanya Tes lewat WiFi"
+msgstr "Nur über WiFi testen"
 
 #: record.html:19
 msgid "Performance"
-msgstr "Performa"
+msgstr "Leistung"
 
 #: app.js:51
 msgid "Pinch the chart to zoom in"
-msgstr "Cubit grafik untuk memperbesar"
+msgstr "Zum Hineinzoomen auf das Diagramm drücken"
 
 #: dataUsage.html:10
 msgid ""
 "Please be aware that the data the Measure App uses does count toward any "
 "monthly service or data plan you subscribe to."
-msgstr "Harap menyadari bahwa data yang digunakan Measure App menggunakan layanan atau data langganan bulanan Anda."
+msgstr "Bitte beachten Sie, dass die Daten der Measure-App für einen monatlichen Datenplan genutzt werden, den Sie abonnieren."
 
 #: about.html:9 privacy.html:1
 msgid "Privacy Policy"
-msgstr "Kebijakan Privasi"
+msgstr "Datenschutzerklärung"
 
 #: settings.html:47
 msgid "Reset Measurement History"
-msgstr "Atur Ulang Riwayat Pengukuran"
+msgstr "Messchronik zurücksetzen"
 
 #: app.js:31
 msgid "Retransmissions"
-msgstr "Transmisi Ulang"
+msgstr "Erneute Übertragungen"
 
 #: app.js:47
 msgid "Running Test (Download)"
-msgstr "Menjalankan Tes (Unduh)"
+msgstr "Test läuft (Herunterladen)"
 
 #: app.js:46
 msgid "Running Test (Upload)"
-msgstr "Menjalankan Tes (Unggah)"
+msgstr "Test läuft (Hochladen)"
 
 #: app.js:42
 msgid "Saturday"
-msgstr "Sabtu"
+msgstr "Samstag"
 
 #: annotateMeasurement.html:6
 msgid "Save"
-msgstr "Simpan"
+msgstr "Speichern"
 
 #: settings.html:15
 msgid "Schedule"
-msgstr "Jadwal"
+msgstr "Planen"
 
 #: settings.html:12
 msgid "Schedule a Test"
-msgstr "Jadwalkan Tes"
+msgstr "Planen Sie einen Test"
 
 #: customSchedule.html:18
 msgid "Schedule Test"
-msgstr "Jadwalkan Tes"
+msgstr "Test planen"
 
 #: serverSelection.html:1
 msgid "Server Selection"
-msgstr "Pilihan Server"
+msgstr "Serverauswahl"
 
 #: app.js:27
 msgid "Service Provider"
-msgstr "Penyedia Layanan"
+msgstr "Dienstanbieter"
 
 #: menu.html:24 settings.html:1
 msgid "Settings"
-msgstr "Pengaturan"
+msgstr "Einstellungen"
 
 #: measure.html:50
 msgid "Start Test"
-msgstr "Mulai Tes"
+msgstr "Test starten"
 
 #: app.js:45
 msgid "Starting"
-msgstr "Memulai"
+msgstr "Startvorgang"
 
 #: history.html:22
 msgid "Statistic"
@@ -412,7 +413,7 @@ msgstr "Statistik"
 
 #: app.js:43
 msgid "Sunday"
-msgstr "Minggu"
+msgstr "Sonntag"
 
 #: aboutMeasure.html:15
 msgid ""
@@ -421,13 +422,13 @@ msgid ""
 "sophisticated speed and diagnostic test suitable for both the novice and the"
 " network researcher. For more information on NDT and other M-Lab tests, "
 "please visit our the NDT page on M-Lab's site."
-msgstr "M-Lab Measure App mengimplementasi satu tes, Network Diagnostik Tool (NDT). NDT dikembangkan dan dipelihara oleh Internet 2 dan menyediakan tes kecepatan dan diagnostik mutakhir yang cocok untuk baik orang awam dan peneliti jaringan. Untuk informasi lebih lanjut tentang NDT dan tes M-Lab lainnya, silakan kunjungi halaman NDT kami di situs M-Lab."
+msgstr "Die M-Lab Measure-App implementiert einen Test, das Network Diagnostic Tool (NDT). NDT wird entwickelt und gepflegt für das Internet 2 und bietet eine anspruchsvolle Geschwindigkeit und diagnostische Tests geeignet für Anfänger als auch Netzwerk-Forscher. Weitere Informationen zu ZfP und andere M-Lab-tests, besuchen Sie bitte unsere der ZfP-Seite auf M-Lab-Website."
 
 #: dataUsage.html:5
 msgid ""
 "The M-Lab Measure App uploads and downloads data for the purposes of "
 "measuring your connections to the Internet."
-msgstr "M-Lab Measure App mengunggah dan mengunduh data untuk tujuan mengukur koneksi Anda ke Internet."
+msgstr "Die M-Lab Measure App verwendet die Daten von Appuploads und Downloads für die Zwecke der Messung Ihrer Internet-Anschlüssen."
 
 #: hostInformation.html:23
 msgid ""
@@ -435,55 +436,55 @@ msgid ""
 "individual or represent an organization. Find out other ways to <a "
 "href=\"http://measurementlab.net/contribute\" "
 "target=\"_system\">contribute</a> on our website."
-msgstr "Ada banyak cara untuk terlibat dengan M-Lab, baik Anda individu atau mewakili organisasi. Temukan cara lain untuk <a href=\"http://measurementlab.net/contribute\" target=\"_system\">berkontribusi</a> di website kami."
+msgstr "Es gibt viele Möglichkeiten, sich zu engagieren bei M-Lab, egal ob als Privatperson oder Organisation. Finden Sie heraus, welche Möglichkeiten<a href=\"http://measurementlab.net/contribute\" target=\"_system\"> es gibt auf auf unserer website."
 
 #: messageResetHistory.html:1
 msgid ""
 "This action will permanently remove all stored results and cannot be undone."
 " Are you sure?"
-msgstr "Ini akan menghapus semua hasil yang disimpan secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin?"
+msgstr "Diese Aktion wird dauerhaft alle gespeicherten Ergebnisse entfernen und kann nicht rückgängig gemacht werden. Sind Sie sicher?"
 
 #: privacy.html:4
 msgid "This application:"
-msgstr "Aplikasi ini:"
+msgstr "Diese Anwendung:"
 
 #: messageTestFailure.html:2
 msgid ""
 "This could be due to a change in connectivity during the test, blocking of "
 "the test by the network or other factors."
-msgstr "Ini bisa terjadi karena perubahan dalam konektivitas selama tes, pemblokiran tes oleh jaringan atau faktor lainnya."
+msgstr "Dies könnte durch eine Änderung der Konnektivität während der Prüfung, Blockierung des Netzwerktests oder andere Faktoren bewirkt werden."
 
 #: app.js:40
 msgid "Thursday"
-msgstr "Kamis"
+msgstr "Donnerstag"
 
 #: app.js:26
 msgid "Time"
-msgstr "Waktu"
+msgstr "Zeit"
 
 #: hostInformation.html:19
 msgid "Translate the M-Lab Measure App"
-msgstr "Terjemahkan M-Lab Measure App"
+msgstr "Übersetzen Sie die M-Lab Mess-App"
 
 #: settings.html:44
 msgid "Trusted Tester"
-msgstr "Penguji Terpercaya"
+msgstr "Vertrauenswürdiger Tester"
 
 #: app.js:38
 msgid "Tuesday"
-msgstr "Selasa"
+msgstr "Dienstag"
 
 #: history.html:51
 msgid "Upload"
-msgstr "Unggah"
+msgstr "Hochladen"
 
 #: app.js:39
 msgid "Wednesday"
-msgstr "Rabu"
+msgstr "Mittwoch"
 
 #: app.js:35
 msgid "Weekly"
-msgstr "Mingguan"
+msgstr "Wöchentlich"
 
 #: hostInformation.html:20
 msgid ""
@@ -493,8 +494,8 @@ msgid ""
 "target=\"_system\">Transifex</a>, or <a "
 "href=\"http://www.measurementlab.net/contact\" target=\"_system\">contact us"
 " for more information!</a>!"
-msgstr "Apakah Anda ingin membantu menerjemahkan M-Lab Measure App ke bahasa lain? Ikut serta sebagai penerjemah atau peninjau terjemahan di <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Transifex</a>, atau <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">hubungi kami untuk informasi lebih lanjut</a>."
+msgstr "Möchten Sie helfen, M-Lab Measure App in andere Sprachen zu übersetzen? Engagieren Sie sich als Übersetzer oder Übersetzungskritiker auf <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Transifex</a>, oder <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">kontaktieren Sie uns für weitere Informationen!</a>!"
 
 #: app.js:28
 msgid "Your Location"
-msgstr "Lokasi Anda"
+msgstr "Ihr Standort"

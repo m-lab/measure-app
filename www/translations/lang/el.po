@@ -1,0 +1,500 @@
+# 
+# Translators:
+# 38b991705053a11862912edec5d4fc15_99319de <e3751b561a133daad5ac37aeb3619d1a_667224>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: M-Lab Chrome App\n"
+"PO-Revision-Date: 2018-01-31 02:53+0000\n"
+"Last-Translator: 38b991705053a11862912edec5d4fc15_99319de <e3751b561a133daad5ac37aeb3619d1a_667224>\n"
+"Language-Team: Greek (http://www.transifex.com/otf/mlab-app/language/el/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app.js:49
+msgid "{{timeofday}} hour, every {{dayofweek}}"
+msgstr "{{timeofday}} ώρα, κάθε {{dayofweek}}"
+
+#: about.html:1 aboutMeasure.html:10 menu.html:25
+msgid "About"
+msgstr "Σχετικά με"
+
+#: aboutMeasure.html:24 privacy.html:10
+msgid "About M-Lab"
+msgstr "Σχετικά με το M-Lab"
+
+#: about.html:5
+msgid "About M-Lab Measure App"
+msgstr "Σχετικά με την M-Lab Measure Εφαρμογή"
+
+#: aboutMeasure.html:1
+msgid "About Measure App"
+msgstr "Σχετικά με την Measure Εφαρμογή"
+
+#: customSchedule.html:13
+msgid "Add a scheduled test"
+msgstr "Προσθήκη μιας προγραμματισμένης δοκιμής"
+
+#: record.html:5
+msgid "Annotate"
+msgstr "Σχολιασμός"
+
+#: record.html:27
+msgid "Annotations"
+msgstr "Σχόλια"
+
+#: privacy.html:14
+msgid ""
+"By running the tests in the M-Lab Measure App, your device will generate and"
+" send some data back-and-forth with an M-Lab server. The data collected "
+"relates to the particular communication \"flows\" generated between your "
+"device and an M-Lab server. This includes the IP address provided by your "
+"ISP. These data will be used and analyzed by researchers and, in order to "
+"advance research, these data will be made publicly available. The M-Lab "
+"Measure App does not collect personal information, such as your Internet "
+"traffic, your emails or Web searches."
+msgstr "Από τις εξετάσεις της M-Lab Measure εφαρμογής, η συσκευή σας θα δημιουργήσει και να στείλει κάποια δεδομένα σε έναν M-Lab διακομιστή. Τα δεδομένα που συλλέγονται αφορούν τη συγκεκριμένη ανακοίνωση \"ροών\" που δημιουργείται μεταξύ της συσκευής σας και του M-Lab διακομιστή. Αυτό περιλαμβάνει τη διεύθυνση IP που παρέχεται από τον ISP σας. Τα δεδομένα αυτά θα χρησιμοποιούνται και αναλύονται από τους ερευνητές, και, προκειμένου για την προώθηση της έρευνας, τα στοιχεία αυτά θα είναι διαθέσιμα στο κοινό. Η M-Lab Measure Εφαρμογή δεν συλλέγει προσωπικές πληροφορίες, όπως το Internet traffic, email ή αναζητήσεις στο Διαδίκτυο."
+
+#: hostInformation.html:15
+msgid ""
+"By using the M-Lab Measure app, the data about the health of the network "
+"connections you use is shared in a public dataset that researchers, ISPs, "
+"regulators and others can use to understand the Internet and how it can be "
+"improved. You can also choose to get more involved with M-Lab beyond that as"
+" well."
+msgstr "Χρησιμοποιώντας ηνο M-Lab Measure εφαρμογή, τα δεδομένα σχετικά με την υγεία των συνδέσεων δικτύου που θα χρησιμοποιήσετε θα κοινοποιηθούν σε ένα κοινό σύνολο δεδομένων που οι ερευνητές, ISPs, οι ρυθμιστικές αρχές και άλλοι μπορούν να τα χρησιμοποιήσουν για να κατανοήσουν το Διαδίκτυο και πώς μπορεί να βελτιωθεί. "
+
+#: annotateMeasurement.html:3
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: app.js:50
+msgid "Click and drag in the chart to zoom in"
+msgstr "Κάντε κλικ και σύρετε στο γράφημα για μεγέθυνση"
+
+#: app.js:48
+msgid "Completed"
+msgstr "Ολοκληρώθηκε"
+
+#: app.js:52
+msgid "Confirm Reset"
+msgstr "Επιβεβαίωση επαναφοράς"
+
+#: app.js:30
+msgid "Connection Type"
+msgstr "Είδος σύνδεσης"
+
+#: app.js:32
+msgid "Constantly"
+msgstr "Συνεχής"
+
+#: customSchedule.html:3
+msgid "Current Schedule"
+msgstr "Τρέχον Πρόγραμμα"
+
+#: dataUsage.html:6
+msgid ""
+"Currently the app has used <span class=\"badge badge-assertive\">\n"
+"{{ historyState.dataConsumed  | formatDataConsumptionMeasurement }}\n"
+"</span> of data from this device."
+msgstr "Αυτή τη στιγμή η εφαρμογή έχει χρησιμοποιήσει<span class=\"badge badge-assertive\">\n{{ historyState.dataConsumed | formatDataConsumptionMeasurement }}\n</span>των δεδομένων από αυτήν τη συσκευή."
+
+#: app.js:36
+msgid "Custom"
+msgstr "Προσαρμογή "
+
+#: customSchedule.html:1 settings.html:23
+msgid "Custom Schedule"
+msgstr "Προσαρμοσμένο Πρόγραμμα"
+
+#: app.js:34
+msgid "Daily"
+msgstr "Καθημερινά"
+
+#: dataUsage.html:1 menu.html:20
+msgid "Data Usage"
+msgstr "Χρήση Δεδομένων"
+
+#: dataUsage.html:4
+msgid "Data Used by Measure App"
+msgstr "Δεδομένα που χρησιμοποιούνται από την εφαρμοργή Measure "
+
+#: customSchedule.html:17
+msgid "Day of Week"
+msgstr "Ημέρα της Εβδομάδας"
+
+#: record.html:40
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: app.js:54
+msgid "Dismiss"
+msgstr "Απόρριψη"
+
+#: privacy.html:8
+msgid ""
+"Does not collect personal information on M-Lab servers, e.g. your Internet "
+"traffic, your emails or Web searches"
+msgstr "Δεν συλλέγονται προσωπικές πληροφορίες στούς M-Lab διακομιστές, π. χ. τις κινήσεις σας στο Διαδίκτυο, τα email σας ή τις αναζητήσεις σας στο Διαδίκτυο"
+
+#: privacy.html:7
+msgid "Does share your IP Address"
+msgstr "Δεν μοιράζεται η διεύθυνση IP σας"
+
+#: history.html:44
+msgid "Download"
+msgstr "Λήψη"
+
+#: annotateMeasurement.html:5
+msgid "Edit Measurement Notes"
+msgstr "Επεξεργασία σημειώσεων των μετρήσεων "
+
+#: history.html:1 menu.html:19
+msgid "Explore Data"
+msgstr "Εξερευνήστε τα δεδομένα"
+
+#: hostInformation.html:17
+msgid "Explore M-Lab Data"
+msgstr "Εξερευνήστε τα M-Lab δεδομένα"
+
+#: history.html:3
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: messageTestFailure.html:1
+msgid "Failed to complete the measurement."
+msgstr "Αποτυχία ολοκλήρωσης της μέτρησης."
+
+#: app.js:53
+msgid "Failure"
+msgstr "Αποτυχία"
+
+#: hostInformation.html:22
+msgid "Find Out More"
+msgstr "Μάθετε Περισσότερα"
+
+#: findingServer.html:3
+msgid "Finding Closest Server"
+msgstr "Ευρεση πλησιέστερου διακομιστή"
+
+#: measure.html:54
+msgid "Finding Server"
+msgstr "Ευρεση διακομιστή"
+
+#: app.js:41
+msgid "Friday"
+msgstr "Παρασκευή"
+
+#: about.html:13 hostInformation.html:1 hostInformation.html:10
+msgid "Get Involved"
+msgstr "Ασχοληθείτε"
+
+#: customSchedule.html:16
+msgid "Hour"
+msgstr "ώρα"
+
+#: app.js:33
+msgid "Hourly"
+msgstr "Ωριαία"
+
+#: record.html:11
+msgid "Information"
+msgstr "Πληροφορία"
+
+#: aboutMeasure.html:34
+msgid "Internet Tests"
+msgstr "Διαδικτυακές δοκιμές"
+
+#: settings.html:33
+msgid "Language"
+msgstr "Γλώσσα"
+
+#: history.html:59
+msgid "Latency"
+msgstr "Αδράνεια"
+
+#: aboutMeasure.html:19
+msgid "Learn more about NDT"
+msgstr "Μάθετε περισσότερα σχετικά με το NDT"
+
+#: settings.html:5
+msgid "Location"
+msgstr "Τοποθεσία"
+
+#: hostInformation.html:18
+msgid ""
+"M-Lab data is openly available to researchers, but we also have developed "
+"tools to let anyone explore our data. If you're interested in seeing the "
+"measurements of Internet speed and health are in your area, browse our data "
+"on our <a href=\"http://www.measurementlab.net/observatory\" "
+"target=\"_system\">Internet Observatory</a>."
+msgstr "Τα M-Lab δεδομένα είναι ανοιχτά διαθέσιμα στους ερευνητές, αλλά πρέπει επίσης να έχουν αναπτύξει εργαλεία για να ερευνήσει κανείς τα δεδομένα μας. Αν σας ενδιαφέρει να δείτε τις μετρήσεις της ταχύτητας του Διαδικτύου και τις υγείας στην περιοχή σας, περιηγηθείτε στα δεδομένα μας στο <a href=\"http://www.measurementlab.net/observatory\" target=\"_system\">Διαδικτυακό Παρατηρητήριο</a>."
+
+#: privacy.html:11
+msgid ""
+"M-Lab is a platform for the use of independent tools created by researchers "
+"to gather information relevant to broadband services. The goal of the "
+"project is to analyze information regarding broadband networks and report "
+"this information to the public."
+msgstr "Το M-Lab είναι μια πλατφόρμα για τη χρήση ανεξάρτητων εργαλείων που δημιουργήθηκε από ερευνητές για να συλλέξουν πληροφορίες σχετικές με τις ευρυζωνικές υπηρεσίες. Ο στόχος του έργου είναι να αναλύσει πληροφορίες σχετικά με τα ευρυζωνικά δίκτυα και να αναφέρει τις εν λόγω πληροφορίες στο κοινό."
+
+#: measure.html:1 menu.html:14
+msgid "M-Lab Measure"
+msgstr "M-Lab Measure"
+
+#: aboutMeasure.html:39
+msgid ""
+"M-Lab offers a number of measurement tools, allowing consumers to test for "
+"everything from network speed and latency to blocking and throttling. All "
+"tools perform only active measurements against the M-Lab platform. This "
+"means that M-Lab tests measure how your network connection responds to a "
+"synthetic stream of data generated by the individual tool solely for the "
+"purpose of measurement. The tools do not collect information about your "
+"other Internet traffic, such as emails, web searches, content you view, or "
+"any personally identifiable information. All data collected is made publicly"
+" available, including the IP address provided by your ISP at the edge of "
+"your network. All tools are open source and created by researchers. For more"
+" information, see M-Lab’s privacy policy."
+msgstr "Το M-Lab προσφέρει μια σειρά από εργαλεία μέτρησης, επιτρέποντας στους καταναλωτές να δοκιμάσουν τα πάντα, από την ταχύτητα του δικτύου και αδράνεια για το κλείδωμα και το throttling. Όλα τα εργαλεία εκτελούν μόνο ενεργείς μετρήσεις στην M-Lab πλατφόρμα. Αυτό σημαίνει ότι οι M-Lab δοκιμές μετράνες την σύνδεση με το δίκτυο που ανταποκρίνεται σε ένα συνθετικό ροή των δεδομένων που προκύπτουν από τα επιμέρους εργαλεία, αποκλειστικά για το σκοπό της μέτρησης. Τα εργαλεία δεν συλλέγουν πληροφορίες σχετικά με τις κίνησεις σας στο Διαδίκτυο και προσωπικά δεδομένα, όπως μηνύματα, το ιστορικό,  περιεχόμενο που προβάλλετε ή οποιεσδήποτε προσωπικά αναγνωρίσιμες πληροφορίες. Όλα τα δεδομένα που συλλέγονται είναι διαθέσιμα στο κοινό, συμπεριλαμβανομένων των IP διεύθυνσεων που παρέχονται από τον ISP σας. Όλα τα εργαλεία είναι  open source  και έχουν δημιουργηθεί από  ερευνητές. Για περισσότερες πληροφορίες, ανατρέξτε στο M-Lab και την πολιτική προστασίας προσωπικών δεδομένων."
+
+#: app.js:29
+msgid "M-Lab Site"
+msgstr "M-Lab Ιστοσελίδα"
+
+#: privacy.html:15
+msgid ""
+"M-Lab's complete <a href=\"http://www.measurementlab.net/privacy\" "
+"target=\"_system\">Acceptable Use and Privacy Policies</a> are available on "
+"our website."
+msgstr "Το M-Lab είναι πλήρης<a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">Ο αποδεκτής Χρήσης και η πολιτική Απορρήτου</a>είναι διαθέσιμα στην ιστοσελίδα μας."
+
+#: record.html:35
+msgid "Management"
+msgstr "Διαχείριση"
+
+#: measure.html:44
+msgid "Mbps"
+msgstr "Mbps"
+
+#: menu.html:18
+msgid "Measure"
+msgstr "Μέτρηση"
+
+#: record.html:1
+msgid "Measurement Data"
+msgstr "Μέτρηση Δεδομένων"
+
+#: history.html:29
+msgid "Measurement History"
+msgstr "Ιστορικό Μετρήσεων"
+
+#: aboutMeasure.html:29
+msgid ""
+"Measurement Lab (M-Lab) is a consortium of research, industry, and public "
+"interest partners dedicated to providing an open, verifiable measurement "
+"platform for global network performance. The M-Lab platform is an open, "
+"distributed network of servers on which researchers can deploy open source "
+"Internet measurement tools. M-Lab’s goal is to advance network research and "
+"empower the public with useful information about their broadband and mobile "
+"connections."
+msgstr "Το Measurement Lab (M-Lab) είναι μια κοινοπραξία της έρευνας, της βιομηχανίας, και το δημόσιο αλλά συμφέρον εταίρους που είναι αφοσιωμένοι στο να παρέχουν μια ανοιχτή, επαληθεύσιμη πλατφόρμα μετρήσεων για την παγκόσμια απόδοση του διαδικτύου. Η M-Lab πλατφόρμα είναι ένα ανοικτό, κατανεμημένο δίκτυο διακομιστών, στην οποία ερευνητές μπορούν να αναπτύξουν open source Διαδικτυακά εργαλεία μέτρησης. Ο στόχος είναι η εκ των προτέρων διαδικτυακή έρευνα  και η ενδυνάμωσει του κοινού με χρήσιμες πληροφορίες για τις ευρυζωνικές και κινητές συνδέσεις."
+
+#: annotateMeasurement.html:14
+msgid "Measurement Notes"
+msgstr "Σημειώσεις Μετρήσεων "
+
+#: app.js:44
+msgid "Midnight"
+msgstr "Μεσάνυχτα"
+
+#: app.js:37
+msgid "Monday"
+msgstr "Δευτέρα"
+
+#: measure.html:62
+msgid "More"
+msgstr "Περισσότερα"
+
+#: privacy.html:13
+msgid "More Information"
+msgstr "Περισσότερες πληροφορίες"
+
+#: settings.html:29
+msgid "Next Test"
+msgstr "Επόμενη δοκιμή"
+
+#: customSchedule.html:11
+msgid "No tests scheduled."
+msgstr "Καμμία δοκιμή δεν είναι προγραματισμένη."
+
+#: settings.html:27
+msgid "Only Test on WiFi"
+msgstr "Μόνο δοκιμή στο WiFi"
+
+#: record.html:19
+msgid "Performance"
+msgstr "Απόδοση δικτύου"
+
+#: app.js:51
+msgid "Pinch the chart to zoom in"
+msgstr "Τσιμπήστε το γράφημα για μεγέθυνση"
+
+#: dataUsage.html:10
+msgid ""
+"Please be aware that the data the Measure App uses does count toward any "
+"monthly service or data plan you subscribe to."
+msgstr "Παρακαλούμε να γνωρίζετε ότι τα δεδομένα που χρησιμοποιεί η  εφαρμογής Measure App μετράει προς μηνιαία υπηρεσία ή πρόγραμμα δεδομένων σας εγγραφείτε."
+
+#: about.html:9 privacy.html:1
+msgid "Privacy Policy"
+msgstr "Πολιτική Προστασίας Προσωπικών Δεδομένων"
+
+#: settings.html:47
+msgid "Reset Measurement History"
+msgstr "Επαναφορά του ιστορικού μετρήσεων"
+
+#: app.js:31
+msgid "Retransmissions"
+msgstr "Αναμεταδόσεις"
+
+#: app.js:47
+msgid "Running Test (Download)"
+msgstr "Εκτελείται δοκιμή (Λήψη)"
+
+#: app.js:46
+msgid "Running Test (Upload)"
+msgstr "Εκτελείται δοκιμή (Μεταφόρτωση)"
+
+#: app.js:42
+msgid "Saturday"
+msgstr "Σάββατο"
+
+#: annotateMeasurement.html:6
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: settings.html:15
+msgid "Schedule"
+msgstr "Πρόγραμμα"
+
+#: settings.html:12
+msgid "Schedule a Test"
+msgstr "Προγραμματισμός Δοκιμής"
+
+#: customSchedule.html:18
+msgid "Schedule Test"
+msgstr "Προγραμματισμός Δοκιμής"
+
+#: serverSelection.html:1
+msgid "Server Selection"
+msgstr "Επιλογή Διακομιστή"
+
+#: app.js:27
+msgid "Service Provider"
+msgstr "Πάροχος Υπηρεσιών"
+
+#: menu.html:24 settings.html:1
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: measure.html:50
+msgid "Start Test"
+msgstr "Έναρξη Δοκιμής"
+
+#: app.js:45
+msgid "Starting"
+msgstr "Εκκίνηση "
+
+#: history.html:22
+msgid "Statistic"
+msgstr "Στατιστική"
+
+#: app.js:43
+msgid "Sunday"
+msgstr "Κυριακή"
+
+#: aboutMeasure.html:15
+msgid ""
+"The M-Lab Measure App implements one test, the Network Diagnostic Tool "
+"(NDT). NDT is developed and maintained by Internet 2 and provides a "
+"sophisticated speed and diagnostic test suitable for both the novice and the"
+" network researcher. For more information on NDT and other M-Lab tests, "
+"please visit our the NDT page on M-Lab's site."
+msgstr "Η M-Lab Εφαρμογή υλοποιεί μια δοκιμή, το Εργαλείο Διαγνωστικών Δικτύου (ΕΔΔ). Το ΕΔΔ αναπτύσσεται και συντηρείται από το Internet 2, παρέχει μια εξελιγμένη ταχύτητα και η διαγνωστική δοκιμή είναι κατάλληλη για αρχάριους όσο και για ερευνητές. Για περισσότερες πληροφορίες σχετικά με το ΕΔΔ και άλλες M-Lab δοκιμές, παρακαλώ επισκεφθείτε την ιστοσελίδα του ΕΔΔ και του M-Lab."
+
+#: dataUsage.html:5
+msgid ""
+"The M-Lab Measure App uploads and downloads data for the purposes of "
+"measuring your connections to the Internet."
+msgstr "Η M-Lab Measure Εφαρμογή μεταφορτώνει και λαμβάνει δεδομένα για τους σκοπούς της μέτρησης των συνδέσεων σας στο Διαδίκτυο."
+
+#: hostInformation.html:23
+msgid ""
+"There are a many ways to get involved with M-Lab, whether you're an "
+"individual or represent an organization. Find out other ways to <a "
+"href=\"http://measurementlab.net/contribute\" "
+"target=\"_system\">contribute</a> on our website."
+msgstr "Υπάρχουν πολλοί τρόποι να συνησφέρετε στο M-Lab, αν είστε ένα άτομο ή αντιπροσωπεύετε μια οργάνωση. Βρείτε τούς τρόπους <a href=\"http://measurementlab.net/contribute\" target=\"_system\"> συνησφοράς στην ιστοσελίδα μας."
+
+#: messageResetHistory.html:1
+msgid ""
+"This action will permanently remove all stored results and cannot be undone."
+" Are you sure?"
+msgstr "Η δράση αυτή θα αφαιρέσει οριστικά όλα τα αποθηκευμένα αποτελέσματα και δεν μπορεί να αναιρεθεί. Είστε σίγουρος;"
+
+#: privacy.html:4
+msgid "This application:"
+msgstr "Αυτή η εφαρμογή:"
+
+#: messageTestFailure.html:2
+msgid ""
+"This could be due to a change in connectivity during the test, blocking of "
+"the test by the network or other factors."
+msgstr "Αυτό μπορεί να οφείλεται σε μια αλλαγή στη συνδεσιμότητα κατά τη διάρκεια της δοκιμής, το κλείδωμα της δοκιμής από το δίκτυο ή άλλους παράγοντες."
+
+#: app.js:40
+msgid "Thursday"
+msgstr "Πέμπτη"
+
+#: app.js:26
+msgid "Time"
+msgstr "Χρόνος"
+
+#: hostInformation.html:19
+msgid "Translate the M-Lab Measure App"
+msgstr "Μετάφραση τις M-Lab Measure Εφαρμογής"
+
+#: settings.html:44
+msgid "Trusted Tester"
+msgstr "Αξιόπιστος Δοκιμαστής"
+
+#: app.js:38
+msgid "Tuesday"
+msgstr "Τρίτη"
+
+#: history.html:51
+msgid "Upload"
+msgstr "Μεταφόρτωση"
+
+#: app.js:39
+msgid "Wednesday"
+msgstr "Τετάρτη"
+
+#: app.js:35
+msgid "Weekly"
+msgstr "Εβδομαδιαία"
+
+#: hostInformation.html:20
+msgid ""
+"Would you like to help translate the M-Lab Measure App for other languages? "
+"Get involved as a translator or translation reviewer on <a "
+"href=\"https://www.transifex.com/otf/mlab-app/\" "
+"target=\"_system\">Transifex</a>, or <a "
+"href=\"http://www.measurementlab.net/contact\" target=\"_system\">contact us"
+" for more information!</a>!"
+msgstr "Θα θέλατε να μεταφράσετε την M-Lab Measure Εφαρμογή σε άλλες γλώσσες; Ασχοληθείτε ως μεταφραστής η κριτής μεταφράσεων στο <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Transifex</a>, η <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">επικοινωνήστε με εμάς για περισσότερες πληροφορίες!</a>!"
+
+#: app.js:28
+msgid "Your Location"
+msgstr "Η τοποθεσία σας"

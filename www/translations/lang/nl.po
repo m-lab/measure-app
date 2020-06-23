@@ -1,11 +1,12 @@
 # 
 # Translators:
 # Jorrit Ottevanger <jorrit_1980@hotmail.com>, 2016
+# Meteor0id, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: M-Lab Chrome App\n"
-"PO-Revision-Date: 2016-07-11 12:16+0000\n"
-"Last-Translator: Jorrit Ottevanger <jorrit_1980@hotmail.com>\n"
+"PO-Revision-Date: 2020-04-24 20:10+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (http://www.transifex.com/otf/mlab-app/language/nl/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -140,7 +141,7 @@ msgstr "Verzamelt geen persoonlijke informatie op M-Lab-servers, zoals bijv. uw 
 
 #: privacy.html:7
 msgid "Does share your IP Address"
-msgstr "Deelt niet uw IP-adres"
+msgstr "Deelt uw IP-adres niet"
 
 #: history.html:44
 msgid "Download"
@@ -267,7 +268,7 @@ msgid ""
 "M-Lab's complete <a href=\"http://www.measurementlab.net/privacy\" "
 "target=\"_system\">Acceptable Use and Privacy Policies</a> are available on "
 "our website."
-msgstr "De volledige <a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">Beleidsmaatregelen omtrent aanvaarbaar gebruik en privacy</a> van M-Lab zijn beschikbaar op onze website."
+msgstr "De volledige <a href=\"http://www.measurementlab.net/privacy\" target=\"_system\">Beleidsmaatregelen omtrent aanvaardbaar gebruik en privacy</a> van M-Lab zijn beschikbaar op onze website."
 
 #: record.html:35
 msgid "Management"
@@ -421,7 +422,7 @@ msgid ""
 "sophisticated speed and diagnostic test suitable for both the novice and the"
 " network researcher. For more information on NDT and other M-Lab tests, "
 "please visit our the NDT page on M-Lab's site."
-msgstr "De M-Lab Measure App voert één test uit: de Network Diagnostic Tool (NDT). NDT is ontwikkeld, en wordt onderhouden, door Internet 2 en levert een verfijnde snelheids- en diagnostiektest die geschikt is voor zowel beginners als de netwerkonderzoeker. Bezoek de NDT-pagina op onze M-Lab-website voor meer informatie over NDT en andere M-Lab-tests, "
+msgstr "De M-Lab Measure App voert één test uit: de Network Diagnostic Tool (NDT). NDT is ontwikkeld, en wordt onderhouden, door Internet 2 en levert een verfijnde snelheids- en diagnostiektest die geschikt is voor zowel beginners als de netwerkonderzoeker. Bezoek de NDT-pagina op onze M-Lab-website voor meer informatie over NDT en andere M-Lab-tests."
 
 #: dataUsage.html:5
 msgid ""
@@ -493,7 +494,7 @@ msgid ""
 "target=\"_system\">Transifex</a>, or <a "
 "href=\"http://www.measurementlab.net/contact\" target=\"_system\">contact us"
 " for more information!</a>!"
-msgstr "Wilt u helpen bij het vertalen van M-Lab Measure App naar andere talen? Werk mee als vertaler of  proofreader op <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Transifex</a>, of <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">neem voor meer informatie conact met ons op!</a>!"
+msgstr "Wilt u helpen bij het vertalen van M-Lab Measure App naar andere talen? Werk mee als vertaler of reviewer op <a href=\"https://www.transifex.com/otf/mlab-app/\" target=\"_system\">Transifex</a>, of <a href=\"http://www.measurementlab.net/contact\" target=\"_system\">neem voor meer informatie contact met ons op</a>!"
 
 #: app.js:28
 msgid "Your Location"
