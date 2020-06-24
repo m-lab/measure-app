@@ -1,6 +1,6 @@
 angular.module('Measure.services.Network', [])
 
-.constant('ACCESS_SERVICE_URL', 'https://measure-location.appspot.com')
+.constant('ACCESS_SERVICE_URL', 'https://ipinfo.io')
 
 .factory('accessInformation', function($q, $http, ACCESS_SERVICE_URL) {
 	var accessInformation = {};
@@ -11,6 +11,14 @@ angular.module('Measure.services.Network', [])
 		$http.get(ACCESS_SERVICE_URL)
 			.success(function (data) {
 					accessInformation.currentAccessInformation = data;
+
+					// Split ASN and ISP name.
+					asnRegex = new RegExp('^(AS[0-9]+)\\w+(.+)')
+					accessInformation.currentAccessInformation.asn =
+						accessInformation.currentAccessInformation.org.replace(asnRegex, "$1");
+					accessInformation.currentAccessInformation.org =
+						accessInformation.currentAccessInformation.org.replace(asnRegex, "$2");
+
 					deferred.resolve(accessInformation.currentAccessInformation);
 				}
 			)
