@@ -131,7 +131,7 @@ span.measurement-icon:before {
 }
 
 .panel__measure .spinIcon {
-  animation-name: spin; 
+  animation-name: spin;
   animation-duration: 2000ms; /* 40 seconds */
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -198,6 +198,7 @@ span.item-note {
 }
 
 .panel__measure div.row div.col span.currentRateLabel {
+  margin-left: 0.6em;
   font-size: 0.9em;
   font-weight: 100;
 
