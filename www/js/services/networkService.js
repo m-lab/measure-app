@@ -10,13 +10,19 @@ angular.module('Measure.services.Network', [])
 		var deferred = $q.defer();
 		$http.get(ACCESS_SERVICE_URL)
 			.success(function (data) {
-					chrome.extension.getBackgroundPage().console.log(data);
 					accessInformation.currentAccessInformation = data;
+
+					// Split ASN and ISP name.
+					asnRegex = new RegExp('^(AS[0-9]+)\\w+(.+)')
+					accessInformation.currentAccessInformation.asn =
+						accessInformation.currentAccessInformation.org.replace(asnRegex, "$1");
+					accessInformation.currentAccessInformation.org =
+						accessInformation.currentAccessInformation.org.replace(asnRegex, "$2");
+
 					deferred.resolve(accessInformation.currentAccessInformation);
 				}
 			)
 			.error(function (data) {
-					chrome.extension.getBackgroundPage().console.log(data);
 					accessInformation.currentAccessInformation = {};
 					deferred.reject(data);
 				}
