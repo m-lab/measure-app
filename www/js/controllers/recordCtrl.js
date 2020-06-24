@@ -43,7 +43,7 @@ angular.module('Measure.controllers.Record', [])
         }
 
         if (measurementRecord.accessInformation !== undefined) {
-            $scope.measurementRecord.information['Service Provider'] = measurementRecord.accessInformation.isp;
+            $scope.measurementRecord.information['Service Provider'] = measurementRecord.accessInformation.org;
         }
         if (measurementRecord.mlabInformation !== undefined && measurementRecord.mlabInformation !== null) {
             measurementSiteTemp = measurementRecord.mlabInformation.fqdn.split('.');
