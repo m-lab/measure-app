@@ -29,11 +29,11 @@
 					<span translate>Measurement History</span>
 					<span class="badge badge-assertive">{{ historicalData.measurements.length }} </span>
 				</div>
-				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})" 
+				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})"
                                           ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true" >
 					<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
 						<div class="col">
-							<h2>{{ measurementRecord.accessInformation.isp }}</h2>
+							<h2>{{ measurementRecord.accessInformation.org }}</h2>
 						</div>
 						<div class="col col-25 right">
 							<h4>{{ measurementRecord.timestamp | date:'MMMM d' }}</h4>

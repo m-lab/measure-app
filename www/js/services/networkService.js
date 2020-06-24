@@ -1,6 +1,6 @@
 angular.module('Measure.services.Network', [])
 
-.constant('ACCESS_SERVICE_URL', 'https://measure-location.appspot.com')
+.constant('ACCESS_SERVICE_URL', 'https://ipinfo.io')
 
 .factory('accessInformation', function($q, $http, ACCESS_SERVICE_URL) {
 	var accessInformation = {};
@@ -10,11 +10,13 @@ angular.module('Measure.services.Network', [])
 		var deferred = $q.defer();
 		$http.get(ACCESS_SERVICE_URL)
 			.success(function (data) {
+					chrome.extension.getBackgroundPage().console.log(data);
 					accessInformation.currentAccessInformation = data;
 					deferred.resolve(accessInformation.currentAccessInformation);
 				}
 			)
 			.error(function (data) {
+					chrome.extension.getBackgroundPage().console.log(data);
 					accessInformation.currentAccessInformation = {};
 					deferred.reject(data);
 				}
