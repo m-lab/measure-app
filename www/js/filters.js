@@ -9,9 +9,9 @@ angular.module('Measurement.filters', [])
 .filter('formatThroughputMeasurement', function() {
   return function(input) {
     var filteredInput;
-    
+
     if (input !== undefined) {
-         filteredInput = String((Number(input) / 1000).toFixed(2)); // + " Mbps";
+         filteredInput = String((Number(input) / 1000).toFixed(2)); // + " Mbit/s";
     } else {
         filteredInput = '';
     }
@@ -22,9 +22,9 @@ angular.module('Measurement.filters', [])
 .filter('formatThroughputDisplay', function() {
   return function(input) {
     var filteredInput;
-    
+
     if (input !== undefined) {
-         filteredInput = String((Number(input) / 1000).toFixed(2)) + " Mbps";
+         filteredInput = String((Number(input) / 1000).toFixed(2)) + " Mbit/s";
     } else {
         filteredInput = '';
     }
@@ -41,9 +41,9 @@ angular.module('Measurement.filters', [])
 .filter('formatDataConsumptionMeasurement', function() {
   return function(input) {
     if (Number(input) > Math.pow(1000, 3)) {
-        return String((Number(input) / Math.pow(1000, 3)).toFixed(2)) + " Gb";
+        return String((Number(input) / Math.pow(1000, 3)).toFixed(2)) + " Gbit";
     }
-    return String((Number(input) / Math.pow(1000, 2)).toFixed(2)) + " Mb";
+    return String((Number(input) / Math.pow(1000, 2)).toFixed(2)) + " Mbit";
   };
 })
 

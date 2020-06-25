@@ -12,7 +12,7 @@ angular.module('Measure.services.Chart', [])
         "tooltip": {
             headerFormat: '',
             pointFormatter: function() {
-               return (Number(this.y)/1000).toFixed(2) + ' Mbps';
+               return (Number(this.y)/1000).toFixed(2) + ' Mbit/s';
             }
           }
       },
@@ -68,7 +68,7 @@ angular.module('Measure.services.Chart', [])
       x: -2,
       y: -2,
       formatter: function() {
-        return (Number(this.value)/1000).toFixed(0) + ' Mbps';
+        return (Number(this.value)/1000).toFixed(0) + ' Mbit/s';
       }
     },
   },

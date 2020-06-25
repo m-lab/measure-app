@@ -65,7 +65,7 @@ angular.module('Measure.services.Sharing', [])
   };
 
   var formatMbps = function formatMbps(input) {
-    return (parseFloatSafe(input) / 1000).toFixed(2) + " Mbps";
+    return (parseFloatSafe(input) / 1000).toFixed(2) + " Mbit/s";
   };
 
   var flatten = function flatten(obj, prefix, tgt) {
