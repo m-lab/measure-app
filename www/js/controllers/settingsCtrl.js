@@ -4,7 +4,7 @@ angular.module('Measure.controllers.Settings', [])
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
   $scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
-  
+
   function refreshSchedule() {
     ScheduleManagerService.getSemaphore().then(function(semaphore) {
       $scope.scheduleSemaphore = semaphore;
@@ -85,4 +85,28 @@ angular.module('Measure.controllers.Settings', [])
   $scope.metroSelectionSort = function(metroSelection) {
     return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
-});
+})
+.controller('UploadSettingsCtrl', function($scope, $ionicLoading, SettingsService, UploadService) {
+  $scope.availableSettings = SettingsService.availableSettings;
+  $scope.currentSettings = SettingsService.currentSettings;
+
+  $scope.setUploadEnabled = function() {
+    SettingsService.setSetting("uploadEnabled", $scope.currentSettings.uploadEnabled);
+  }
+
+  $scope.testAndSave = function() {
+    $ionicLoading.show({
+      content: 'Finding Servers',
+      animation: 'fade-in',
+      showBackdrop: false,
+      maxWidth: 200,
+    });
+
+    UploadService.uploadMeasurement({})
+      .error(function(data, status) {
+        chrome.extension.getBackgroundPage().console.log(status);
+      })
+
+    $ionicLoading.Hide();
+  }
+})

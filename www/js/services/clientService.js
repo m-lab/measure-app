@@ -71,6 +71,17 @@ angular.module('Measure.services.MeasurementClient', [])
           });
           measurementRecord.results = passedResults;
           HistoryService.add(measurementRecord);
+
+          // Send data to a measure-saver instance.
+          // TODO: check uploading is enabled.
+          chrome.extension.getBackgroundPage().console.log(measurementRecord);
+          UploadService.uploadMeasurement(measurementRecord)
+            .success(function(data) {
+              ChromeAppSupport.notify('upload:success', data);
+            })
+            .error(function(data, status) {
+              ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
+            });
         },
         function () {
           ChromeAppSupport.notify('measurement:status', {'error': true, 'running': false });

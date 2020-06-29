@@ -1,0 +1,33 @@
+<ion-view view-title="{{ 'Upload settings' | translate }}">
+  <ion-content>
+
+    <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
+      <span translate>Upload measurements</span>
+    </ion-toggle>
+
+    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+      <span class="input-label">Server URL</span>
+      <input type="text" ng-model="currentSettings.uploadURL"></input>
+    </label>
+
+    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+      <span class="input-label">API key</span>
+      <input type="text" ng-model="currentSettings.uploadAPIKey"></input>
+    </label>
+
+    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+      <span class="input-label">Browser ID</span>
+      <input type="text" ng-model="currentSettings.browserID"></input>
+    </label>
+
+    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+      <span class="input-label">Device type</span>
+      <input type="text" ng-model="currentSettings.deviceType"></input>
+    </label>
+
+    <button class="button button-block button-positive" ng-click="testAndSave()">
+      Test & Save
+    </button>
+
+  </ion-content>
+</ion-view>
