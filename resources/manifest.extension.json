@@ -22,6 +22,7 @@
       "js/services/settingsService.js",
       "js/services/sharingService.js",
       "js/services/storageService.js",
+      "js/services/uploadService.js",
       "js/support.js",
       "js/support/chromeApp/appLauncher.js",
       "js/support/chromeApp/appSupport.js",

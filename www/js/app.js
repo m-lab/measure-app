@@ -242,6 +242,16 @@ angular.module('Measure', ['ionic', 'gettext', 'ngSanitize',
     },
   })
 
+  .state('app.uploadSettings', {
+    url: "/settings/upload",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/uploadSettings.html",
+        controller: 'UploadSettingsCtrl'
+      }
+    },
+  })
+
   .state('app.history', {
     url: "/history",
     views: {

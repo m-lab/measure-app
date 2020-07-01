@@ -1,6 +1,8 @@
 angular.module('Measure.services.MeasurementClient', [])
 
-.factory('MeasurementClientService', function($q, MeasurementService, HistoryService, SettingsService, MLabService, accessInformation, $rootScope, ChromeAppSupport) {
+.factory('MeasurementClientService', function($q, MeasurementService,
+  HistoryService, SettingsService, MLabService, accessInformation, $rootScope,
+  ChromeAppSupport, UploadService) {
 
   function incrementProgress(current, state) {
     var CEILINGS = {
@@ -71,6 +73,19 @@ angular.module('Measure.services.MeasurementClient', [])
           });
           measurementRecord.results = passedResults;
           HistoryService.add(measurementRecord);
+
+          // Send data to a measure-saver instance.
+          SettingsService.get('uploadEnabled').then(function(enabled) {
+            if (enabled) {
+              UploadService.uploadMeasurement(measurementRecord)
+              .success(function(data) {
+                ChromeAppSupport.notify('upload:success', data);
+              })
+              .error(function(data, status) {
+                ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
+              });
+            }
+          });
         },
         function () {
           ChromeAppSupport.notify('measurement:status', {'error': true, 'running': false });

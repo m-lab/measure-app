@@ -39,6 +39,26 @@ angular.module('Measure.services.Settings', [])
     'scheduleInterval': {
       'default': 'daily',
       'options': ['constantly', 'hourly', 'daily', 'weekly', 'custom'],
+    },
+    'uploadEnabled': {
+      'default': false,
+      'type': 'boolean',
+    },
+    'uploadURL': {
+      'default': '',
+      'type': 'string',
+    },
+    'uploadApiKey': {
+      'default': '',
+      'type': 'string',
+    },
+    'browserID': {
+      'default': '',
+      'type': 'string',
+    },
+    'deviceType': {
+      'default': '',
+      'type': 'string',
     }
   };
 

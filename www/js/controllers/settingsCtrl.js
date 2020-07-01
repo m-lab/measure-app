@@ -4,7 +4,7 @@ angular.module('Measure.controllers.Settings', [])
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
   $scope.environmentCapabilities = MeasureConfig.environmentCapabilities;
-  
+
   function refreshSchedule() {
     ScheduleManagerService.getSemaphore().then(function(semaphore) {
       $scope.scheduleSemaphore = semaphore;
@@ -85,4 +85,16 @@ angular.module('Measure.controllers.Settings', [])
   $scope.metroSelectionSort = function(metroSelection) {
     return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
-});
+})
+.controller('UploadSettingsCtrl', function($scope, $ionicLoading, $http, SettingsService, UploadService) {
+  $scope.availableSettings = SettingsService.availableSettings;
+  $scope.currentSettings = SettingsService.currentSettings;
+
+  $scope.setUploadEnabled = function() {
+    SettingsService.setSetting("uploadEnabled", $scope.currentSettings.uploadEnabled);
+  };
+
+  $scope.onChange = function(key, value) {
+    SettingsService.setSetting(key, value);
+  };
+})
