@@ -42,6 +42,7 @@ angular.module('Measure.services.Settings', [])
     },
     'uploadEnabled': {
       'default': false,
+      'type': 'boolean',
     },
     'uploadURL': {
       'default': '',
