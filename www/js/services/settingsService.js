@@ -46,6 +46,18 @@ angular.module('Measure.services.Settings', [])
     'uploadURL': {
       'default': '',
       'type': 'string',
+    },
+    'uploadApiKey': {
+      'default': '',
+      'type': 'string',
+    },
+    'browserID': {
+      'default': '',
+      'type': 'string',
+    },
+    'deviceType': {
+      'default': '',
+      'type': 'string',
     }
   };
 

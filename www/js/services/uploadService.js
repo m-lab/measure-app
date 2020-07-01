@@ -11,16 +11,17 @@ angular.module('Measure.services.Upload', [])
 
         uploadURL = SettingsService.get("uploadURL");
         browserID = SettingsService.get("browserID");
+        deviceType = SettingsService.get("deviceType");
 
         // Generate a valid Measurement message for measure-saver.
         var measurement = {
             "BrowserID": browserID,
+            "DeviceType": deviceType,
             "Download": record.results.s2cRate,
             "Upload": record.results.c2sRate,
             "Latency": parseInt(record.results.MinRTT),
             "Results": record.results,
         }
-        chrome.extension.getBackgroundPage().console.log(measurement);
         return $http.post(uploadURL, measurement);
     };
 
