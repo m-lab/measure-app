@@ -1,33 +1,37 @@
 <ion-view view-title="{{ 'Upload settings' | translate }}">
   <ion-content>
+    <form name="form" novalidate>
+      <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
+        <span translate>Upload measurements</span>
+      </ion-toggle>
 
-    <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
-      <span translate>Upload measurements</span>
-    </ion-toggle>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Server URL</span>
+        <input required name="url" type="url" ng-model="currentSettings.uploadURL"
+          ng-change="onChange('uploadURL', currentSettings.uploadURL)"></input>
+        <p ng-show="form.url.$invalid && !form.url.$pristine" class="help-block">Please provide a valid URL.</p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Server URL</span>
-      <input type="text" ng-model="currentSettings.uploadURL"
-        ng-change="onChange('uploadURL', currentSettings.uploadURL)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">API key</span>
+        <input required name="key" type="text" ng-model="currentSettings.uploadAPIKey"
+          ng-change="onChange('uploadAPIKey', currentSettings.uploadAPIKey)"></input>
+        <p ng-show="form.url.$invalid && !form.url.$pristine" class="help-block">An API key is required.</p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">API key</span>
-      <input type="text" ng-model="currentSettings.uploadAPIKey"
-        ng-change="onChange('uploadAPIKey', currentSettings.uploadAPIKey)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Browser ID</span>
+        <input required name="browserid" type="text" ng-model="currentSettings.browserID"
+          ng-change="onChange('browserID', currentSettings.browserID)"></input>
+        <p ng-show="form.browserid.$invalid && !form.browserid.$pristine" class="help-block">A browser ID is required.
+        </p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Browser ID</span>
-      <input type="text" ng-model="currentSettings.browserID"
-        ng-change="onChange('browserID', currentSettings.browserID)"></input>
-    </label>
-
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Device type</span>
-      <input type="text" ng-model="currentSettings.deviceType"
-        ng-change="onChange('deviceType', currentSettings.deviceType)"></input>
-    </label>
-
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Device type</span>
+        <input type="text" ng-model="currentSettings.deviceType"
+          ng-change="onChange('deviceType', currentSettings.deviceType)"></input>
+      </label>
+    </form>
   </ion-content>
 </ion-view>

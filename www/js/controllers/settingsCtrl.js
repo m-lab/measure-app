@@ -86,7 +86,7 @@ angular.module('Measure.controllers.Settings', [])
     return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
 })
-.controller('UploadSettingsCtrl', function($scope, $ionicLoading, $http, SettingsService, UploadService) {
+.controller('UploadSettingsCtrl', function($scope, SettingsService) {
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
 
@@ -95,6 +95,11 @@ angular.module('Measure.controllers.Settings', [])
   };
 
   $scope.onChange = function(key, value) {
+    console.log($scope);
+    if ($scope.form.$invalid) {
+      return;
+    }
+
     SettingsService.setSetting(key, value);
   };
 })
