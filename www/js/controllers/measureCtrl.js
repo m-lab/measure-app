@@ -135,7 +135,7 @@ angular.module('Measure.controllers.Measurement', [])
   var footerTimeout = function() {
     $timeout(function() {
       $scope.uploadStatus = undefined;
-    }, 2000);
+    }, 3000);
   }
 
   $rootScope.$on('upload:started', function() {
