@@ -2,7 +2,7 @@
   <form name="uploadForm" ng-submit="submitForm(uploadForm.$valid); uploadForm.$setPristine()" novalidate>
     <ion-content>
       <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
-        <span translate>Upload measurements</span>
+        <span translate>Enable Uploading</span>
       </ion-toggle>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
@@ -40,7 +40,7 @@
       </div>
       <div class="row">
         <div class="col col-center">
-          <button type="submit" ng-disabled="uploadForm.$invalid || uploadForm.$pristine" class="button button-block button-light button-balanced">Save</button>
+          <button type="submit" ng-disabled="uploadForm.$invalid" class="button button-block button-light button-balanced">Save</button>
         </div>
       </div>
     </ion-content>
