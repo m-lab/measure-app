@@ -6,7 +6,7 @@
 		</ion-nav-buttons>
 	</ion-nav-bar>
 	<ion-content class="panel__measure" padding="false">
-        <div class="row padding-vertical">
+        <div class="row">
 			<div class="col center">
 				<i class="icon ion-earth" ng-show="!mlabInformation.label"></i>
 				<a ui-sref="app.serverSelection()" ng-show="mlabInformation.label"
@@ -14,7 +14,7 @@
                                   ng-bind="mlabInformation.label"></a>
 			</div>
         </div>
-        <div class="row padding-vertical">
+        <div class="row">
 			<div class="col center">
 				<i class="icon ion-cloud currentNetwork" ng-show="!accessInformation.org"></i>
 				<span class="currentNetwork" ng-bind="accessInformation.org"></span>
@@ -69,4 +69,15 @@
 			</div>
 		</div>
 	</ion-content>
+	<div class="bar bar-footer" ng-class="'bar-' + footerClass" ng-show="uploadStatus !== undefined">
+		<div class="title" ng-show="uploadStatus == 'success'"">
+			<span translate>Upload successful!</span>
+		</div>
+		<div class="title" ng-show="uploadStatus == 'failure'"">
+			<span translate>Upload failed, please check settings</span>
+		</div>
+		<div class="title" ng-show="uploadStatus == 'started'"">
+			<span translate>Uploading results...</span>
+		</div>
+	</div>
 </ion-view>

@@ -77,6 +77,7 @@ angular.module('Measure.services.MeasurementClient', [])
           // Send data to a measure-saver instance.
           SettingsService.get('uploadEnabled').then(function(enabled) {
             if (enabled) {
+              ChromeAppSupport.notify('upload:started', measurementRecord);
               UploadService.uploadMeasurement(measurementRecord)
               .success(function(data) {
                 ChromeAppSupport.notify('upload:success', data);
