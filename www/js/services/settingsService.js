@@ -59,6 +59,10 @@ angular.module('Measure.services.Settings', [])
     'deviceType': {
       'default': '',
       'type': 'string',
+    },
+    'notes': {
+      'default': '',
+      'type': 'string',
     }
   };
 

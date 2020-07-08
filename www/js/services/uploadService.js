@@ -12,8 +12,10 @@ angular.module('Measure.services.Upload', [])
         }
 
         uploadURL = settings.uploadURL;
+        apiKey = settings.uploadAPIKey;
         browserID = settings.browserID;
         deviceType = settings.deviceType;
+        notes = settings.notes;
 
         // Generate a valid Measurement message for measure-saver.
         var measurement = {
@@ -61,6 +63,10 @@ angular.module('Measure.services.Upload', [])
             measurement.ServerInfo.URL = serverInfo.url;
         }
 
+        // Add API key if configured.
+        if (apiKey != "") {
+            uploadURL = uploadURL + "&api=" + apiKey;
+        }
         return $http.post(uploadURL, measurement);
     };
 
