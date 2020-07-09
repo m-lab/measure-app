@@ -86,7 +86,7 @@ angular.module('Measure.controllers.Settings', [])
     return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
 })
-.controller('UploadSettingsCtrl', function($scope, $ionicLoading, $http, SettingsService, UploadService) {
+.controller('UploadSettingsCtrl', function($scope, SettingsService) {
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
 
@@ -94,7 +94,17 @@ angular.module('Measure.controllers.Settings', [])
     SettingsService.setSetting("uploadEnabled", $scope.currentSettings.uploadEnabled);
   };
 
-  $scope.onChange = function(key, value) {
-    SettingsService.setSetting(key, value);
+  // function to submit the form after all validation has occurred
+  $scope.submitForm = function(isValid) {
+
+    // check to make sure the form is completely valid
+    if (isValid) {
+      SettingsService.setSetting("uploadURL", $scope.currentSettings.uploadURL);
+      SettingsService.setSetting("uploadAPIKey", $scope.currentSettings.uploadAPIKey);
+      SettingsService.setSetting("browserID", $scope.currentSettings.browserID);
+      SettingsService.setSetting("deviceType", $scope.currentSettings.deviceType);
+      SettingsService.setSetting("notes", $scope.currentSettings.notes);
+    }
   };
+
 })

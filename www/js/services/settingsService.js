@@ -48,7 +48,7 @@ angular.module('Measure.services.Settings', [])
       'default': '',
       'type': 'string',
     },
-    'uploadApiKey': {
+    'uploadAPIKey': {
       'default': '',
       'type': 'string',
     },
@@ -57,6 +57,10 @@ angular.module('Measure.services.Settings', [])
       'type': 'string',
     },
     'deviceType': {
+      'default': '',
+      'type': 'string',
+    },
+    'notes': {
       'default': '',
       'type': 'string',
     }

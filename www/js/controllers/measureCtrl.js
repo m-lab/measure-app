@@ -1,6 +1,6 @@
 angular.module('Measure.controllers.Measurement', [])
 
-.controller('MeasureCtrl', function($scope, $q, $interval, $ionicPopup, $ionicLoading, SettingsService, $rootScope, StorageService, ChromeAppSupport, MLabService, accessInformation, HistoryService, DialogueMessages, MeasureConfig, connectionInformation) {
+.controller('MeasureCtrl', function($scope, $q, $interval, $ionicPopup, $ionicLoading, $timeout, SettingsService, $rootScope, StorageService, ChromeAppSupport, MLabService, accessInformation, HistoryService, DialogueMessages, MeasureConfig, connectionInformation) {
 
   $scope.currentState = undefined;
   $scope.currentRate = undefined;
@@ -129,6 +129,32 @@ angular.module('Measure.controllers.Measurement', [])
   $scope.startNDT = function() {
     ChromeAppSupport.notify('measurement:start');
     $scope.currentState = 'Starting';
+    $scope.uploadStatus = undefined;
   };
-});
 
+  var footerTimeout = function() {
+    $timeout(function() {
+      $scope.uploadStatus = undefined;
+    }, 3000);
+  }
+
+  $rootScope.$on('upload:started', function() {
+    console.log("upload started");
+    $scope.uploadStatus = "started";
+    $scope.footerClass = "stable"
+    footerTimeout();
+  });
+
+  $rootScope.$on('upload:success', function() {
+    console.log("upload success");
+    $scope.uploadStatus = "success";
+    $scope.footerClass = "balanced";
+    footerTimeout();
+  });
+  $rootScope.$on('upload:failure', function() {
+    console.log("upload failure");
+    $scope.uploadStatus = "failure";
+    $scope.footerClass = "assertive";
+    footerTimeout();
+  });
+});

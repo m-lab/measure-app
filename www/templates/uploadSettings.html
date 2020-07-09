@@ -1,33 +1,49 @@
 <ion-view view-title="{{ 'Upload settings' | translate }}">
-  <ion-content>
+  <form name="uploadForm" ng-submit="submitForm(uploadForm.$valid); uploadForm.$setPristine()" novalidate>
+    <ion-content>
+      <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
+        <span translate>Enable Uploading</span>
+      </ion-toggle>
 
-    <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
-      <span translate>Upload measurements</span>
-    </ion-toggle>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Server URL</span>
+        <input required name="url" type="url" ng-model="currentSettings.uploadURL"></input>
+        <p ng-show="uploadForm.url.$invalid && uploadForm.url.$touched" class="help-block">Please provide a valid URL.
+        </p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Server URL</span>
-      <input type="text" ng-model="currentSettings.uploadURL"
-        ng-change="onChange('uploadURL', currentSettings.uploadURL)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">API key</span>
+        <input required name="key" type="text" ng-model="currentSettings.uploadAPIKey"></input>
+        <p ng-show="uploadForm.key.$invalid && uploadForm.key.$touched" class="help-block">An API key is required.</p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">API key</span>
-      <input type="text" ng-model="currentSettings.uploadAPIKey"
-        ng-change="onChange('uploadAPIKey', currentSettings.uploadAPIKey)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Browser ID</span>
+        <input required name="browserid" type="text" ng-model="currentSettings.browserID"></input>
+        <p ng-show="uploadForm.browserid.$invalid && uploadForm.browserid.$touched" class="help-block">A browser ID is
+          required.
+        </p>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Browser ID</span>
-      <input type="text" ng-model="currentSettings.browserID"
-        ng-change="onChange('browserID', currentSettings.browserID)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Device type</span>
+        <input type="text" ng-model="currentSettings.deviceType"></input>
+      </label>
 
-    <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-      <span class="input-label">Device type</span>
-      <input type="text" ng-model="currentSettings.deviceType"
-        ng-change="onChange('deviceType', currentSettings.deviceType)"></input>
-    </label>
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+        <span class="input-label">Notes</span>
+        <input type="text" ng-model="currentSettings.notes"></input>
+      </label>
 
-  </ion-content>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col col-center">
+          <button type="submit" ng-disabled="uploadForm.$invalid" class="button button-block button-light button-balanced">Save</button>
+        </div>
+      </div>
+    </ion-content>
+  </form>
+
 </ion-view>

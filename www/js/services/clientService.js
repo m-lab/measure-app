@@ -1,7 +1,7 @@
 angular.module('Measure.services.MeasurementClient', [])
 
 .factory('MeasurementClientService', function($q, MeasurementService,
-  HistoryService, SettingsService, MLabService, accessInformation, $rootScope,
+  HistoryService, SettingsService, MLabService, accessInformation,
   ChromeAppSupport, UploadService) {
 
   function incrementProgress(current, state) {
@@ -53,7 +53,8 @@ angular.module('Measure.services.MeasurementClient', [])
       var measurementRecord = {
         'timestamp': Date.now(),
         'results': {},
-        'snapLog': {'s2cRate': [], 'c2sRate': []}
+        'snapLog': {'s2cRate': [], 'c2sRate': []},
+        'uploaded': false
       };
       var progress = 0;
 
@@ -72,18 +73,25 @@ angular.module('Measure.services.MeasurementClient', [])
             'passedResults': passedResults
           });
           measurementRecord.results = passedResults;
-          HistoryService.add(measurementRecord);
+          measurementRecord.uuid = passedResults["NDTResult.S2C.UUID"];
 
           // Send data to a measure-saver instance.
           SettingsService.get('uploadEnabled').then(function(enabled) {
             if (enabled) {
+              ChromeAppSupport.notify('upload:started', measurementRecord);
               UploadService.uploadMeasurement(measurementRecord)
               .success(function(data) {
                 ChromeAppSupport.notify('upload:success', data);
+                measurementRecord.uploaded = true;
+                console.log("Calling HistoryService.add")
+                HistoryService.add(measurementRecord);
               })
               .error(function(data, status) {
                 ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
-              });
+                HistoryService.add(measurementRecord);
+              })
+            } else {
+              HistoryService.add(measurementRecord);
             }
           });
         },
