@@ -14,9 +14,11 @@ angular.module('Measure.services.History', [])
   };
 
   HistoryService.add = function (measurementRecord) {
+    console.log("Adding measurement:" + measurementRecord);
     return HistoryService.get().then(function(historicalData) {
       measurementRecord.index = historicalData.measurements.length; // surrogate key, "good nuff" for now
       historicalData.measurements.push(measurementRecord);
+      $rootScope.$emit('history:measurement:change');
       return historicalData;
     })
     .then(set)
@@ -55,15 +57,15 @@ angular.module('Measure.services.History', [])
     return HistoryService.get().then(function (historicalData) {
       historicalData.measurements.some(function (measurement) {
         if (measurement.index == index) {
-          console.log("Trying to upload measurement with index: " + index);
+          $rootScope.$broadcast('upload:started', index);
           UploadService.uploadMeasurement(measurement)
             .success(function (data) {
               console.log("Success, setting uploaded = true");
-              ChromeAppSupport.notify('upload:success', data);
+              $rootScope.$broadcast('upload:success', data);
               measurement.uploaded = true;
             })
             .error(function (data, status) {
-              ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
+              $rootScope.$broadcast('upload:failure', { "status": status, "data": data })
             }).then(function() {
               set(historicalData);
             }).then(function() {

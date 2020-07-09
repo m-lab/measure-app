@@ -1,36 +1,35 @@
 <ion-view view-title="{{ 'Explore Data' | translate }}">
-    <ion-nav-buttons side="secondary">
-      <button class="button" aria-label="Export to CSV"
-            on-tap="shareCSV(historicalData.measurements)"
+	<ion-nav-buttons side="secondary">
+		<button class="button" aria-label="Export to CSV" on-tap="shareCSV(historicalData.measurements)"
 			translate>Export</button>
 	</ion-nav-buttons>
-        <div ng-if="historicalData.measurements.length === 0">
-	<ion-content class="panel__history__empty">
-		<div class="row">
-			<div class="col col-offset-25 col-50 center emptyIcon"><i class="ion-erlenmeyer-flask"></i></div>
-		</div>
-		<div class="row">
-			<div class="col col-offset-25 col-50 center">No measurements yet. When you conduct tests, they will fill in here.</div>
-		</div>
-	</ion-content>
-        </div>
-        <div ng-if="historicalData.measurements.length > 0">
-	<ion-content class="panel__history">
-			<highchart id="historicalDataChart" config="historicalDataChartConfig" class="historicalDataChart"></highchart>
+	<div ng-if="historicalData.measurements.length === 0">
+		<ion-content class="panel__history__empty">
+			<div class="row">
+				<div class="col col-offset-25 col-50 center emptyIcon"><i class="ion-erlenmeyer-flask"></i></div>
+			</div>
+			<div class="row">
+				<div class="col col-offset-25 col-50 center">No measurements yet. When you conduct tests, they will fill
+					in here.</div>
+			</div>
+		</ion-content>
+	</div>
+	<div ng-if="historicalData.measurements.length > 0">
+		<ion-content class="panel__history">
+			<highchart id="historicalDataChart" config="historicalDataChartConfig" class="historicalDataChart">
+			</highchart>
 			<ion-list show-delete="false" can-swipe="true">
-                        <label class="item item-input item-select">
-                          <div class="input-label" translate>Statistic</div>
-                          <select ng-model="data.series"
-                                  ng-change="refreshData()"
-                                  ng-options="stat as (stat | capitalize:true | translate) for stat in series">
-                          </select>
-                        </label>
-                                <div class="item item-divider">
+				<label class="item item-input item-select">
+					<div class="input-label" translate>Statistic</div>
+					<select ng-model="data.series" ng-change="refreshData()"
+						ng-options="stat as (stat | capitalize:true | translate) for stat in series">
+					</select>
+				</label>
+				<div class="item item-divider">
 					<span translate>Measurement History</span>
 					<span class="badge badge-assertive">{{ historicalData.measurements.length }} </span>
 				</div>
-				<ion-item
-                                          ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true" >
+				<ion-item ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true">
 					<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
 						<div class="col">
 							<h2>{{ measurementRecord.accessInformation.org }}</h2>
@@ -73,23 +72,32 @@
 						</div>
 						<div class="col right" ng-show="!measurementRecord.uploaded">
 							<small>
-							<i class="icon ion-close-circled"></i> No
+								<i class="icon ion-close-circled"></i> No
 							</small>
 						</div>
 					</div>
-					<ion-option-button class="button-light icon ion-heart"
-							ng-if="MeasureConfig.sharingSupported"
-							ng-click="shareMeasurement()">
-							</ion-option-button>
-					<ion-option-button class="button-light icon ion-upload"
-							ng-if="!measurementRecord.uploaded"
-							ng-click="retryUpload(measurementRecord.index)">
-							</ion-option-button>
+					<ion-option-button class="button-light icon ion-heart" ng-if="MeasureConfig.sharingSupported"
+						ng-click="shareMeasurement()">
+					</ion-option-button>
+					<ion-option-button class="button-light icon ion-upload" ng-if="!measurementRecord.uploaded"
+						ng-click="retryUpload(measurementRecord.index)">
+					</ion-option-button>
 					<ion-option-button class="button-assertive icon ion-trash-a"
-							ng-click="hideMeasurement(measurementRecord.index)">
-							</ion-option-button>
+						ng-click="hideMeasurement(measurementRecord.index)">
+					</ion-option-button>
 				</ion-item>
 			</ion-list>
-	</ion-content>
-        </div>
+		</ion-content>
+	</div>
+	<div class="bar bar-footer" ng-class="'bar-' + footerClass" ng-show="uploadStatus !== undefined">
+		<div class="title" ng-show="uploadStatus == 'success'"">
+			<span translate>Upload successful!</span>
+		</div>
+		<div class="title" ng-show="uploadStatus == 'failure'"">
+			<span translate>Upload failed, please check settings</span>
+		</div>
+		<div class="title" ng-show="uploadStatus == 'started'"">
+			<span translate>Uploading results...</span>
+		</div>
+	</div>
 </ion-view>

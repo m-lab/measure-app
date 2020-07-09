@@ -18,7 +18,7 @@ angular.module('Measure.controllers.History', [])
 		$scope.historicalDataChartConfig = historicalDataChartService.config;
 		$scope.shareCSV = SharingService.shareCSV;
 		$scope.hideMeasurement = HistoryService.hide;
-		$scope.retryUpload = function(idx){
+		$scope.retryUpload = function (idx) {
 			return HistoryService.retryUpload(idx);
 		}
 		/*
@@ -28,4 +28,30 @@ angular.module('Measure.controllers.History', [])
 		*/
 		$rootScope.$on('history:measurement:change', $scope.refreshData);
 		$scope.refreshData();
+
+		var footerTimeout = function () {
+			$timeout(function () {
+				$scope.uploadStatus = undefined;
+			}, 3000);
+		}
+
+		$rootScope.$on('upload:started', function () {
+			console.log("upload started");
+			$scope.uploadStatus = "started";
+			$scope.footerClass = "stable"
+			footerTimeout();
+		});
+
+		$rootScope.$on('upload:success', function () {
+			console.log("upload success");
+			$scope.uploadStatus = "success";
+			$scope.footerClass = "balanced";
+			footerTimeout();
+		});
+		$rootScope.$on('upload:failure', function () {
+			console.log("upload failure");
+			$scope.uploadStatus = "failure";
+			$scope.footerClass = "assertive";
+			footerTimeout();
+		});
 	});

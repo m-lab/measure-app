@@ -139,20 +139,20 @@ angular.module('Measure.controllers.Measurement', [])
   }
 
   $rootScope.$on('upload:started', function() {
-    chrome.runtime.sendMessage("upload started");
+    console.log("upload started");
     $scope.uploadStatus = "started";
     $scope.footerClass = "stable"
     footerTimeout();
   });
 
   $rootScope.$on('upload:success', function() {
-    chrome.runtime.sendMessage("upload success");
+    console.log("upload success");
     $scope.uploadStatus = "success";
     $scope.footerClass = "balanced";
     footerTimeout();
   });
   $rootScope.$on('upload:failure', function() {
-    chrome.runtime.sendMessage("upload failure");
+    console.log("upload failure");
     $scope.uploadStatus = "failure";
     $scope.footerClass = "assertive";
     footerTimeout();

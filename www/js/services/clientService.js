@@ -82,13 +82,16 @@ angular.module('Measure.services.MeasurementClient', [])
               .success(function(data) {
                 ChromeAppSupport.notify('upload:success', data);
                 measurementRecord.uploaded = true;
+                console.log("Calling HistoryService.add")
+                HistoryService.add(measurementRecord);
               })
               .error(function(data, status) {
                 ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
-              });
+                HistoryService.add(measurementRecord);
+              })
+            } else {
+              HistoryService.add(measurementRecord);
             }
-
-            HistoryService.add(measurementRecord);
           });
         },
         function () {
