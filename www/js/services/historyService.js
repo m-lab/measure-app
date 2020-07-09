@@ -1,9 +1,11 @@
 angular.module('Measure.services.History', [])
-.factory('HistoryService', function($q, StorageService, $rootScope, ChromeAppSupport) {
-  var DEFAULT_VALUE = { "measurements": [] };  
+.factory('HistoryService', function($q, StorageService, $rootScope, ChromeAppSupport, UploadService) {
+  var DEFAULT_VALUE = { "measurements": [] };
   var HistoryService = {};
 
   function set(historicalData) {
+    console.log("Called set");
+    console.log(historicalData)
     return StorageService.set("historicalData", historicalData);
   }
 
@@ -48,6 +50,34 @@ angular.module('Measure.services.History', [])
     }).then(set);
   };
 
+  HistoryService.retryUpload = function (index) {
+    console.log("Called retryUpload");
+    return HistoryService.get().then(function (historicalData) {
+      historicalData.measurements.some(function (measurement) {
+        if (measurement.index == index) {
+          console.log("Trying to upload measurement with index: " + index);
+          UploadService.uploadMeasurement(measurement)
+            .success(function (data) {
+              console.log("Success, setting uploaded = true");
+              ChromeAppSupport.notify('upload:success', data);
+              measurement.uploaded = true;
+            })
+            .error(function (data, status) {
+              ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
+            }).then(function() {
+              set(historicalData);
+            }).then(function() {
+              console.log("Broadcast history change"); $rootScope.$broadcast("history:measurement:change", index);
+            });
+          return true;
+        } else {
+          return false;
+        }
+      });
+      return historicalData;
+    });
+  };
+
   HistoryService.getById = function (index) {
     return HistoryService.get().then(function(historicalData) {
       var measurement = null;
@@ -61,6 +91,6 @@ angular.module('Measure.services.History', [])
   HistoryService.reset = function () {
     set(DEFAULT_VALUE).then(function() { ChromeAppSupport.notify('history:measurement:change', null); });
   };
-  
+
   return HistoryService;
 });

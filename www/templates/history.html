@@ -29,7 +29,7 @@
 					<span translate>Measurement History</span>
 					<span class="badge badge-assertive">{{ historicalData.measurements.length }} </span>
 				</div>
-				<ion-item ui-sref="app.measurementRecord({measurementId: measurementRecord.index})"
+				<ion-item
                                           ng-repeat="measurementRecord in historicalData.measurements | orderBy:'timestamp':true" >
 					<div class="row" ng-if="measurementRecord.accessInformation !== undefined">
 						<div class="col">
@@ -62,9 +62,28 @@
 							<small>{{ measurementRecord.results.MinRTT | formatLatencyMeasurement }}</small>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col">
+							<small class="label" translate>Uploaded</small>
+						</div>
+						<div class="col right" ng-show="measurementRecord.uploaded">
+							<small>
+								<i class="icon ion-checkmark-circled"></i> Yes
+							</small>
+						</div>
+						<div class="col right" ng-show="!measurementRecord.uploaded">
+							<small>
+							<i class="icon ion-close-circled"></i> No
+							</small>
+						</div>
+					</div>
 					<ion-option-button class="button-light icon ion-heart"
 							ng-if="MeasureConfig.sharingSupported"
 							ng-click="shareMeasurement()">
+							</ion-option-button>
+					<ion-option-button class="button-light icon ion-upload"
+							ng-if="!measurementRecord.uploaded"
+							ng-click="retryUpload(measurementRecord.index)">
 							</ion-option-button>
 					<ion-option-button class="button-assertive icon ion-trash-a"
 							ng-click="hideMeasurement(measurementRecord.index)">
