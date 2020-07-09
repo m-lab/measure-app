@@ -1,7 +1,7 @@
 angular.module('Measure.controllers.History', [])
 
-	.controller('HistoryCtrl', function ($scope, $rootScope, $interval, MeasureConfig, HistoryService,
-		SharingService, historicalDataChartService, UploadService) {
+	.controller('HistoryCtrl', function ($scope, $rootScope, MeasureConfig, HistoryService,
+		SharingService, historicalDataChartService, $timeout) {
 
 		$scope.MeasureConfig = MeasureConfig;
 		$scope.series = ["download", "upload"];

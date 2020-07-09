@@ -1,7 +1,7 @@
 angular.module('Measure.services.MeasurementClient', [])
 
 .factory('MeasurementClientService', function($q, MeasurementService,
-  HistoryService, SettingsService, MLabService, accessInformation, $rootScope,
+  HistoryService, SettingsService, MLabService, accessInformation,
   ChromeAppSupport, UploadService) {
 
   function incrementProgress(current, state) {
@@ -73,6 +73,7 @@ angular.module('Measure.services.MeasurementClient', [])
             'passedResults': passedResults
           });
           measurementRecord.results = passedResults;
+          measurementRecord.uuid = passedResults["NDTResult.S2C.UUID"];
 
           // Send data to a measure-saver instance.
           SettingsService.get('uploadEnabled').then(function(enabled) {

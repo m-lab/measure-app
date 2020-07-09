@@ -16,8 +16,11 @@ angular.module('Measure.services.Upload', [])
             notes = SettingsService.currentSettings.notes;
 
             // Generate a valid Measurement message for measure-saver.
+            ts = new Date(record.timestamp);
             var measurement = {
+                "UUID": record.uuid,
                 "BrowserID": browserID,
+                "Timestamp": ts.toISOString(),
                 "DeviceType": deviceType,
                 "Notes": notes,
                 "Download": record.results.s2cRate,
