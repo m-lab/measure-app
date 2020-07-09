@@ -30,10 +30,10 @@ angular.module('Measure.services.History', [])
           return measurement.index != index;
         });
       }
+      set(historicalData)
+      console.log("Broadcast history change"); $rootScope.$emit('history:measurement:change', index);
       return historicalData;
-    })
-    .then(set)
-    .then(function() { ChromeAppSupport.notify('history:measurement:change', index); });
+    });
   };
 
   HistoryService.annonate = function (index, measurementNote) {

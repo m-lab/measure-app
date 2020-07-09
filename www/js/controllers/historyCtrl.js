@@ -27,6 +27,5 @@ angular.module('Measure.controllers.History', [])
 			with the app.
 		*/
 		$rootScope.$on('history:measurement:change', $scope.refreshData);
-		$rootScope.$on('upload:failure', $scope.refreshData);
 		$scope.refreshData();
 	});

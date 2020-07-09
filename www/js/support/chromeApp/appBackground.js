@@ -79,4 +79,3 @@ angular.element(document).ready(function () {
   angular.bootstrap(document, ['Measure']);
   console.log("Bootstrapped Measure module");
 });
-
