@@ -38,7 +38,7 @@ angular.module('Measure.services.Settings', [])
     },
     'scheduleInterval': {
       'default': 'daily',
-      'options': ['constantly', 'hourly', 'daily', 'weekly', 'custom'],
+      'options': ['daily', 'weekly', 'custom'],
     },
     'uploadEnabled': {
       'default': false,
