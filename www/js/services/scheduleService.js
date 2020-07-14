@@ -17,8 +17,6 @@ angular.module('Measure.services.Schedule', [])
 
   // private helpers
   var scheduleInitializers = {
-    'constantly': function() { return createIntervalSemaphore(Date.now(), 60 * 5 * 1000); },
-    'hourly': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 1000); },
     'daily': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 24 * 1000); },
     'weekly': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 24 * 7 * 1000); },
     'custom': function() { return createCustomSemaphore(); }
