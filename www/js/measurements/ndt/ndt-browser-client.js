@@ -447,6 +447,8 @@ NDTjs.prototype.ndtMetaTest = function (ndtSocket) {
       // Send one piece of meta data and then an empty meta data packet
       ndtSocket.send(that.makeNdtMessage(that.TEST_MSG,
                                          'client.os.name:NDTjs'));
+      ndtSocket.send(that.makeNdtMessage(that.TEST_MSG,
+                              'client.application:measure-chrome-extension'));
       ndtSocket.send(that.makeNdtMessage(that.TEST_MSG, ''));
       state = 'WAIT_FOR_TEST_FINALIZE';
       return false;
