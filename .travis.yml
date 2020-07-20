@@ -4,3 +4,5 @@ node_js:
 install:
   - yarn
   - gulp extension
+script:
+  - echo "Extension built successfully."
