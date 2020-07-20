@@ -3,6 +3,6 @@ node_js:
   - 10
 install:
   - yarn
-  - gulp extension
 script:
+  - gulp extension
   - echo "Extension built successfully."
