@@ -79,7 +79,8 @@
 					<ion-option-button class="button-light icon ion-heart" ng-if="MeasureConfig.sharingSupported"
 						ng-click="shareMeasurement()">
 					</ion-option-button>
-					<ion-option-button class="button-light icon ion-upload" ng-if="!measurementRecord.uploaded"
+					<ion-option-button class="button-light icon ion-upload"
+						ng-if="measurementRecord.uploaded == false && currentSettings.uploadEnabled"
 						ng-click="retryUpload(measurementRecord.index)">
 					</ion-option-button>
 					<ion-option-button class="button-assertive icon ion-trash-a"
