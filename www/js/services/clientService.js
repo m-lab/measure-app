@@ -75,6 +75,10 @@ angular.module('Measure.services.MeasurementClient', [])
           measurementRecord.results = passedResults;
           measurementRecord.uuid = passedResults["NDTResult.S2C.UUID"];
 
+          // Set MeasurementRecord's version. Data recorded by older code won't
+          // have this field.
+          measurementRecord.version = 1;
+
           // Send data to a measure-saver instance.
           SettingsService.get('uploadEnabled').then(function(enabled) {
             if (enabled) {
