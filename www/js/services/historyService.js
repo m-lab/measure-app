@@ -27,11 +27,10 @@ angular.module('Measure.services.History', [])
 
   HistoryService.hide = function (index) {
     return HistoryService.get().then(function(historicalData) {
-      if (index >= 0 && index < historicalData.measurements.length) {
-        historicalData.measurements = historicalData.measurements.filter(function(measurement) {
-          return measurement.index != index;
-        });
-      }
+      historicalData.measurements = historicalData.measurements.filter(function(measurement) {
+        return measurement.index != index;
+      });
+
       set(historicalData)
       console.log("Broadcast history change"); $rootScope.$emit('history:measurement:change', index);
       return historicalData;
