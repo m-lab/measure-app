@@ -76,15 +76,23 @@
 							</small>
 						</div>
 					</div>
+					<div class="row">
+						<dev class="col left">
+							<button
+								ng-if="measurementRecord.uploaded == false && currentSettings.uploadEnabled"
+								class="button button-small button-positive icon ion-upload"
+								ng-click="retryUpload(measurementRecord.index)"> Upload
+							</button>
+						</dev>
+						<div class="col right">
+							<button class="button button-small button-light icon ion-information-circled"
+							ui-sref="app.measurementRecord({measurementId: measurementRecord.index})"> Info</button>
+							<button class="button button-small button-assertive icon ion-trash-b"
+							ng-click="hideMeasurement(measurementRecord.index)"></button>
+						</div>
+					  </div>
 					<ion-option-button class="button-light icon ion-heart" ng-if="MeasureConfig.sharingSupported"
 						ng-click="shareMeasurement()">
-					</ion-option-button>
-					<ion-option-button class="button-light icon ion-upload"
-						ng-if="measurementRecord.uploaded == false && currentSettings.uploadEnabled"
-						ng-click="retryUpload(measurementRecord.index)">
-					</ion-option-button>
-					<ion-option-button class="button-assertive icon ion-trash-a"
-						ng-click="hideMeasurement(measurementRecord.index)">
 					</ion-option-button>
 				</ion-item>
 			</ion-list>
