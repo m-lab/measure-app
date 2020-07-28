@@ -11,7 +11,8 @@ angular.module('Measure.services.Upload', [])
                 "Download": record.results.s2cRate,
                 "Upload": record.results.c2sRate,
                 "Latency": parseInt(record.results.MinRTT),
-                "Results": record.results
+                "Results": record.results,
+                "Annotation": record.note
             };
 
             if (record.hasOwnProperty("mlabInformation")) {
