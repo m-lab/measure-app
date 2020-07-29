@@ -5,21 +5,25 @@
         <span translate>Enable Uploading</span>
       </ion-toggle>
 
+      <div class="item item-divider item-text-wrap" ng-if="currentSettings.uploadEnabled">
+        <p translate>* indicates a required field</p>
+      </div>
+
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">Server URL</span>
+        <span class="input-label">Server URL*</span>
         <input required name="url" type="url" ng-model="currentSettings.uploadURL"></input>
         <p ng-show="uploadForm.url.$invalid && uploadForm.url.$touched" class="help-block">Please provide a valid URL.
         </p>
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">API key</span>
+        <span class="input-label">API key*</span>
         <input required name="key" type="text" ng-model="currentSettings.uploadAPIKey"></input>
         <p ng-show="uploadForm.key.$invalid && uploadForm.key.$touched" class="help-block">An API key is required.</p>
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">Browser ID</span>
+        <span class="input-label">Browser ID*</span>
         <input required name="browserid" type="text" ng-model="currentSettings.browserID"></input>
         <p ng-show="uploadForm.browserid.$invalid && uploadForm.browserid.$touched" class="help-block">A browser ID is
           required.
@@ -35,7 +39,6 @@
         <span class="input-label">Notes</span>
         <input type="text" ng-model="currentSettings.notes"></input>
       </label>
-
       </div>
       </div>
       <div class="row">
