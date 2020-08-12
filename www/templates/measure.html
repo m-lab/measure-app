@@ -74,7 +74,7 @@
 			<span translate>Upload successful!</span>
 		</div>
 		<div class="title" ng-show="uploadStatus == 'failure'"">
-			<span translate>Upload failed, please check settings</span>
+			<span translate>Upload failed (<a ng-click="showErrorPopup()">click here for details</a>)</span>
 		</div>
 		<div class="title" ng-show="uploadStatus == 'started'"">
 			<span translate>Uploading results...</span>

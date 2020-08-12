@@ -5,6 +5,7 @@ angular.module('Measure.controllers.Measurement', [])
   $scope.currentState = undefined;
   $scope.currentRate = undefined;
 
+
   $scope.gaugeOptions = {
     angle: 0.5, // 0 for semicircle, 0.5 for full circle
     lineWidth: 0.07, // The line thickness, range [0, 1]
@@ -138,6 +139,22 @@ angular.module('Measure.controllers.Measurement', [])
     }, 3000);
   }
 
+  // Upload error popup, shown when the upload fails.
+  $scope.showErrorPopup = function() {
+    $ionicPopup.show({
+      template: '<span ng-if="uploadError.status == 0">Connection to the back-end service failed.' +
+      ' Please check that the measure-saver instance is reachable at the URL provided in the extension\'s settings.</span>' +
+      '<span ng-if="uploadError.status != 0" ng-model="uploadError"></span>',
+      title: "Upload failed",
+      scope: $scope,
+      buttons: [
+        {
+          text: 'Close'
+        }
+      ]
+    });
+  }
+
   $rootScope.$on('upload:started', function() {
     console.log("upload started");
     $scope.uploadStatus = "started";
@@ -151,10 +168,11 @@ angular.module('Measure.controllers.Measurement', [])
     $scope.footerClass = "balanced";
     footerTimeout();
   });
-  $rootScope.$on('upload:failure', function() {
+  $rootScope.$on('upload:failure', function(_, data) {
     console.log("upload failure");
     $scope.uploadStatus = "failure";
     $scope.footerClass = "assertive";
+    $scope.uploadError = data;
     footerTimeout();
   });
 });
