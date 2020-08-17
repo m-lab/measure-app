@@ -1,7 +1,7 @@
 {
   "name": "M-Lab Measure",
   "description": "Measure your Internet connection using M-Lab's Open Internet Measurement tools.",
-  "version": "0.1",
+  "version": "0.2",
   "manifest_version": 2,
   "background": {
     "scripts": [
