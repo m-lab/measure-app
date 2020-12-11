@@ -78,7 +78,7 @@ angular.module('Measure.services.Upload', [])
                 return;
             }
 
-            uploadURL = SettingsService.currentSettings.uploadURL;
+            uploadURL = SettingsService.currentSettings.uploadURL + "/v0/measurements";
             apiKey = SettingsService.currentSettings.uploadAPIKey;
             browserID = SettingsService.currentSettings.browserID;
             deviceType = SettingsService.currentSettings.deviceType;
@@ -89,6 +89,7 @@ angular.module('Measure.services.Upload', [])
 
             // Add measure-saver-specific metadata.
             measurement.BrowserID = browserID;
+            measurement.SchoolID = apiKey;
             measurement.Timestamp = ts.toISOString();
             measurement.DeviceType = deviceType;
             measurement.Notes = notes;
