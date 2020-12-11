@@ -45,7 +45,7 @@ angular.module('Measure.services.Settings', [])
       'type': 'boolean',
     },
     'uploadURL': {
-      'default': 'http://localhost:1323/',
+      'default': 'http://localhost:1323',
       'type': 'string',
     },
     'uploadAPIKey': {
