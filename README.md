@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-* [Node v0.12+](https://nodejs.org)
+* [Node v11.x](https://nodejs.org)
   * Preferably via [nvm](https://github.com/creationix/nvm), e.g. `nvm use [version]`
 * [Cordova](https://www.npmjs.com/package/cordova), [Gulp](http://gulpjs.com), and [CCA](https://github.com/MobileChromeApps/mobile-chrome-apps) toolchain: `npm install -g cordova cca gulp-cli`
 * [Yarn](https://yarnpkg.com/): `npm install -g yarn`
