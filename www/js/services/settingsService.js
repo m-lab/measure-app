@@ -41,7 +41,7 @@ angular.module('Measure.services.Settings', [])
       'options': ['daily', 'weekly', 'custom'],
     },
     'uploadEnabled': {
-      'default': false,
+      'default': true,
       'type': 'boolean',
     },
     'uploadURL': {
