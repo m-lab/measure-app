@@ -23,11 +23,8 @@
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">Browser ID*</span>
-        <input required name="browserid" type="text" ng-model="currentSettings.browserID"></input>
-        <p ng-show="uploadForm.browserid.$invalid && uploadForm.browserid.$touched" class="help-block">The Browser ID is
-          required.
-        </p>
+        <span class="input-label">Browser ID</span>
+        <input name="browserid" type="text" ng-model="currentSettings.browserID"></input>
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
