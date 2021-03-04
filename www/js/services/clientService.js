@@ -83,17 +83,21 @@ angular.module('Measure.services.MeasurementClient', [])
           SettingsService.get('uploadEnabled').then(function(enabled) {
             if (enabled) {
               ChromeAppSupport.notify('upload:started', measurementRecord);
-              UploadService.uploadMeasurement(measurementRecord)
-              .success(function(data) {
-                ChromeAppSupport.notify('upload:success', data);
-                measurementRecord.uploaded = true;
-                console.log("Calling HistoryService.add")
-                HistoryService.add(measurementRecord);
-              })
-              .error(function(data, status) {
-                ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
-                HistoryService.add(measurementRecord);
-              })
+
+              UploadService.uploadMeasurement(measurementRecord).then(
+                function (response) {
+                  let data = response.data;
+                  ChromeAppSupport.notify('upload:success', data);
+                  measurementRecord.uploaded = true;
+                  console.log("Calling HistoryService.add")
+                  HistoryService.add(measurementRecord);
+                }, function(error) {
+                  let data = error.data;
+                  let status = error.status;
+                  ChromeAppSupport.notify('upload:failure', { "status": status, "data": data })
+                  HistoryService.add(measurementRecord);
+                });
+
             } else {
               HistoryService.add(measurementRecord);
             }
