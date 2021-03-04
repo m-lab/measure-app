@@ -71,18 +71,19 @@ angular.module('Measure.services.Upload', [])
             return measurement;
         };
 
-        UploadService.uploadMeasurement = function (record) {
+        UploadService.uploadMeasurement = async function (record) {
             // This function should never be called if the upload feature is not
             // enabled in the extension's settings.
             if (!SettingsService.currentSettings.uploadEnabled) {
                 return;
             }
 
-            uploadURL = SettingsService.currentSettings.uploadURL + "/v0/measurements";
-            apiKey = SettingsService.currentSettings.uploadAPIKey;
-            browserID = SettingsService.currentSettings.browserID;
-            deviceType = SettingsService.currentSettings.deviceType;
-            notes = SettingsService.currentSettings.notes;
+            let uploadURL = await SettingsService.get("uploadURL");
+            uploadURL += "/v0/measurements";
+            const apiKey = await SettingsService.get("uploadAPIKey");
+            const browserID = await SettingsService.get("browserID");
+            const deviceType = await SettingsService.get("deviceType");
+            const notes = await SettingsService.get("notes");
 
             // Generate a valid Measurement message for measure-saver.
             var measurement = UploadService.makeMeasurement(record);
@@ -98,6 +99,7 @@ angular.module('Measure.services.Upload', [])
             if (apiKey != "") {
                 uploadURL = uploadURL + "?key=" + apiKey;
             }
+
             return $http.post(uploadURL, measurement);
         };
 
