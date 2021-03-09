@@ -57,18 +57,17 @@ angular.module('Measure.services.History', [])
       historicalData.measurements.some(function (measurement) {
         if (measurement.index == index) {
           $rootScope.$broadcast('upload:started', index);
-          UploadService.uploadMeasurement(measurement)
-            .success(function (data) {
-              console.log("Success, setting uploaded = true");
+          UploadService.uploadMeasurement(measurement).then(
+            function(response) {
+              let data = response.data;
               $rootScope.$broadcast('upload:success', data);
               measurement.uploaded = true;
-            })
-            .error(function (data, status) {
-              $rootScope.$broadcast('upload:failure', { "status": status, "data": data })
-            }).then(function() {
               set(historicalData);
-            }).then(function() {
-              console.log("Broadcast history change"); $rootScope.$broadcast("history:measurement:change", index);
+              $rootScope.$broadcast("history:measurement:change", index);
+            }, function (error) {
+              let data = error.data;
+              let status = error.status
+              $rootScope.$broadcast('upload:failure', { "status": status, "data": data })
             });
           return true;
         } else {
