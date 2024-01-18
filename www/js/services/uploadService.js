@@ -90,6 +90,8 @@ angular.module('Measure.services.Upload', [])
 
             // Add measure-saver-specific metadata.
             measurement.BrowserID = browserID;
+            measurement.SchoolID = apiKey;
+
             measurement.Timestamp = ts.toISOString();
             measurement.DeviceType = deviceType;
             measurement.Notes = notes;

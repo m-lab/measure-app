@@ -86,7 +86,7 @@ angular.module('Measure.controllers.Settings', [])
     return metroSelection.metro === 'automatic' ? 0 : metroSelection;
   };
 })
-.controller('UploadSettingsCtrl', function($scope, SettingsService) {
+.controller('UploadSettingsCtrl', function($scope, $http, $ionicPopup, SettingsService) {
   $scope.availableSettings = SettingsService.availableSettings;
   $scope.currentSettings = SettingsService.currentSettings;
 
@@ -99,6 +99,63 @@ angular.module('Measure.controllers.Settings', [])
 
     // check to make sure the form is completely valid
     if (isValid) {
+      // check that the backend is actually reachable and the provided API key
+      // is valid.
+      $http({
+        method: 'GET',
+        url: $scope.currentSettings.uploadURL + "?key=" + $scope.currentSettings.uploadAPIKey
+      }).then(function successCallback(response) {
+        // This should never succeed. measure-saver returns either 401 if the
+        // provided key is invalid, or 404 if it's valid.
+        }, function errorCallback(response) {
+          switch (response.status) {
+            case 404:
+              // This means the provided API key is valid.
+              SettingsService.setSetting("uploadURL", $scope.currentSettings.uploadURL);
+              SettingsService.setSetting("uploadAPIKey", $scope.currentSettings.uploadAPIKey);
+              SettingsService.setSetting("browserID", $scope.currentSettings.browserID);
+              SettingsService.setSetting("deviceType", $scope.currentSettings.deviceType);
+              SettingsService.setSetting("notes", $scope.currentSettings.notes);
+              $ionicPopup.show({
+                template: 'Configuration saved successfully.',
+                buttons: [
+                  {
+                  text: 'Close'
+                  }
+                ]
+                });
+              break;
+            case 0:
+              $ionicPopup.show({
+                template: 'Cannot connect to the server. Please check measure-saver is running at {{currentSettings.uploadURL}}.',                scope: $scope,
+                buttons: [
+                  {
+                  text: 'Close'
+                  }
+                ]
+                });
+              break;
+            case 401:
+              $ionicPopup.show({
+                template: 'Invalid School ID.',
+                buttons: [
+                  {
+                  text: 'Close'
+                  }
+                ]
+                });
+              break;
+            default:
+              $ionicPopup.show({
+                template: 'Server error.',
+                buttons: [
+                  {
+                  text: 'Close'
+                  }
+                ]
+                });
+          }
+        });
       SettingsService.setSetting("uploadURL", $scope.currentSettings.uploadURL);
       SettingsService.setSetting("uploadAPIKey", $scope.currentSettings.uploadAPIKey);
       SettingsService.setSetting("browserID", $scope.currentSettings.browserID);

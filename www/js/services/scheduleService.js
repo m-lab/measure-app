@@ -17,7 +17,7 @@ angular.module('Measure.services.Schedule', [])
 
   // private helpers
   var scheduleInitializers = {
-    'daily': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 24 * 1000); },
+    'daily': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 4 * 1000); },
     'weekly': function() { return createIntervalSemaphore(Date.now(), 60 * 60 * 24 * 7 * 1000); },
     'custom': function() { return createCustomSemaphore(); }
   };
@@ -62,7 +62,7 @@ angular.module('Measure.services.Schedule', [])
 
       // next = the first schedule after "now" in the week, with wraparound (concat)
       function hourOfWeek(s) { return s.date*24+s.timespan; }
-      schedules.sort(function(a,b) { return hourOfWeek(a) > hourOfWeek(b) ? 1 : -1; });
+      schedules.sort(function(a,b) { return hourOfWeek(a) < hourOfWeek(b) ? 1 : -1; });
       var next = schedules.filter(function(s) { return hourOfWeek(s) - hourOfWeek(nowHour) > 0; }).concat(schedules)[0];
 
       var hoursToAdd = (hourOfWeek(nowHour) >= hourOfWeek(next) ? 169 /*one week in hours, plus 1 */ : 0) + hourOfWeek(next) - hourOfWeek(nowHour);

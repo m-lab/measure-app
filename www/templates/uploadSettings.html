@@ -1,7 +1,7 @@
 <ion-view view-title="{{ 'Upload settings' | translate }}">
   <form name="uploadForm" ng-submit="submitForm(uploadForm.$valid); uploadForm.$setPristine()" novalidate>
     <ion-content>
-      <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()">
+        <ion-toggle ng-model="currentSettings.uploadEnabled" ng-change="setUploadEnabled()" ng-disabled="true">
         <span translate>Enable Uploading</span>
       </ion-toggle>
 
@@ -9,7 +9,7 @@
         <p translate>* indicates a required field</p>
       </div>
 
-      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
+      <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled" ng-hide="true">
         <span class="input-label">Server URL*</span>
         <input required name="url" type="url" ng-model="currentSettings.uploadURL"></input>
         <p ng-show="uploadForm.url.$invalid && uploadForm.url.$touched" class="help-block">Please provide a valid URL.
@@ -17,17 +17,14 @@
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">API key*</span>
+        <span class="input-label">School ID*</span>
         <input required name="key" type="text" ng-model="currentSettings.uploadAPIKey"></input>
-        <p ng-show="uploadForm.key.$invalid && uploadForm.key.$touched" class="help-block">An API key is required.</p>
+        <p ng-show="uploadForm.key.$invalid && uploadForm.key.$touched" class="help-block">The School ID is required.</p>
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
-        <span class="input-label">Browser ID*</span>
-        <input required name="browserid" type="text" ng-model="currentSettings.browserID"></input>
-        <p ng-show="uploadForm.browserid.$invalid && uploadForm.browserid.$touched" class="help-block">A browser ID is
-          required.
-        </p>
+        <span class="input-label">Browser ID</span>
+        <input name="browserid" type="text" ng-model="currentSettings.browserID"></input>
       </label>
 
       <label class="item item-input item-stacked-label" ng-if="currentSettings.uploadEnabled">
